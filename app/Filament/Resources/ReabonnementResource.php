@@ -18,7 +18,7 @@ class ReabonnementResource extends Resource
 {
     protected static ?string $model = Reabonnement::class;
 
-    protected static ?string $navigationGroup = 'Exterieur';
+    protected static ?string $navigationGroup = 'Extérieur';
 
     protected static ?string $navigationIcon = 'heroicon-o-book-open';
 

@@ -21,7 +21,7 @@ class KitResource extends Resource
 {
     protected static ?string $model = Kit::class;
 
-    protected static ?string $navigationGroup = 'Exterieur';
+    protected static ?string $navigationGroup = 'Extérieur';
 
     protected static ?string $navigationIcon = 'heroicon-o-wifi';
 
