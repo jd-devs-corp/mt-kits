@@ -29,21 +29,26 @@ class FournisseurPanelProvider extends PanelProvider
             // ->unsavedChangesAlerts()
             ->login()
             ->colors([
-                'primary' => Color::Sky,
+                'danger' => Color::Rose,
+                'gray' => Color::Gray,
+                'info' => Color::Blue,
+                'primary' => Color::Emerald,
+                'success' => Color::Stone,
+                'warning' => Color::Orange,
             ])
             ->discoverResources(in: app_path('Filament/Fournisseur/Resources'), for: 'App\\Filament\\Fournisseur\\Resources')
             ->discoverPages(in: app_path('Filament/Fournisseur/Pages'), for: 'App\\Filament\\Fournisseur\\Pages')
             ->pages([
-                Pages\Dashboard::class,
+//                Pages\Dashboard::class,
             ])
             ->discoverClusters(in: app_path('Filament/Clusters'), for:'App\\Filament\\Clusters')
             ->discoverWidgets(in: app_path('Filament/Fournisseur/Widgets'), for: 'App\\Filament\\Fournisseur\\Widgets')
-            ->widgets([
+            /*->widgets([
                 Widgets\AccountWidget::class,
                 // Widgets\FilamentInfoWidget::class,
-            ])
+            ])*/
             ->brandLogo(fn() =>view('filament.supplier.logo'))
-            ->brandName('Suppliers Administration')
+            ->brandName('Fournisseur')
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
