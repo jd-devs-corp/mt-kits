@@ -42,6 +42,7 @@ class FournisseurPanelProvider extends PanelProvider
                 Widgets\AccountWidget::class,
                 // Widgets\FilamentInfoWidget::class,
             ])
+            ->brandLogo(fn() =>view('filament.supplier.logo'))
             ->brandName('Suppliers Administration')
             ->middleware([
                 EncryptCookies::class,
