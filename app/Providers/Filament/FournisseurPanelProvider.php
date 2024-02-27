@@ -17,6 +17,8 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Swis\Filament\Backgrounds\FilamentBackgroundsPlugin;
+use Swis\Filament\Backgrounds\ImageProviders\MyImages;
 
 class FournisseurPanelProvider extends PanelProvider
 {
@@ -39,7 +41,7 @@ class FournisseurPanelProvider extends PanelProvider
             ->discoverResources(in: app_path('Filament/Fournisseur/Resources'), for: 'App\\Filament\\Fournisseur\\Resources')
             ->discoverPages(in: app_path('Filament/Fournisseur/Pages'), for: 'App\\Filament\\Fournisseur\\Pages')
             ->pages([
-//                Pages\Dashboard::class,
+                Pages\Dashboard::class,
             ])
             ->discoverClusters(in: app_path('Filament/Clusters'), for:'App\\Filament\\Clusters')
             ->discoverWidgets(in: app_path('Filament/Fournisseur/Widgets'), for: 'App\\Filament\\Fournisseur\\Widgets')
@@ -62,6 +64,13 @@ class FournisseurPanelProvider extends PanelProvider
             ], isPersistent: true)
             ->authMiddleware([
                 Authenticate::class,
+            ])
+            ->plugins([
+                FilamentBackgroundsPlugin::make()
+                    ->imageProvider(
+                        MyImages::make()
+                            ->directory('\images\swisnl\filament-backgrounds\curated-by-swis')
+                    )
             ]);
     }
 }
