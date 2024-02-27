@@ -17,6 +17,9 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Swis\Filament\Backgrounds\FilamentBackgroundsPlugin;
+use Swis\Filament\Backgrounds\ImageProviders\MyImages;
+
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -28,13 +31,13 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             // ->spa()
-            // ->unsavedChangesAlerts()
+             ->unsavedChangesAlerts()
             ->colors([
                 'danger' => Color::Rose,
                 'gray' => Color::Gray,
                 'info' => Color::Blue,
-                'primary' => Color::Indigo,
-                'success' => Color::Emerald,
+                'primary' => Color::Sky,
+                'success' => Color::Indigo,
                 'warning' => Color::Orange,
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
@@ -43,9 +46,10 @@ class AdminPanelProvider extends PanelProvider
                 Pages\Dashboard::class,
             ])
 
+
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
-                Widgets\AccountWidget::class,
+//                Widgets\WidgetsServiceProvider::class,
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -61,6 +65,15 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
+            ->plugins([
+                FilamentBackgroundsPlugin::make()
+                    ->imageProvider(
+                        MyImages::make()
+                            ->directory('\images\swisnl\filament-backgrounds\curated-by-swis')
+                    )
+            ])
+        ->brandLogo(fn() =>view('filament.admin.logo'))
             ->brandName('Administration');
+
     }
 }
