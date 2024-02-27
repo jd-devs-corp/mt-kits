@@ -10,6 +10,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use PhpParser\Node\Stmt\Return_;
+use App\Tables\Columns\StatusColumn;
 
 class ReabonnementsRelationManager extends RelationManager
 {
@@ -19,10 +20,10 @@ class ReabonnementsRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                Forms\Components\DateTimePicker::make('date_abonnement')
+                Forms\Components\DatePicker::make('date_abonnement')
                     ->required()
                     ->default(now()),
-                Forms\Components\DateTimePicker::make('date_fin_abonnement')
+                Forms\Components\DatePicker::make('date_fin_abonnement')
                     ->required()
                     ->minDate(now()),
                 Forms\Components\TextInput::make('plan_tarifaire')
@@ -40,10 +41,7 @@ class ReabonnementsRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('date_fin_abonnement'),
                 Tables\Columns\TextColumn::make('plan_tarifaire'),
                 Tables\Columns\TextColumn::make('kit.kit_number'),
-                Tables\Columns\TextColumn::make('statut')
-                // ->value(function(){
-                //     return 'deux';
-                // }),
+                StatusColumn::make('Statut')
             ])
             ->filters([
                 //
@@ -53,11 +51,11 @@ class ReabonnementsRelationManager extends RelationManager
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\ExportAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\ExportBulkAction::make(),
                 ]),
             ]);
     }
