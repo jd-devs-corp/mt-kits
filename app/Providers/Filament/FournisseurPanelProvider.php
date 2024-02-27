@@ -17,6 +17,8 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Swis\Filament\Backgrounds\FilamentBackgroundsPlugin;
+use Swis\Filament\Backgrounds\ImageProviders\MyImages;
 
 class FournisseurPanelProvider extends PanelProvider
 {
@@ -29,7 +31,12 @@ class FournisseurPanelProvider extends PanelProvider
             // ->unsavedChangesAlerts()
             ->login()
             ->colors([
-                'primary' => Color::Sky,
+                'danger' => Color::Rose,
+                'gray' => Color::Gray,
+                'info' => Color::Blue,
+                'primary' => Color::Emerald,
+                'success' => Color::Stone,
+                'warning' => Color::Orange,
             ])
             ->discoverResources(in: app_path('Filament/Fournisseur/Resources'), for: 'App\\Filament\\Fournisseur\\Resources')
             ->discoverPages(in: app_path('Filament/Fournisseur/Pages'), for: 'App\\Filament\\Fournisseur\\Pages')
@@ -38,11 +45,12 @@ class FournisseurPanelProvider extends PanelProvider
             ])
             ->discoverClusters(in: app_path('Filament/Clusters'), for:'App\\Filament\\Clusters')
             ->discoverWidgets(in: app_path('Filament/Fournisseur/Widgets'), for: 'App\\Filament\\Fournisseur\\Widgets')
-            ->widgets([
+            /*->widgets([
                 Widgets\AccountWidget::class,
                 // Widgets\FilamentInfoWidget::class,
-            ])
-            ->brandName('Suppliers Administration')
+            ])*/
+            ->brandLogo(fn() =>view('filament.supplier.logo'))
+            ->brandName('Fournisseur')
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
@@ -56,6 +64,13 @@ class FournisseurPanelProvider extends PanelProvider
             ], isPersistent: true)
             ->authMiddleware([
                 Authenticate::class,
+            ])
+            ->plugins([
+                FilamentBackgroundsPlugin::make()
+                    ->imageProvider(
+                        MyImages::make()
+                            ->directory('\images\swisnl\filament-backgrounds\curated-by-swis')
+                    )
             ]);
     }
 }

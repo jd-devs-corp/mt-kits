@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('surname')->nullable();
             $table->string('email')->unique();
             $table->integer('phone_number')->nullable();
-            $table->enum('role', ['admin', 'fournisseur'])->default('fournisseur');
+            $table->enum('role', ['admin', 'fournisseur'])->default('admin');
             $table->timestamp('email_verified_at')->nullable();
             $table->float('pourcentage')->nullable();
             $table->integer('somme_a_percevoir')->nullable();
