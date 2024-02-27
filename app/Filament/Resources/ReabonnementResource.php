@@ -23,9 +23,9 @@ class ReabonnementResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-book-open';
 
     public static function getNavigationBadge(): ?string
-{
-    return static::getModel()::count();
-}
+    {
+        return static::getModel()::count();
+    }
 
     public static function form(Form $form): Form
     {
@@ -40,43 +40,43 @@ class ReabonnementResource extends Resource
                     ->preload()
                     ->createOptionForm([
                         Forms\Components\Select::make('client_id')
-                    ->label('Proprietaire')
-                    ->relationship('client','name')
-                    ->searchable()
-                    ->preload()
-                    ->createOptionForm([
-                        Forms\Components\TextInput::make('name')
-                            ->label('nom')
+                            ->label('Proprietaire')
+                            ->relationship('client', 'name')
+                            ->searchable()
+                            ->preload()
+                            ->createOptionForm([
+                                Forms\Components\TextInput::make('name')
+                                    ->label('nom')
+                                    ->required()
+                                    ->maxLength(255),
+                                Forms\Components\TextInput::make('email')
+                                    ->email()
+                                    ->label('Addresse E-mail')
+                                    ->required()
+                                    ->maxLength(255),
+                                Forms\Components\TextInput::make('phone_number')
+                                    ->tel()
+                                    ->label('Numero de telephone')
+                                    ->required()
+                                    ->numeric(),
+                            ])
+                            ->required(),
+                        Forms\Components\TextInput::make('fournisseur_id')
+                            ->disabled()
+                            ->numeric()
+                            ->default($user && $user->role == 'fournisseur' ? $user->id : ''),
+                        Forms\Components\TextInput::make('kit_number')
                             ->required()
+                            ->label('Numero de kit')
                             ->maxLength(255),
-                        Forms\Components\TextInput::make('email')
-                            ->email()
-                            ->label('Addresse E-mail')
+                        Forms\Components\TextInput::make('localisation')
                             ->required()
+                            ->label('Localisation')
                             ->maxLength(255),
-                        Forms\Components\TextInput::make('phone_number')
-                            ->tel()
-                            ->label('Numero de telephone')
-                            ->required()
-                            ->numeric(),
-                    ])
-                    ->required(),
-                Forms\Components\TextInput::make('fournisseur_id')
-                    ->disabled()
-                    ->numeric()
-                    ->default($user && $user->role == 'fournisseur'? $user->id : ''),
-                Forms\Components\TextInput::make('kit_number')
-                    ->required()
-                    ->label('Numero de kit')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('localisation')
-                    ->required()
-                    ->label('Localisation')
-                    ->maxLength(255),
                     ]),
                 Forms\Components\DateTimePicker::make('date_abonnement')
                     ->required()
-        ->default(now()),
+                    ->default(now()),
                 Forms\Components\DateTimePicker::make('date_fin_abonnement')
                     ->required()
                     ->minDate(now()),

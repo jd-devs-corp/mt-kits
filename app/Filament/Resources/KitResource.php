@@ -51,6 +51,8 @@ class KitResource extends Resource
                             ->tel()
                             ->label('Numero de telephone')
                             ->required()
+                            ->maxLength(9)
+                            ->minLength(9)
                             ->numeric(),
                     ])
                     ->required(),

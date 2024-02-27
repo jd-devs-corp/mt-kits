@@ -17,6 +17,9 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Swis\Filament\Backgrounds\FilamentBackgroundsPlugin;
+use Swis\Filament\Backgrounds\ImageProviders\MyImages;
+
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -28,7 +31,7 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             // ->spa()
-            // ->unsavedChangesAlerts()
+             ->unsavedChangesAlerts()
             ->colors([
                 'danger' => Color::Rose,
                 'gray' => Color::Gray,
@@ -43,10 +46,11 @@ class AdminPanelProvider extends PanelProvider
                 Pages\Dashboard::class,
             ])
 
+
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
-            /*->widgets([
-                Widgets\AccountWidget::class,
-            ])*/
+            ->widgets([
+//                Widgets\WidgetsServiceProvider::class,
+            ])
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
@@ -61,7 +65,14 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
-            ->brandLogo(fn() =>view('filament.admin.logo'))
+            ->plugins([
+                FilamentBackgroundsPlugin::make()
+                    ->imageProvider(
+                        MyImages::make()
+                            ->directory('\images\swisnl\filament-backgrounds\curated-by-swis')
+                    )
+            ])
+        ->brandLogo(fn() =>view('filament.admin.logo'))
             ->brandName('Administration');
 
     }

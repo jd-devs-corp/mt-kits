@@ -97,7 +97,7 @@ class UserResource extends Resource
     {
         return [
             //
-            RelationManagers\KitsRelationManager::class,
+//            RelationManagers\KitsRelationManager::class,
         ];
     }
 
