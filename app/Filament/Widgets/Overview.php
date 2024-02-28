@@ -15,6 +15,7 @@ class Overview extends BaseWidget
     protected function getStats(): array
     {
         return [
+            // Stat::make('Kits vendus aujourd\'ui', Kit::query()->where('created_at', today())),
             Stat::make('Kits vendus ', Kit::count()),
             Stat::make('Reabonnements effectues ', Reabonnement::count()),
             Stat::make('Clients abonnes', Client::count()),

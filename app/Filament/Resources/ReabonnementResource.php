@@ -37,7 +37,7 @@ class ReabonnementResource extends Resource
             ->schema([
                 Forms\Components\Select::make('kit_id')
                     ->required()
-                    ->relationship('kits', 'kit_number')
+                    ->relationship('kit', 'kit_number')
                     ->searchable()
                     ->label('Numero de kit')
                     ->preload()
