@@ -14,13 +14,32 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
+use Filament\Infolists;
+use Filament\Infolists\Infolist;
+use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
+use Ysfkaya\FilamentPhoneInput\PhoneInputNumberType;
+use Ysfkaya\FilamentPhoneInput\Tables\PhoneColumn;
+use Ysfkaya\FilamentPhoneInput\Infolists\PhoneEntry;
+
 class ClientResource extends Resource
 {
     protected static ?string $model = Client::class;
 
-    protected static ?string $navigationGroup = 'Exterieur';
+    protected static ?string $navigationGroup = 'Extérieur';
 
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
+
+    public static function infolists(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->columns([
+                Infolists\Components\TextEntry::make('name'),
+                Tables\Columns\TextColumn::make('email'),
+                PhoneEntry::make('phone')
+                    ->displayFormat(PhoneInputNumberType::NATIONAL)
+                    ->countryColumn('phone_country'),
+            ]);
+    }
 
     public static function form(Form $form): Form
     {
@@ -33,10 +52,9 @@ class ClientResource extends Resource
                     ->email()
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('phone_number')
-                    ->tel()
-                    ->required()
-                    ->numeric(),
+                PhoneInput::make('phone_number')
+                    ->countryStatePath('phone_country')
+                    ->defaultCountry('CM'),
             ]);
     }
 
@@ -48,9 +66,9 @@ class ClientResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('phone_number')
-                    ->numeric()
-                    ->sortable(),
+                PhoneColumn::make('phone_number')
+                    ->displayFormat(PhoneInputNumberType::NATIONAL)
+                    ->countryColumn('phone_country'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -82,10 +100,10 @@ class ClientResource extends Resource
         ];
     }
 
-//     public static function getNavigationBadge(): ?string
-// {
-//     return static::getModel()::count();
-// }
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
 
     public static function getPages(): array
     {
@@ -97,4 +115,3 @@ class ClientResource extends Resource
         ];
     }
 }
- 
