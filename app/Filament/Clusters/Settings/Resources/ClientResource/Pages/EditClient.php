@@ -2,7 +2,7 @@
 
 namespace App\Filament\Clusters\Settings\Resources\ClientResource\Pages;
 
-use App\Filament\Resources\ClientResource;
+use App\Filament\Clusters\Settings\Resources\ClientResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 

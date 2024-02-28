@@ -4,7 +4,9 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ReabonnementResource\Pages;
 use App\Filament\Resources\ReabonnementResource\RelationManagers;
+use App\Models\Kit;
 use App\Models\Reabonnement;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,6 +15,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
 
 class ReabonnementResource extends Resource
 {
@@ -54,11 +57,9 @@ class ReabonnementResource extends Resource
                                     ->label('Addresse E-mail')
                                     ->required()
                                     ->maxLength(255),
-                                Forms\Components\TextInput::make('phone_number')
-                                    ->tel()
-                                    ->label('Numero de telephone')
-                                    ->required()
-                                    ->numeric(),
+                                PhoneInput::make('phone_number')
+                                    ->countryStatePath('phone_country')
+                                    ->defaultCountry('CM'),
                             ])
                             ->required(),
                         Forms\Components\TextInput::make('fournisseur_id')
@@ -126,6 +127,21 @@ class ReabonnementResource extends Resource
         return [
             //
         ];
+    }
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        // $data['user_id'] = auth()->id();
+
+        $kit = Kit::find($data['kit_id']);
+        // dump($data);
+        $user = User::find($kit->user_id);
+
+        if ($user && $user->role === 'fournisseur') {
+            $user->somme_a_percevoir += $data['plan_tarifaire'] * $user->pourcentage;
+            $user->save(); // Utilisez la méthode save() pour sauvegarder les modifications
+        }
+
+        return $data;
     }
 
     public static function getPages(): array

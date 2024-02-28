@@ -6,16 +6,21 @@ use App\Filament\Clusters\Settings;
 use App\Filament\Resources\KitResource\Pages;
 use App\Filament\Resources\KitResource\RelationManagers;
 use App\Models\Kit;
+use App\Models\Reabonnement;
 use App\Models\User;
+use App\Tables\Columns\StatusColumn;
+use Carbon\Carbon;
 use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\Column;
 use Illuminate\Support\Facades\Auth;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
 
 class KitResource extends Resource
 {
@@ -34,7 +39,7 @@ class KitResource extends Resource
             ->schema([
                 Forms\Components\Select::make('client_id')
                     ->label('Proprietaire')
-                    ->relationship('client','name')
+                    ->relationship('client', 'name')
                     ->searchable()
                     ->preload()
                     ->createOptionForm([
@@ -47,13 +52,9 @@ class KitResource extends Resource
                             ->label('Addresse E-mail')
                             ->required()
                             ->maxLength(255),
-                        Forms\Components\TextInput::make('phone_number')
-                            ->tel()
-                            ->label('Numero de telephone')
-                            ->required()
-                            ->maxLength(9)
-                            ->minLength(9)
-                            ->numeric(),
+                        PhoneInput::make('phone_number')
+                            ->countryStatePath('phone_country')
+                            ->defaultCountry('CM'),
                     ])
                     ->required(),
                 Forms\Components\Hidden::make('user_id')
@@ -73,7 +74,7 @@ class KitResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->columns([
+            ->columns(components: [
                 Tables\Columns\TextColumn::make('client.name')
                     ->label('Proprietaire')
                     ->sortable()
@@ -87,6 +88,8 @@ class KitResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('localisation')
                     ->searchable(),
+//                StatusColumn::make('kit.reabonnements.date_fin_abonnement')
+
 
             ])
             ->filters([
