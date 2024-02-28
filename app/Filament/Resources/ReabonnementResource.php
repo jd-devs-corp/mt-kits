@@ -4,15 +4,23 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ReabonnementResource\Pages;
 use App\Filament\Resources\ReabonnementResource\RelationManagers;
+use App\Models\Kit;
 use App\Models\Reabonnement;
+use App\Models\User;
+use Illuminate\Support\Carbon;
+use Filament\Forms\Set;
 use Filament\Forms;
+use Filament\Forms\ComponentContainer;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
+use Filament\Notifications\Notification;
 
 class ReabonnementResource extends Resource
 {
@@ -34,7 +42,7 @@ class ReabonnementResource extends Resource
             ->schema([
                 Forms\Components\Select::make('kit_id')
                     ->required()
-                    ->relationship('kits', 'kit_number')
+                    ->relationship('kit', 'kit_number')
                     ->searchable()
                     ->label('Numero de kit')
                     ->preload()
@@ -54,11 +62,9 @@ class ReabonnementResource extends Resource
                                     ->label('Addresse E-mail')
                                     ->required()
                                     ->maxLength(255),
-                                Forms\Components\TextInput::make('phone_number')
-                                    ->tel()
-                                    ->label('Numero de telephone')
-                                    ->required()
-                                    ->numeric(),
+                                PhoneInput::make('phone_number')
+                                    ->countryStatePath('phone_country')
+                                    ->defaultCountry('CM'),
                             ])
                             ->required(),
                         Forms\Components\TextInput::make('fournisseur_id')
@@ -74,12 +80,42 @@ class ReabonnementResource extends Resource
                             ->label('Localisation')
                             ->maxLength(255),
                     ]),
-                Forms\Components\DateTimePicker::make('date_abonnement')
+
+                Forms\Components\DatePicker::make('date_abonnement')
                     ->required()
-                    ->default(now()),
-                Forms\Components\DateTimePicker::make('date_fin_abonnement')
+                    ->default(now())
+                ,
+               /* Forms\Components\Select::make('duree_abonnement')
+                    ->options([
+                        '1' => '1 mois',
+                        '2' => '2 mois',
+                        '3' => '3 mois',
+                        '4' => '4 mois',
+                        '5' => '5 mois',
+                        '6' => '6 mois',
+                        '7' => '7 mois',
+                        '8' => '8 mois',
+                        '9' => '9 mois',
+                        '10' => '10 mois',
+                        '11' => '11 mois',
+                        '12' => '12 mois',
+                    ])
+                    ->live()
+//                    ->notIn(self::$model)
+                    ->default(1), */
+                Forms\Components\DatePicker::make('date_fin_abonnement')
                     ->required()
-                    ->minDate(now()),
+                    ->datalist([
+                        now()->addMonth(),
+                        now()->addMonth(),
+                        now()->addMonth(),
+                        now()->addMonth(),
+                        now()->addMonth(),
+                        now()->addMonth(),
+                        now()->addMonth(),
+                    ])
+                    ->minDate(now()->addMonth())
+                    ->default(now()->addMonth()),
                 Forms\Components\TextInput::make('plan_tarifaire')
                     ->required()
                     ->numeric(),
@@ -120,13 +156,51 @@ class ReabonnementResource extends Resource
                 ]),
             ]);
     }
+    protected function afterCreateOrUpdate(ComponentContainer $container, $record): void
+    {
+        parent::afterCreateOrUpdate($container, $record);
+
+        $container->getComponent('date_abonnement')->on('change', function ($value) use ($container) {
+            $startDate = $value;
+            $duration = $container->getComponent('duree_abonnement')->getValue();
+
+            if ($startDate && $duration) {
+                $endDate = Carbon::parse($startDate)->addMonths($duration);
+                $container->getComponent('date_fin_abonnement')->setValue($endDate->toDateString());
+            }
+        });
+
+        $container->getComponent('duree_abonnement')->on('change', function ($value) use ($container) {
+            $startDate = $container->getComponent('date_abonnement')->getValue();
+            $duration = $value;
+
+            if ($startDate && $duration) {
+                $endDate = Carbon::parse($startDate)->addMonths($duration);
+                $container->getComponent('date_fin_abonnement')->setValue($endDate->toDateString());
+            }
+        });
+    }
 
     public static function getRelations(): array
     {
         return [
             //
+
         ];
     }
+
+    /*public function __invoke()
+    {
+        $startDate = $this->state['date_abonnement'];
+        $duration = $this->state['duree_abonnement'];
+
+        if ($startDate && $duration) {
+            $endDate = Carbon::parse($startDate)->addMonths($duration);
+            $this->state['date_fin_abonnement'] = $endDate->format('Y-m-d');
+        }
+
+        return parent::__invoke();
+    }*/
 
     public static function getPages(): array
     {

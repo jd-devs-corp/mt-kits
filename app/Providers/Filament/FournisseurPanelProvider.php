@@ -45,10 +45,10 @@ class FournisseurPanelProvider extends PanelProvider
             ])
             ->discoverClusters(in: app_path('Filament/Clusters'), for:'App\\Filament\\Clusters')
             ->discoverWidgets(in: app_path('Filament/Fournisseur/Widgets'), for: 'App\\Filament\\Fournisseur\\Widgets')
-            /*->widgets([
+            ->widgets([
                 Widgets\AccountWidget::class,
                 // Widgets\FilamentInfoWidget::class,
-            ])*/
+            ])
             ->brandLogo(fn() =>view('filament.supplier.logo'))
             ->brandName('Fournisseur')
             ->middleware([

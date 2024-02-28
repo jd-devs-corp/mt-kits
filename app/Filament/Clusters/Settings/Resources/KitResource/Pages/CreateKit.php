@@ -3,7 +3,7 @@
 namespace App\Filament\Clusters\Settings\Resources\KitResource\Pages;
 
 use App\Filament\Clusters\Settings;
-use App\Filament\Resources\KitResource;
+use App\Filament\Clusters\Settings\Resources\KitResource;
 use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
 

@@ -2,8 +2,8 @@
 
 namespace App\Filament\Clusters\Settings\Resources;
 
-use App\Filament\Resources\ClientResource\Pages;
-use App\Filament\Resources\ClientResource\RelationManagers;
+use App\Filament\Clusters\Settings\Resources\ClientResource\Pages;
+use App\Filament\Clusters\Settings\Resources\ClientResource\RelationManagers;
 use App\Models\Client;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -18,7 +18,7 @@ class ClientResource extends Resource
 {
     protected static ?string $model = Client::class;
 
-    protected static ?string $navigationGroup = 'Extérieur';
+    protected static ?string $navigationGroup = 'Exterieur';
 
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
 
@@ -51,14 +51,7 @@ class ClientResource extends Resource
                 Tables\Columns\TextColumn::make('phone_number')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+
             ])
             ->filters([
                 //
@@ -82,10 +75,10 @@ class ClientResource extends Resource
         ];
     }
 
-    public static function getNavigationBadge(): ?string
-{
-    return static::getModel()::count();
-}
+//     public static function getNavigationBadge(): ?string
+// {
+//     return static::getModel()::count();
+// }
 
     public static function getPages(): array
     {

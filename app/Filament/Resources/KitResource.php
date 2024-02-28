@@ -6,16 +6,25 @@ use App\Filament\Clusters\Settings;
 use App\Filament\Resources\KitResource\Pages;
 use App\Filament\Resources\KitResource\RelationManagers;
 use App\Models\Kit;
+use App\Models\Reabonnement;
 use App\Models\User;
+use App\Tables\Columns\StatusColumn;
+use Carbon\Carbon;
+use Faker\Provider\ar_EG\Text;
 use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\Column;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+//use Illuminate\Support\Facades\Html;
+use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
+use Filament\Tables\Columns\TextColumn;
 
 class KitResource extends Resource
 {
@@ -34,7 +43,7 @@ class KitResource extends Resource
             ->schema([
                 Forms\Components\Select::make('client_id')
                     ->label('Proprietaire')
-                    ->relationship('client','name')
+                    ->relationship('client', 'name')
                     ->searchable()
                     ->preload()
                     ->createOptionForm([
@@ -47,13 +56,9 @@ class KitResource extends Resource
                             ->label('Addresse E-mail')
                             ->required()
                             ->maxLength(255),
-                        Forms\Components\TextInput::make('phone_number')
-                            ->tel()
-                            ->label('Numero de telephone')
-                            ->required()
-                            ->maxLength(9)
-                            ->minLength(9)
-                            ->numeric(),
+                        PhoneInput::make('phone_number')
+                            ->countryStatePath('phone_country')
+                            ->defaultCountry('CM'),
                     ])
                     ->required(),
                 Forms\Components\Hidden::make('user_id')
@@ -72,8 +77,9 @@ class KitResource extends Resource
 
     public static function table(Table $table): Table
     {
+        $kit = new Reabonnement();
         return $table
-            ->columns([
+            ->columns(components: [
                 Tables\Columns\TextColumn::make('client.name')
                     ->label('Proprietaire')
                     ->sortable()
@@ -87,6 +93,35 @@ class KitResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('localisation')
                     ->searchable(),
+                StatusColumn::make('status')
+
+
+               /* TextColumn::make('Date d\'expiration')
+                    ->getStateUsing(function ($record) use ($kit) { // Passez $kit
+                        $reabonnement = $kit->reabonnements->first(); // Obtenez le premier réabonnement associé à ce kit
+
+                        if (!$reabonnement) {
+                            return "<span style='color: red;'>Inactif</span>";
+                        }
+
+                        $dateExpiration = Carbon::parse($reabonnement->date_fin_abonnement);
+                        $aujourdHui = Carbon::now();
+                        $joursRestants = $aujourdHui->diffInDays($dateExpiration);
+
+                        if ($joursRestants > 15) {
+                            $statut = 'En cours';
+                            $couleur = 'green';
+                        } elseif ($joursRestants <= 15 && $joursRestants > 0) {
+                            $statut = 'Presque';
+                            $couleur = 'yellow';
+                        } else {
+                            $statut = 'Inactif';
+                            $couleur = 'red';
+                        }
+
+                        return Html::raw("<span style='color: $couleur;'>$statut</span>");
+                    }),*/
+
 
             ])
             ->filters([

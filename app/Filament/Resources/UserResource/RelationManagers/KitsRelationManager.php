@@ -1,35 +1,27 @@
 <?php
 
-namespace App\Filament\Clusters\Settings\Resources;
+namespace App\Filament\Resources\UserResource\RelationManagers;
 
-use App\Filament\Clusters\Settings;
-use App\Filament\Clusters\Settings\Resources\KitResource\Pages;
-use App\Filament\Clusters\Settings\Resources\KitResource\RelationManagers;
-use App\Models\Kit;
-use App\Models\User;
-use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Forms\Form;
-use Filament\Resources\Resource;
+use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
-use Illuminate\Support\Facades\Auth;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
+//use App\Actions\Star;
+//use App\Actions\ResetStars;
+use Filament\Forms\Components\Actions;
+use Filament\Forms\Components\Actions\Action;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class KitResource extends Resource
+class KitsRelationManager extends RelationManager
 {
-    protected static ?string $model = Kit::class;
+    protected static string $relationship = 'kits';
 
-    protected static ?string $navigationGroup = 'Exterieur';
-
-    protected static ?string $navigationIcon = 'heroicon-o-wifi';
-
-    // protected static ?string $cluster = Settings::class;
-
-    public static function form(Form $form): Form
+    public function form(Form $form): Form
     {
-        $user = Auth::user();
+        $user = Auth::getUser();
         return $form
             ->schema([
                 Forms\Components\Select::make('client_id')
@@ -54,8 +46,9 @@ class KitResource extends Resource
                             ->numeric(),
                     ])
                     ->required(),
-                Forms\Components\Hidden::make('user_id')
-                    ->default($user->role=='fournisseur' ? $user->id : null),
+                Forms\Components\TextInput::make('user_id')
+
+                    ->default($user && $user->role == 'fournisseur'? $user->id : ''),
                 Forms\Components\TextInput::make('kit_number')
                     ->required()
                     ->label('Numero de kit')
@@ -64,62 +57,39 @@ class KitResource extends Resource
                     ->required()
                     ->label('Localisation')
                     ->maxLength(255),
+
             ]);
     }
 
-    public static function table(Table $table): Table
+    public function table(Table $table): Table
     {
         return $table
+            ->recordTitleAttribute('kits')
             ->columns([
+                Tables\Columns\TextColumn::make('kit_number')->label('Numero du kit'),
                 Tables\Columns\TextColumn::make('client.name')
-                    ->label('Proprietaire')
-                    ->sortable()
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('user.name')
-                    ->sortable()
-                    ->label('Fournisseur')
-                    ->searchable(),
-
-                Tables\Columns\TextColumn::make('kit_number')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('localisation')
-                    ->searchable(),
-                    Tables\Columns\TextColumn::make('statut'),
-                    // ->lcg_value
-
+                    ->label('Proprietaire'),
+                Tables\Columns\TextColumn::make('reabonnements.date_fin_abonnement')
+                    ->label('Date de fin d\'abonnement'),
+                Tables\Columns\TextColumn::make('reabonnements.plan_tarifaire')
+                    ->label('Plan Tarifaire')
+                    ->prefix('$'),
             ])
             ->filters([
                 //
             ])
+            ->headerActions([
+                Tables\Actions\CreateAction::make(),
+            ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
-                // Tables\Actions\DeleteAction::make(),
+                Tables\Actions\ExportAction::make(),
+
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\ExportBulkAction::make(),
                 ]),
             ]);
-
-
-        }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-            RelationManagers\ReabonnementsRelationManager::class,
-        ];
-    }
-
-    public static function getPages(): array
-    {
-        return [
-            'index' => Pages\ListKits::route('/'),
-            'create' => Pages\CreateKit::route('/create'),
-            'view' => Pages\ViewKit::route('/{record}'),
-            'edit' => Pages\EditKit::route('/{record}/edit'),
-        ];
     }
 }

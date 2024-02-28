@@ -14,12 +14,16 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
 
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-users';
+    protected static ?string $navigationGroup = 'Administration';
+
+    protected static ?string $navigationLabel = 'Gerants';
 
     public static function form(Form $form): Form
     {
@@ -37,10 +41,9 @@ class UserResource extends Resource
                     ->email()
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('phone_number')
-                    ->tel()
-                    ->label('Numero de telephone')
-                    ->numeric(),
+                PhoneInput::make('phone_number')
+                    ->countryStatePath('phone_country')
+                    ->defaultCountry('CM'),
                 Forms\Components\Select::make('role')
                     ->label('Role')
                     ->required()
@@ -97,7 +100,7 @@ class UserResource extends Resource
     {
         return [
             //
-//            RelationManagers\KitsRelationManager::class,
+            RelationManagers\KitsRelationManager::class,
         ];
     }
 

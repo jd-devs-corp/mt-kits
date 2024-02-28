@@ -5,6 +5,8 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
+use Filament\Support\Assets\Js;
+use Filament\Support\Facades\FilamentAsset;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,5 +24,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot(){
         // DB::connection()->getDoctrineSchemaManager()->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');
         Model::unguard();
+
+        FilamentAsset::register([
+            Js::make('jquery', 'https://code.jquery.com/jquery-3.6.0.min.js'),
+            Js::make('custom-script', __DIR__ . '/../../resources/js/custom.js'),
+        ]);
     }
 }
