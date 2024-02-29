@@ -32,7 +32,7 @@ public static function booted()
         // Calculez le montant à donner à l'utilisateur
         $montant = ($reabonnement->plan_tarifaire * $pourcent);
 
-        dump($montant);
+//        dump($montant);
 
         $user->somme_a_percevoir += $montant;
         $user->save();

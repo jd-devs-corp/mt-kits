@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Auth;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+
 //use Illuminate\Support\Facades\Html;
 use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
 use Filament\Tables\Columns\TextColumn;
@@ -67,17 +68,76 @@ class KitResource extends Resource
                 Forms\Components\TextInput::make('kit_number')
                     ->required()
                     ->label('Numero de kit')
+                    ->prefix('N°')
                     ->maxLength(255),
-                Forms\Components\TextInput::make('localisation')
-                    ->required()
-                    ->label('Localisation')
-                    ->maxLength(255),
+
+                Forms\Components\Select::make('localisation')
+                    ->searchable()
+                    ->placeholder('Veuillez selectionner une ville')
+                    ->options([
+                        'Abong-Mbang' => 'Abong-Mbang',
+                        'Akonolinga' => 'Akonolinga',
+                        'Ambam' => 'Ambam',
+                        'Bafang' => 'Bafang',
+                        'Bafia' => 'Bafia',
+                        'Bafoussam' => 'Bafoussam',
+                        'Bali' => 'Bali',
+                        'Bamenda' => 'Bamenda',
+                        'Bandjoun' => 'Bandjoun',
+                        'Bangangté' => 'Bangangté',
+                        'Bangem' => 'Bangem',
+                        'Banyo' => 'Banyo',
+                        'Batouri' => 'Batouri',
+                        'Bertoua' => 'Bertoua',
+                        'Bélabo' => 'Bélabo',
+                        'Buea' => 'Buea',
+                        'Dizangué' => 'Dizangué',
+                        'Douala' => 'Douala',
+                        'Dschang' => 'Dschang',
+                        'Ébolowa' => 'Ébolowa',
+                        'Éseka' => 'Éseka',
+                        'Fontem' => 'Fontem',
+                        'Foumban' => 'Foumban',
+                        'Foumbot' => 'Foumbot',
+                        'Fundong' => 'Fundong',
+                        'Garoua' => 'Garoua',
+                        'Guider' => 'Guider',
+                        'Kousséri' => 'Kousséri',
+                        'Kribi' => 'Kribi',
+                        'Kumba' => 'Kumba',
+                        'Limbe' => 'Limbe',
+                        'Loum' => 'Loum',
+                        'Mamfé' => 'Mamfé',
+                        'Maroua' => 'Maroua',
+                        'Mbalmayo' => 'Mbalmayo',
+                        'Mbanga' => 'Mbanga',
+                        'Mbouda' => 'Mbouda',
+                        'Meiganga' => 'Meiganga',
+                        'Melong' => 'Melong',
+                        'Mfou' => 'Mfou',
+                        'Mokolo' => 'Mokolo',
+                        'Mora' => 'Mora',
+                        'Mutengene' => 'Mutengene',
+                        'Nanga Eboko' => 'Nanga Eboko',
+                        'Ngaoundéré' => 'Ngaoundéré',
+                        'Nkongsamba' => 'Nkongsamba',
+                        'Ntui' => 'Ntui',
+                        'Obala' => 'Obala',
+                        'Poli' => 'Poli',
+                        'Sangmélima' => 'Sangmélima',
+                        'Tchollire' => 'Tchollire',
+                        'Wum' => 'Wum',
+                        'Yaoundé' => 'Yaoundé',
+                        'Yagoua' => 'Yagoua',
+                        'Yokadouma' => 'Yokadouma',
+                    ])
+
             ]);
     }
 
     public static function table(Table $table): Table
     {
-        $kit = new Reabonnement();
+//        $kit = new Reabonnement();
         return $table
             ->columns(components: [
                 Tables\Columns\TextColumn::make('client.name')
@@ -85,39 +145,13 @@ class KitResource extends Resource
                     ->sortable()
                     ->searchable(),
 
-                    Tables\Columns\TextColumn::make('kit_number')
+                Tables\Columns\TextColumn::make('kit_number')
                     ->label('Numero de Kit')
+                    ->prefix('N° ')
                     ->searchable(),
-                    Tables\Columns\TextColumn::make('localisation')
+                Tables\Columns\TextColumn::make('localisation')
                     ->searchable(),
                 StatusColumn::make('status')
-
-
-               /* TextColumn::make('Date d\'expiration')
-                    ->getStateUsing(function ($record) use ($kit) { // Passez $kit
-                        $reabonnement = $kit->reabonnements->first(); // Obtenez le premier réabonnement associé à ce kit
-
-                        if (!$reabonnement) {
-                            return "<span style='color: red;'>Inactif</span>";
-                        }
-
-                        $dateExpiration = Carbon::parse($reabonnement->date_fin_abonnement);
-                        $aujourdHui = Carbon::now();
-                        $joursRestants = $aujourdHui->diffInDays($dateExpiration);
-
-                        if ($joursRestants > 15) {
-                            $statut = 'En cours';
-                            $couleur = 'green';
-                        } elseif ($joursRestants <= 15 && $joursRestants > 0) {
-                            $statut = 'Presque';
-                            $couleur = 'yellow';
-                        } else {
-                            $statut = 'Inactif';
-                            $couleur = 'red';
-                        }
-
-                        return Html::raw("<span style='color: $couleur;'>$statut</span>");
-                    }),*/
 
 
             ])
