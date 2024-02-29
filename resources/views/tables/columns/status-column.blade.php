@@ -29,7 +29,11 @@
             <input type='hidden' {{$i++}}>
             @endforeach
 
-        <input type="hidden" name="" value="{{$dateFinAbonnement = strtotime($record->reabonnements[$i-1]['date_fin_abonnement'])}}">
+            @if ($i==0)
+                <input type="hidden" name="" value="{{$dateFinAbonnement = strtotime($record->reabonnements[$i]['date_fin_abonnement'])}}">
+            @else
+                <input type="hidden" name="" value="{{$dateFinAbonnement = strtotime($record->reabonnements[$i-1]['date_fin_abonnement'])}}">
+            @endif
         @if($dateFinAbonnement < $now)
 
             <div class="badge" style="background-color: rgb(247, 76, 76)">
