@@ -41,6 +41,26 @@ class KitResource extends Resource
         $user = Auth::user();
         return $form
             ->schema([
+                Forms\Components\Select::make('client_id')
+                    ->label('Proprietaire')
+                    ->relationship('client', 'name')
+                    ->searchable()
+                    ->preload()
+                    ->createOptionForm([
+                        Forms\Components\TextInput::make('name')
+                            ->label('nom')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('email')
+                            ->email()
+                            ->label('Addresse E-mail')
+                            ->required()
+                            ->maxLength(255),
+                        PhoneInput::make('phone_number')
+                            ->countryStatePath('phone_country')
+                            ->defaultCountry('CM'),
+                    ])
+                    ->required(),
                 Forms\Components\Hidden::make('user_id')
                     ->visibleOn('view')
                     ->default($user->role == 'fournisseur' ? $user->id : null),
