@@ -81,4 +81,11 @@ class User extends Authenticatable implements FilamentUser, HasName
         return "{$this->name} {$this->surname}";
     }
 
+    public function isFournisseur(): bool{
+        return $this->role == 'fournisseur';
+    }
+
+    public function isAdmin(): bool{
+        return $this->role == 'admin';
+    }
 }
