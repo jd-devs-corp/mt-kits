@@ -9,6 +9,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 
 class KitsRelationManager extends RelationManager
 {
@@ -16,10 +17,19 @@ class KitsRelationManager extends RelationManager
 
     public function form(Form $form): Form
     {
+        $user = Auth::user();
         return $form
             ->schema([
-                Forms\Components\TextInput::make('description')
+                Forms\Components\Hidden::make('user_id')
+                    ->visibleOn('view')
+                    ->default($user->role == 'fournisseur' ? $user->id : null),
+                Forms\Components\TextInput::make('kit_number')
                     ->required()
+                    ->label('Numero de kit')
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('localisation')
+                    ->required()
+                    ->label('Localisation')
                     ->maxLength(255),
             ]);
     }
