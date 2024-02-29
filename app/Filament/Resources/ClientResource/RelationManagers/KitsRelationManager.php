@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\ClientResource\RelationManagers;
 
+use App\Tables\Columns\StatusColumn;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -37,15 +38,10 @@ class KitsRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
-            ->recordTitleAttribute('Kits')
+            ->recordTitleAttribute('KiS')
             ->columns([
                 Tables\Columns\TextColumn::make('kit_number')->label('Numero de kit'),
-                Tables\Columns\TextColumn::make('client.kits.reabonnements.date_abonnement')
-                    ->label('Date d\'abonnement'),
-                Tables\Columns\TextColumn::make('client.kits.reabonnements.date_fin_abonnement')
-                ->label('Date de fin d\'abonnement'),
-                Tables\Columns\TextColumn::make('client.kits.reabonnements.plan_tarifaire')
-                    ->label('Plan Tarifaire'),
+                StatusColumn::make('Statut')
             ])
             ->filters([
                 //
@@ -54,12 +50,12 @@ class KitsRelationManager extends RelationManager
                 Tables\Actions\CreateAction::make(),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                // Tables\Actions\EditAction::make(),
+                // Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\ExportBulkAction::make(),
                 ]),
             ]);
     }
