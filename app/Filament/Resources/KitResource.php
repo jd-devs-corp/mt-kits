@@ -79,16 +79,17 @@ class KitResource extends Resource
                     ->label('Proprietaire')
                     ->sortable()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('user.name')
-                    ->sortable()
-                    ->label('Fournisseur')
-                    ->searchable(),
 
-                Tables\Columns\TextColumn::make('kit_number')
+                    Tables\Columns\TextColumn::make('kit_number')
+                    ->label('Numero de Kit')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('localisation')
+                    Tables\Columns\TextColumn::make('localisation')
                     ->searchable(),
-//                StatusColumn::make('kit.reabonnements.date_fin_abonnement')
+                    Tables\Columns\TextColumn::make('user.name')
+                        ->sortable()
+                        ->label('Fournisseur')
+                        ->searchable(),
+                    StatusColumn::make('Statut')
 
 
             ])

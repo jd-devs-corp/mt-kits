@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
 
 class KitResource extends Resource
 {
@@ -48,11 +49,9 @@ class KitResource extends Resource
                             ->label('Addresse E-mail')
                             ->required()
                             ->maxLength(255),
-                        Forms\Components\TextInput::make('phone_number')
-                            ->tel()
-                            ->label('Numero de telephone')
-                            ->required()
-                            ->numeric(),
+                        PhoneInput::make('phone_number')
+                            ->countryStatePath('phone_country')
+                            ->defaultCountry('CM'),
                     ])
                     ->required(),
                 Forms\Components\Hidden::make('user_id')
@@ -69,9 +68,6 @@ class KitResource extends Resource
     }
 
 
-    public function onQuery(): void{
-        $this->query()->where("user_id", auth()->user()->id);
-    }
 
     public static function table(Table $table): Table
 {

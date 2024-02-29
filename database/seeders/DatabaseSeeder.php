@@ -18,7 +18,24 @@ class DatabaseSeeder extends Seeder
          \App\Models\User::factory()->create([
              'name' => 'Admin',
              'email' => 'admin@gmail.com',
+             'role' => 'admin',
              'password' => Hash::make('admin'),
          ]);
+         \App\Models\User::factory()->create([
+            'name' => 'fournisseur',
+            'email' => 'fournisseur@gmail.com',
+            'role' => 'fournisseur',
+            'pourcentage' => 12,
+            'somme_a_percevoir' => 0,
+            'password' => Hash::make('fournisseur'),
+        ]);
+        \App\Models\User::factory()->create([
+            'name' => 'fournisseur2',
+            'email' => 'fournisseur2@gmail.com',
+            'role' => 'fournisseur',
+            'pourcentage' => 10,
+            'somme_a_percevoir' => 0,
+            'password' => Hash::make('fournisseur'),
+        ]);
     }
 }

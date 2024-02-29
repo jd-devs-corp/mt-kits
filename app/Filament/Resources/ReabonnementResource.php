@@ -75,12 +75,12 @@ class ReabonnementResource extends Resource
                             ->label('Localisation')
                             ->maxLength(255),
                     ]),
-                Forms\Components\DateTimePicker::make('date_abonnement')
+                Forms\Components\DatePicker::make('date_abonnement')
                     ->required()
                     ->default(now()),
-                Forms\Components\DateTimePicker::make('date_fin_abonnement')
+                Forms\Components\DatePicker::make('date_fin_abonnement')
                     ->required()
-                    ->minDate(now()),
+                    ->minDate(now()->addMonth()->subDay()),
                 Forms\Components\TextInput::make('plan_tarifaire')
                     ->required()
                     ->numeric(),
