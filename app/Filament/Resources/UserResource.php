@@ -57,8 +57,8 @@ class UserResource extends Resource
                     ->label('Pourcentage de commission')
                     ->numeric(),
                 Forms\Components\TextInput::make('somme_a_percevoir')
-                    ->numeric()
-                    ->visibleOn('view'),
+                    ->numeric(),
+                    // ->visibleOn('view'),
                 Forms\Components\TextInput::make('password')
                     ->password()
                     ->label('Mot de passe')

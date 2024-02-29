@@ -23,7 +23,7 @@
             </div>
 
         @endif
-    @else
+    @elseif(isset($record->reabonnements))
             <input type='hidden' {{$i = 0}}>
             @foreach ($record->reabonnements as $reabonnement)
             <input type='hidden' {{$i++}}>
@@ -53,6 +53,10 @@
             </div>
 
         @endif
+    @else
+    <div class="badge" style="background-color: rgb(247, 195, 160)">
+        Veillez abonner ce kit
+    </div>
     @endif
 
 </div>
