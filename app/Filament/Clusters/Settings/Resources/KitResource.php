@@ -7,6 +7,7 @@ use App\Filament\Clusters\Settings\Resources\KitResource\Pages;
 use App\Filament\Clusters\Settings\Resources\KitResource\RelationManagers;
 use App\Models\Kit;
 use App\Models\User;
+use App\Tables\Columns\StatusColumn;
 use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -85,7 +86,7 @@ class KitResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('localisation')
                     ->searchable(),
-                    Tables\Columns\TextColumn::make('statut'),
+                    StatusColumn::make('statut'),
                     // ->lcg_value
 
             ])
