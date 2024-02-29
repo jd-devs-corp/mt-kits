@@ -71,8 +71,11 @@ class KitResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return $table
-            ->columns([
+        $filteredQuery = Kit::where('user_id', auth()->id());
+
+      return $table
+        ->query($filteredQuery)
+        ->columns([
                 Tables\Columns\TextColumn::make('client.name')
                     ->label('Proprietaire')
                     ->sortable()

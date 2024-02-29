@@ -42,8 +42,11 @@ class ClientResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return $table
-            ->columns([
+        $filteredQuery = Client::whereHas('kits', function ($query) {
+        $query->where('user_id', auth()->id());
+    });
+    return $table
+        ->query($filteredQuery)       ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
