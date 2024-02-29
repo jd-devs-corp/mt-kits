@@ -16,7 +16,7 @@ class KitPolicy
     public function viewAny(User $user): bool
     {
         //
-
+        // Par défaut, refuser l'accès
         return true;
     }
 
@@ -25,12 +25,12 @@ class KitPolicy
      */
     public function view(User $user, Kit $kit): bool
     {
-        if ($user->isAdmin()) {
+        if ($user->role === 'admin') {
             return true;
         }
 
         // Si l'utilisateur est un fournisseur, vérifier s'il peut accéder au client
-        if ($user->isFournisseur()) {
+        if ($user->role === 'fournisseur') {
             // Parcourir les kits du client et vérifier s'il y a correspondance avec l'utilisateur
 
                 if ($kit->user_id === $user->id) {
@@ -58,7 +58,7 @@ class KitPolicy
     public function update(User $user, kit $kit): bool
     {
         //
-        if (($kit->user_id == $user->id && $user->isFournisseur()) || $user->isAdmin()) {
+        if ($kit->user_id == $user->id || $user->role=='admin') {
             return true;
         }
         else {

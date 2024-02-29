@@ -7,7 +7,6 @@ use App\Filament\Clusters\Settings\Resources\KitResource\Pages;
 use App\Filament\Clusters\Settings\Resources\KitResource\RelationManagers;
 use App\Models\Kit;
 use App\Models\User;
-use App\Tables\Columns\StatusColumn;
 use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -70,38 +69,42 @@ class KitResource extends Resource
 
 
     public static function table(Table $table): Table
-{
-    $filteredQuery = Kit::where('user_id', auth()->id());
+    {
+        return $table
+            ->columns([
+                Tables\Columns\TextColumn::make('client.name')
+                    ->label('Proprietaire')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('user.name')
+                    ->sortable()
+                    ->label('Fournisseur')
+                    ->searchable(),
 
-      return $table
-        ->query($filteredQuery)
-        ->columns([
-            Tables\Columns\TextColumn::make('client.name')
-                ->label('Proprietaire')
-                ->sortable()
-                ->searchable(),
-            Tables\Columns\TextColumn::make('kit_number')
-                ->searchable()
-                ->label('Numero de Kit '),
-            Tables\Columns\TextColumn::make('localisation')
-                ->searchable(),
-            StatusColumn::make('Statut'),
-        ])
-        ->filters([
-            //
-        ])
-        ->actions([
-            Tables\Actions\ViewAction::make(),
-            Tables\Actions\EditAction::make(),
-            // Tables\Actions\DeleteAction::make(),
-        ])
-        ->bulkActions([
-            Tables\Actions\BulkActionGroup::make([
-                Tables\Actions\ExportBulkAction::make(),
-            ]),
-        ]);
-}
+                Tables\Columns\TextColumn::make('kit_number')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('localisation')
+                    ->searchable(),
+                    Tables\Columns\TextColumn::make('statut'),
+                    // ->lcg_value
 
+            ])
+            ->filters([
+                //
+            ])
+            ->actions([
+                Tables\Actions\ViewAction::make(),
+                Tables\Actions\EditAction::make(),
+                // Tables\Actions\DeleteAction::make(),
+            ])
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\ExportBulkAction::make(),
+                ]),
+            ]);
+
+
+        }
 
     public static function getRelations(): array
     {

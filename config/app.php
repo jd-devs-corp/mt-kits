@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
 
+
 return [
 
     /*
@@ -170,6 +171,8 @@ return [
         App\Providers\Filament\AdminPanelProvider::class,
         App\Providers\Filament\FournisseurPanelProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Livewire\LivewireServiceProvider::class,
+
     ])->toArray(),
 
     /*

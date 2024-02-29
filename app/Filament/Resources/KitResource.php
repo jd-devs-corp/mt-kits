@@ -10,17 +10,21 @@ use App\Models\Reabonnement;
 use App\Models\User;
 use App\Tables\Columns\StatusColumn;
 use Carbon\Carbon;
+use Faker\Provider\ar_EG\Text;
 use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\Column;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+//use Illuminate\Support\Facades\Html;
 use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
+use Filament\Tables\Columns\TextColumn;
 
 class KitResource extends Resource
 {
@@ -73,6 +77,7 @@ class KitResource extends Resource
 
     public static function table(Table $table): Table
     {
+        $kit = new Reabonnement();
         return $table
             ->columns(components: [
                 Tables\Columns\TextColumn::make('client.name')
@@ -85,11 +90,34 @@ class KitResource extends Resource
                     ->searchable(),
                     Tables\Columns\TextColumn::make('localisation')
                     ->searchable(),
-                    Tables\Columns\TextColumn::make('user.name')
-                        ->sortable()
-                        ->label('Fournisseur')
-                        ->searchable(),
-                    StatusColumn::make('Statut')
+                StatusColumn::make('status')
+
+
+               /* TextColumn::make('Date d\'expiration')
+                    ->getStateUsing(function ($record) use ($kit) { // Passez $kit
+                        $reabonnement = $kit->reabonnements->first(); // Obtenez le premier réabonnement associé à ce kit
+
+                        if (!$reabonnement) {
+                            return "<span style='color: red;'>Inactif</span>";
+                        }
+
+                        $dateExpiration = Carbon::parse($reabonnement->date_fin_abonnement);
+                        $aujourdHui = Carbon::now();
+                        $joursRestants = $aujourdHui->diffInDays($dateExpiration);
+
+                        if ($joursRestants > 15) {
+                            $statut = 'En cours';
+                            $couleur = 'green';
+                        } elseif ($joursRestants <= 15 && $joursRestants > 0) {
+                            $statut = 'Presque';
+                            $couleur = 'yellow';
+                        } else {
+                            $statut = 'Inactif';
+                            $couleur = 'red';
+                        }
+
+                        return Html::raw("<span style='color: $couleur;'>$statut</span>");
+                    }),*/
 
 
             ])

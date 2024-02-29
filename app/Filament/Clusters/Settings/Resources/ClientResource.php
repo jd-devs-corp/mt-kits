@@ -5,7 +5,6 @@ namespace App\Filament\Clusters\Settings\Resources;
 use App\Filament\Clusters\Settings\Resources\ClientResource\Pages;
 use App\Filament\Clusters\Settings\Resources\ClientResource\RelationManagers;
 use App\Models\Client;
-use App\Models\Kit;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -42,36 +41,31 @@ class ClientResource extends Resource
     }
 
     public static function table(Table $table): Table
-{
-    $filteredQuery = Client::whereHas('kits', function ($query) {
-        $query->where('user_id', auth()->id());
-    });
+    {
+        return $table
+            ->columns([
+                Tables\Columns\TextColumn::make('name')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('email')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('phone_number')
+                    ->numeric()
+                    ->sortable(),
 
-    return $table
-        ->query($filteredQuery)
-        ->columns([
-            Tables\Columns\TextColumn::make('name')
-                ->searchable(),
-            Tables\Columns\TextColumn::make('email')
-                ->searchable(),
-            Tables\Columns\TextColumn::make('phone_number')
-                ->numeric()
-                ->sortable(),
-        ])
-        ->filters([
-            //
-        ])
-        ->actions([
-            Tables\Actions\ViewAction::make(),
-            Tables\Actions\EditAction::make(),
-        ])
-        ->bulkActions([
-            Tables\Actions\BulkActionGroup::make([
-                Tables\Actions\DeleteBulkAction::make(),
-            ]),
-        ]);
-}
-
+            ])
+            ->filters([
+                //
+            ])
+            ->actions([
+                Tables\Actions\ViewAction::make(),
+                Tables\Actions\EditAction::make(),
+            ])
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
+            ]);
+    }
 
     public static function getRelations(): array
     {
