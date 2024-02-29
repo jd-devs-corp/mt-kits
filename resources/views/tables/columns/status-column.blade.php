@@ -23,7 +23,7 @@
             </div>
 
         @endif
-    @elseif(isset($record->reabonnements))
+    @elseif(isset($record->reabonnements[0]))
             <input type='hidden' {{$i = 0}}>
             @foreach ($record->reabonnements as $reabonnement)
             <input type='hidden' {{$i++}}>
