@@ -54,7 +54,9 @@ class ClientResource extends Resource
                     ->maxLength(255),
                 PhoneInput::make('phone_number')
                     ->countryStatePath('phone_country')
+                    ->maxWidth('9')
                     ->defaultCountry('CM'),
+
             ]);
     }
 

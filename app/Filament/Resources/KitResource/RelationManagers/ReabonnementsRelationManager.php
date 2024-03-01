@@ -50,8 +50,8 @@ class ReabonnementsRelationManager extends RelationManager
                 Tables\Actions\CreateAction::make(),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\ExportAction::make(),
+                Tables\Actions\ViewAction::make(),
+//                Tables\Actions\ExportAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

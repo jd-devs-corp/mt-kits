@@ -73,6 +73,7 @@ class KitResource extends Resource
 
                 Forms\Components\Select::make('localisation')
                     ->searchable()
+                    ->required()
                     ->placeholder('Veuillez selectionner une ville')
                     ->options([
                         'Abong-Mbang' => 'Abong-Mbang',
@@ -83,6 +84,7 @@ class KitResource extends Resource
                         'Bafoussam' => 'Bafoussam',
                         'Bali' => 'Bali',
                         'Bamenda' => 'Bamenda',
+                        'Bamendjou' => 'Bamendjou',
                         'Bandjoun' => 'Bandjoun',
                         'Bangangté' => 'Bangangté',
                         'Bangem' => 'Bangem',

@@ -42,17 +42,20 @@ class UserResource extends Resource
                     ->required()
                     ->maxLength(255),
                 PhoneInput::make('phone_number')
+                    ->label('Numéro de téléphone')
                     ->countryStatePath('phone_country')
                     ->defaultCountry('CM'),
                 Forms\Components\Select::make('role')
-                    ->label('Role')
+                    ->label('Rôle')
                     ->required()
                     ->options([
                         'fournisseur' => 'fournisseur',
                         'admin' => 'admin'
                     ]),
                 Forms\Components\DateTimePicker::make('email_verified_at')
+                    ->label('Vérifié le')
                     ->visibleOn('view'),
+
                 Forms\Components\TextInput::make('pourcentage')
                     ->label('Pourcentage de commission')
                     ->numeric(),
@@ -61,6 +64,7 @@ class UserResource extends Resource
                     // ->visibleOn('view'),
                 Forms\Components\TextInput::make('password')
                     ->password()
+                    ->hiddenOn('view')
                     ->label('Mot de passe')
                     ->required()
                     ->maxLength(255)
@@ -77,6 +81,9 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('email')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('role')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('pourcentage')
+                    ->suffix(' %')
                     ->searchable(),
 
 
