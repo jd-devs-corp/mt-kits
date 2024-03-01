@@ -14,10 +14,10 @@ class ListReabonnements extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            \EightyNine\ExcelImport\ExcelImportAction::make()
+           /* \EightyNine\ExcelImport\ExcelImportAction::make()
                 ->slideOver()
                 ->color("primary")
-                ->use(Reabonnement::class),
+                ->use(Reabonnement::class),*/
             Actions\CreateAction::make(),
         ];
     }

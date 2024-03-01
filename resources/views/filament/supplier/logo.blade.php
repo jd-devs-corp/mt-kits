@@ -1,11 +1,11 @@
 
 <style>
     img.logo{
-        width: 8vw;
-        height: 8vh;
+        width: 300%;
+        height: 300%;
     }
 </style>
-@if (request()->is('supplier/login'))
+@if (request()->is('supplier/login') || request()->isMethod('post'))
 
 @else
     <!-- Code pour afficher le logo de la marque -->
