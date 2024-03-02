@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\KitResource\RelationManagers;
 
+use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
 use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -18,10 +19,10 @@ class ReabonnementsRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                Forms\Components\DatePicker::make('date_abonnement')
+                Forms\Components\DateTimePicker::make('date_abonnement')
                     ->required()
                     ->default(now()),
-                Forms\Components\DatePicker::make('date_fin_abonnement')
+                Forms\Components\DateTimePicker::make('date_fin_abonnement')
                     ->required()
                     ->minDate(now()),
                 Forms\Components\TextInput::make('plan_tarifaire')
@@ -94,9 +95,7 @@ class ReabonnementsRelationManager extends RelationManager
 //                Tables\Actions\ExportAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\ExportBulkAction::make(),
-                ]),
+                FilamentExportBulkAction::make('export'),
             ]);
     }
 }
