@@ -61,12 +61,15 @@ class ReabonnementsRelationManager extends RelationManager
                         $diffEnJours = $dateFinAbonnementCarbon->diffInDays(now());
 
                         // Déterminer la couleur et le texte du badge en fonction de la différence en jours
-                        if ($diffEnJours >= 30) {
+                        if ($diffEnJours >= 20) {
                             return 'Valide';
-                        } elseif ($diffEnJours >= 15) {
+                        } elseif ($diffEnJours <= 15) {
                             return 'A terme';
-                        } else {
+                        } elseif ($diffEnJours <= 3) {
                             return 'Expiré';
+                        }
+                        else{
+                            return 'Inactif';
                         }
                     })
                     ->default('Inactif')
