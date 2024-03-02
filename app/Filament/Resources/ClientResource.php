@@ -37,6 +37,8 @@ class ClientResource extends Resource
                 Tables\Columns\TextColumn::make('email'),
                 PhoneEntry::make('phone')
                     ->displayFormat(PhoneInputNumberType::NATIONAL)
+                    ->badge()
+                    ->color('success')
                     ->countryColumn('phone_country'),
             ]);
     }
