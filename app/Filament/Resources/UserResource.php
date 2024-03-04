@@ -8,12 +8,15 @@ use App\Filament\Resources\UserResource\RelationManagers\KitsRelationManager;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Tables\Grouping\Group;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+
+//use Svg\Tag\Group;
 use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
 
 class UserResource extends Resource
@@ -52,6 +55,23 @@ class UserResource extends Resource
                         'fournisseur' => 'fournisseur',
                         'admin' => 'admin'
                     ]),
+                Forms\Components\ToggleButtons::make('status')
+                    ->label('Statut de l\'utilisateur')
+                    ->options([
+                        true => 'Actif',
+                        false => 'Inactif'
+                    ])
+                    ->icons([
+                        true => 'heroicon-o-check-badge',
+                        false => 'heroicon-o-x-circle'
+                    ])
+                    ->colors([
+                        true => 'success',
+                        false => 'danger'
+                    ])
+                    ->inline()
+                    ->default(true),
+
                 Forms\Components\DateTimePicker::make('email_verified_at')
                     ->label('Vérifié le')
                     ->visibleOn('view'),
@@ -61,7 +81,7 @@ class UserResource extends Resource
                     ->numeric(),
                 Forms\Components\TextInput::make('somme_a_percevoir')
                     ->numeric(),
-                    // ->visibleOn('view'),
+                // ->visibleOn('view'),
                 Forms\Components\TextInput::make('password')
                     ->password()
                     ->hiddenOn('view')
@@ -82,13 +102,18 @@ class UserResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('role')
                     ->searchable(),
+                Tables\Columns\IconColumn::make('status')
+                    ->label('Statut de compte')
+                    ->boolean()
+//                ->badge()
+                ,
                 Tables\Columns\TextColumn::make('pourcentage')
                     ->suffix(' %')
                     ->searchable(),
-
-
-
             ])
+            ->defaultGroup( Group::make('status')
+                ->label('Utilisateur actif'))
+            ->groupingSettingsHidden()
             ->filters([
                 //
             ])
