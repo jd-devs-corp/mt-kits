@@ -163,7 +163,7 @@ class KitResource extends Resource
                         $kit = Kit::where('kit_number', $kitNumber)->with('reabonnements')->first();
 
 
-                        $dateFinAbonnement = $kit->reabonnements->sortByDesc('date_fin_abonnement')->first()?->date_fin_abonnement ?? null;
+                        $dateFinAbonnement = $kit->reabonnements->sortByDesc('date_fin_abonnement')->first()->date_fin_abonnement ?? null;
                         if ($dateFinAbonnement === null) {
                             return 'Inactif';
                         }
@@ -197,7 +197,7 @@ Utilisez ce code avec précaution.
                             return 'Valide';
                         } elseif ($diffEnJours <= 15) {
                             return 'A terme';
-                        } elseif ($diffEnJours <= 3) {
+                        } elseif ($diffEnJours < 1) {
                             return 'Expiré';
                         }
                         else{
