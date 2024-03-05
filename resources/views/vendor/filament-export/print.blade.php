@@ -47,23 +47,23 @@
     </style>
 </head>
 <body>
-    <table>
+<table>
+    <tr>
+        @foreach ($columns as $column)
+            <th>
+                {{ $column->getLabel() }}
+            </th>
+        @endforeach
+    </tr>
+    @foreach ($rows as $row)
         <tr>
             @foreach ($columns as $column)
-                <th>
-                    {{ $column->getLabel() }}
-                </th>
+                <td>
+                    {{ $row[$column->getName()] }}
+                </td>
             @endforeach
         </tr>
-        @foreach ($rows as $row)
-            <tr>
-                @foreach ($columns as $column)
-                    <td>
-                        {{ $row[$column->getName()] }}
-                    </td>
-                @endforeach
-            </tr>
-        @endforeach
-    </table>
+    @endforeach
+</table>
 </body>
 </html>

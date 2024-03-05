@@ -15,5 +15,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+    $user = $request->user(); // Récupérer l'utilisateur authentifié
+
+    if (!$user->is_active) { // Vérifier l'existence et le statut actif
+        return response()->json(['message' => 'Compte inactif'], 401);
+    } else {
+        return $user;
+    }
 });

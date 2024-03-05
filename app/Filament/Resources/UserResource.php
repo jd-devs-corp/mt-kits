@@ -55,7 +55,7 @@ class UserResource extends Resource
                         'fournisseur' => 'fournisseur',
                         'admin' => 'admin'
                     ]),
-                Forms\Components\ToggleButtons::make('status')
+                Forms\Components\ToggleButtons::make('is_active')
                     ->label('Statut de l\'utilisateur')
                     ->options([
                         true => 'Actif',
@@ -95,6 +95,7 @@ class UserResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->emptyStateHeading('Aucun utilisateur')
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
@@ -102,7 +103,7 @@ class UserResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('role')
                     ->searchable(),
-                Tables\Columns\IconColumn::make('status')
+                Tables\Columns\IconColumn::make('is_active')
                     ->label('Statut de compte')
                     ->boolean()
 //                ->badge()
@@ -111,8 +112,10 @@ class UserResource extends Resource
                     ->suffix(' %')
                     ->searchable(),
             ])
-            ->defaultGroup( Group::make('status')
-                ->label('Utilisateur actif'))
+            ->defaultGroup(Group::make('is_active')
+                ->label('Compte actif')
+                ->collapsible()
+            )
             ->groupingSettingsHidden()
             ->filters([
                 //
