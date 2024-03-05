@@ -3,19 +3,13 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\UserResource\Pages;
-use App\Filament\Resources\UserResource\RelationManagers;
-use App\Filament\Resources\UserResource\RelationManagers\KitsRelationManager;
 use App\Models\User;
-use Filament\Actions\EditAction;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Tables\Grouping\Group;
-use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 //use Svg\Tag\Group;
 use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
@@ -80,16 +74,11 @@ class UserResource extends Resource
                 Forms\Components\TextInput::make('pourcentage')
                     ->label('Pourcentage de commission')
                     ->numeric(),
-                Forms\Components\TextInput::make('somme_a_percevoir')
-                    ->numeric(),
-                // ->visibleOn('view'),
                 Forms\Components\TextInput::make('password')
                     ->password()
                     ->hiddenOn('view')
                     ->label('Mot de passe')
-                    ->required()
-                    ->maxLength(255)
-                    ->default('new123'),
+                    ->maxLength(255),
             ]);
     }
 
@@ -127,13 +116,13 @@ class UserResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+               /* Tables\Actions\EditAction::make(),
                 EditAction::make('Payer')
                     ->mutateRecordDataUsing(function (array $data): array {
                         $data['user_id'] = auth()->id();
 
                         return $data;
-                    })
+                    })*/
             ])
             ->bulkActions([
                 /*Tables\Actions\BulkActionGroup::make([
