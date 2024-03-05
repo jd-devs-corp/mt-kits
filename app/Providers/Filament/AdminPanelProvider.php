@@ -74,7 +74,9 @@ class AdminPanelProvider extends PanelProvider
                     )
             ])
         ->brandLogo(fn() =>view('filament.admin.logo'))
-            ->brandName('Administration');
+            ->brandName('Administration')
+            ->favicon(asset('images/logo_admin.png'))
+            ;
 
     }
 }

@@ -51,6 +51,7 @@ class FournisseurPanelProvider extends PanelProvider
             ])
             ->brandLogo(fn() =>view('filament.supplier.logo'))
             ->brandName('Fournisseur')
+            ->favicon(asset('images/logo_supplier.png'))
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
