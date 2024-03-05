@@ -116,16 +116,11 @@ class UserResource extends Resource
                     ->suffix(' %')
                     ->searchable(),
             ])
-            ->defaultGroup(Group::make('is_active', true)
-                ->label('Compte actif')
+            ->defaultGroup(Group::make('is_active')
+                ->label('État de compte')
                 ->collapsible()
+                ->getTitleFromRecordUsing(fn($record) => $record->is_active ? 'Actif' : 'Inactif')
             )
-            ->groups([
-                    Group::make('is_active', true)
-                        ->titlePrefixedWithLabel(false)
-                ]
-            )
-            ->groupingSettingsHidden()
             ->filters([
                 //
             ])
