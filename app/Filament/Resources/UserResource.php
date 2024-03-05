@@ -116,9 +116,14 @@ class UserResource extends Resource
                     ->suffix(' %')
                     ->searchable(),
             ])
-            ->defaultGroup(Group::make('is_active')
+            ->defaultGroup(Group::make('is_active', true)
                 ->label('Compte actif')
                 ->collapsible()
+            )
+            ->groups([
+                    Group::make('is_active', true)
+                        ->titlePrefixedWithLabel(false)
+                ]
             )
             ->groupingSettingsHidden()
             ->filters([
@@ -129,9 +134,9 @@ class UserResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
+                /*Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                ]),*/
             ]);
     }
 
