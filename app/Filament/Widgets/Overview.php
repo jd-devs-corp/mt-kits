@@ -15,7 +15,6 @@ class Overview extends BaseWidget
     protected function getStats(): array
     {
         return [
-            Stat::make('Kits vendus ', Kit::count()),
             Stat::make('Reabonnements effectues ', Reabonnement::count()),
             Stat::make('Clients abonnes', Client::count()),
             Stat::make('Fournisseurs Agrees',User::query()->where('role', 'fournisseur')->where('is_active', true)->count())
