@@ -27,12 +27,10 @@ class User extends Authenticatable implements FilamentUser, HasName
      */
     protected $fillable = [
         'name',
-        'surname',
         'email',
         'is_active',
         'password',
         'role',
-        'somme_a_percevoir',
         'pourcentage',
         'anciennete',
         'phone_number',
@@ -79,7 +77,7 @@ class User extends Authenticatable implements FilamentUser, HasName
     }
     public function getFilamentName(): string
     {
-        return "{$this->name} {$this->surname}";
+        return "{$this->name}";
     }
 
    /* public function isFournisseur(): bool{

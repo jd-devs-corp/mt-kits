@@ -85,7 +85,7 @@ Utilisez ce code avec précaution.
                             return 'Valide';
                         } elseif ($diffEnJours <= 15) {
                             return 'A terme';
-                        } elseif ($diffEnJours <= 3) {
+                        } elseif ($diffEnJours < 3) {
                             return 'Expiré';
                         }
                         else{

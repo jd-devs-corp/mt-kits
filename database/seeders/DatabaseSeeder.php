@@ -26,7 +26,6 @@ class DatabaseSeeder extends Seeder
             'email' => 'fournisseur@gmail.com',
             'role' => 'fournisseur',
             'pourcentage' => 12,
-            'somme_a_percevoir' => 0,
             'password' => Hash::make('fournisseur'),
         ]);
         \App\Models\User::factory()->create([
@@ -34,7 +33,6 @@ class DatabaseSeeder extends Seeder
             'email' => 'fournisseur2@gmail.com',
             'role' => 'fournisseur',
             'pourcentage' => 10,
-            'somme_a_percevoir' => 0,
             'password' => Hash::make('fournisseur'),
         ]);
     }

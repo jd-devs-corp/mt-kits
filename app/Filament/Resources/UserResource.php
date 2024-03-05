@@ -3,19 +3,13 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\UserResource\Pages;
-use App\Filament\Resources\UserResource\RelationManagers;
-use App\Filament\Resources\UserResource\RelationManagers\KitsRelationManager;
 use App\Models\User;
-use Filament\Actions\Action;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Tables\Grouping\Group;
-use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 //use Svg\Tag\Group;
 use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
@@ -37,11 +31,8 @@ class UserResource extends Resource
                     ->label('Nom')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('surname')
-                    ->label('Prenom')
-                    ->maxLength(255),
                 Forms\Components\TextInput::make('email')
-                    ->label('Addresse E-mail')
+                    ->label('Adresse E-mail')
                     ->email()
                     ->required()
                     ->maxLength(255),
@@ -80,16 +71,11 @@ class UserResource extends Resource
                 Forms\Components\TextInput::make('pourcentage')
                     ->label('Pourcentage de commission')
                     ->numeric(),
-                Forms\Components\TextInput::make('somme_a_percevoir')
-                    ->numeric(),
-                // ->visibleOn('view'),
                 Forms\Components\TextInput::make('password')
                     ->password()
                     ->hiddenOn('view')
                     ->label('Mot de passe')
-                    ->required()
-                    ->maxLength(255)
-                    ->default('new123'),
+                    ->maxLength(255),
             ]);
     }
 
@@ -103,6 +89,9 @@ class UserResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
                     ->label('Adresse mail')
+                    ->copyable()
+                    ->copyMessage('Email address copied')
+                    ->copyMessageDuration(1500)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('role')
                     ->label('Rôle')
@@ -143,6 +132,10 @@ class UserResource extends Resource
             //
             // RelationManagers\KitsRelationManager::class,
         ];
+    }
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
     }
 
     public static function getPages(): array

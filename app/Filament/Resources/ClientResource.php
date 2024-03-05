@@ -48,6 +48,7 @@ class ClientResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->label('Nom(s) et prénom(s)')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('email')
@@ -55,7 +56,9 @@ class ClientResource extends Resource
                     ->required()
                     ->maxLength(255),
                 PhoneInput::make('phone_number')
+                    ->label('Numéro de téléphone')
                     ->countryStatePath('phone_country')
+                    ->required()
                     ->maxWidth('9')
                     ->defaultCountry('CM'),
 
@@ -67,7 +70,7 @@ class ClientResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')#
-                    ->label('Nom(s)')
+                ->label('Nom(s)')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
                     ->label('Adresse mail')
