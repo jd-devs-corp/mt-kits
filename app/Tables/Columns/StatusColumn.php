@@ -2,11 +2,27 @@
 
 namespace App\Tables\Columns;
 
+use Closure;
+use Filament\Support\Concerns\HasColor;
+use Filament\Support\Concerns\HasIconColor;
 use Filament\Tables\Columns\Column;
 
 class StatusColumn extends Column
 {
+    use HasIconColor;
+    use HasColor;
     protected string $view = 'tables.columns.status-column';
+    protected bool | Closure $isBadge = false;
+    public function badge(bool | Closure $condition = true): static
+    {
+        $this->isBadge = $condition;
+
+        return $this;
+    }
+    public function isBadge(): bool
+    {
+        return (bool) $this->evaluate($this->isBadge);
+    }
 
     // public function render(): \Illuminate\Contracts\View\View
     // {

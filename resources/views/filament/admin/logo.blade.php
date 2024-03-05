@@ -1,12 +1,16 @@
 <style>
     img.logo {
-        width: 8vw;
-        height: 9vh;
+        width: 300%;
+        height: 300%;
+    }
+    img.logo:hover{
+        animation: ease-in-out;
+
     }
 </style>
-@if (request()->is('admin/login'))
+@if (request()->is('admin/login') || request()->isMethod('post'))
 @else
     <!-- Code pour afficher le logo de la marque -->
-    <img class="logo" src="{{asset('images/logo_admin.png')}}" alt="logo administrateur">
+    <img class="logo" src="{{asset('images/logo_admin.png')}}" title="logo administrateur" alt="Logo administrateur">
 @endif
 

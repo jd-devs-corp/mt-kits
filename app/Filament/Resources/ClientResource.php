@@ -37,6 +37,8 @@ class ClientResource extends Resource
                 Tables\Columns\TextColumn::make('email'),
                 PhoneEntry::make('phone')
                     ->displayFormat(PhoneInputNumberType::NATIONAL)
+                    ->badge()
+                    ->color('success')
                     ->countryColumn('phone_country'),
             ]);
     }
@@ -54,7 +56,9 @@ class ClientResource extends Resource
                     ->maxLength(255),
                 PhoneInput::make('phone_number')
                     ->countryStatePath('phone_country')
+                    ->maxWidth('9')
                     ->defaultCountry('CM'),
+
             ]);
     }
 
