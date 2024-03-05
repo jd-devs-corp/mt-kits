@@ -138,6 +138,10 @@ class UserResource extends Resource
             // RelationManagers\KitsRelationManager::class,
         ];
     }
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
 
     public static function getPages(): array
     {
