@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms\Components\Actions;
 use Filament\Forms\Components\Actions\Action;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
 
 class KitsRelationManager extends RelationManager
 {
@@ -39,11 +40,10 @@ class KitsRelationManager extends RelationManager
                             ->label('Addresse E-mail')
                             ->required()
                             ->maxLength(255),
-                        Forms\Components\TextInput::make('phone_number')
-                            ->tel()
-                            ->label('Numero de telephone')
-                            ->required()
-                            ->numeric(),
+                        PhoneInput::make('phone_number')
+                            ->label('Numéro de téléphone')
+                            ->countryStatePath('phone_country')
+                            ->defaultCountry('CM'),
                     ])
                     ->required(),
                 Forms\Components\TextInput::make('user_id')
