@@ -66,11 +66,14 @@ class ClientResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
+                Tables\Columns\TextColumn::make('name')#
+                    ->label('Nom(s)')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
+                    ->label('Adresse mail')
                     ->searchable(),
                 PhoneColumn::make('phone_number')
+                    ->label('Numéro de téléphone')
                     ->displayFormat(PhoneInputNumberType::NATIONAL)
                     ->countryColumn('phone_country'),
                 Tables\Columns\TextColumn::make('created_at')

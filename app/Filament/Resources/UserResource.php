@@ -98,10 +98,13 @@ class UserResource extends Resource
             ->emptyStateHeading('Aucun utilisateur')
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Noms(s)')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
+                    ->label('Adresse mail')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('role')
+                    ->label('Rôle')
                     ->searchable(),
                 Tables\Columns\IconColumn::make('is_active')
                     ->label('Statut de compte')
@@ -109,6 +112,7 @@ class UserResource extends Resource
 //                ->badge()
                 ,
                 Tables\Columns\TextColumn::make('pourcentage')
+                    ->label('Pourcentage de commission')
                     ->suffix(' %')
                     ->searchable(),
             ])
