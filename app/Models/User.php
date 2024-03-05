@@ -77,7 +77,7 @@ class User extends Authenticatable implements FilamentUser, HasName
     }
     public function getFilamentName(): string
     {
-        return "{$this->name} {$this->surname}";
+        return "{$this->name}";
     }
 
    /* public function isFournisseur(): bool{
