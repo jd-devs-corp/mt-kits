@@ -92,6 +92,9 @@ class UserResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
                     ->label('Adresse mail')
+                    ->copyable()
+                    ->copyMessage('Email address copied')
+                    ->copyMessageDuration(1500)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('role')
                     ->label('Rôle')
@@ -116,13 +119,13 @@ class UserResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
-               /* Tables\Actions\EditAction::make(),
-                EditAction::make('Payer')
-                    ->mutateRecordDataUsing(function (array $data): array {
-                        $data['user_id'] = auth()->id();
+                /* Tables\Actions\EditAction::make(),
+                 EditAction::make('Payer')
+                     ->mutateRecordDataUsing(function (array $data): array {
+                         $data['user_id'] = auth()->id();
 
-                        return $data;
-                    })*/
+                         return $data;
+                     })*/
             ])
             ->bulkActions([
                 /*Tables\Actions\BulkActionGroup::make([
