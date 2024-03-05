@@ -6,6 +6,7 @@ use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Filament\Resources\UserResource\RelationManagers\KitsRelationManager;
 use App\Models\User;
+use Filament\Actions\EditAction;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Tables\Grouping\Group;
@@ -114,7 +115,7 @@ class UserResource extends Resource
             ])
             ->defaultGroup(Group::make('is_active')
                 ->label('Compte actif')
-                ->collapsible()
+                // ->collapsible()
             )
             ->groupingSettingsHidden()
             ->filters([
@@ -123,10 +124,16 @@ class UserResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
+                EditAction::make('Payer')
+                    ->mutateRecordDataUsing(function (array $data): array {
+                        $data['user_id'] = auth()->id();
+
+                        return $data;
+                    })
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    // Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }
