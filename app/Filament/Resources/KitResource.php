@@ -154,7 +154,7 @@ class KitResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('localisation')
                     ->searchable(),
-                StatusColumn::make('status'),
+//                StatusColumn::make('status'),
                 Tables\Columns\TextColumn::make('status')
                     ->label('Statut')
                     ->getStateUsing(function ($record) {
