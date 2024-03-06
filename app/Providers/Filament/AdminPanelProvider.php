@@ -2,6 +2,8 @@
 
 namespace App\Providers\Filament;
 
+use App\Livewire\MyCustomComponent;
+use Filament\Forms\Components\FileUpload;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -17,7 +19,9 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Validation\Rules\Password;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Jeffgreco13\FilamentBreezy\BreezyCore;
 use Swis\Filament\Backgrounds\FilamentBackgroundsPlugin;
 use Swis\Filament\Backgrounds\ImageProviders\MyImages;
 
@@ -31,8 +35,11 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->registration()
+            ->passwordReset()
+            ->emailVerification()
             // ->spa()
-             ->unsavedChangesAlerts()
+            ->unsavedChangesAlerts()
             ->colors([
                 'danger' => Color::Rose,
                 'gray' => Color::Gray,
@@ -46,8 +53,6 @@ class AdminPanelProvider extends PanelProvider
             ->pages([
                 Pages\Dashboard::class,
             ])
-
-
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
 //                Widgets\WidgetsServiceProvider::class,
@@ -66,17 +71,44 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
+            ->authGuard('')
             ->plugins([
+                BreezyCore::make()
+                   /* ->enableTwoFactorAuthentication(
+                        force: false, // force the user to enable 2FA before they can use the application (default = false)
+//                        action: CustomTwoFactorPage::class // optionally, use a custom 2FA page
+                    )*/
+                    ->myProfileComponents([
+                        // 'personal_info' => ,
+                        'update_password' => MyCustomComponent::class, // replaces UpdatePassword component with your own.
+                        // 'two_factor_authentication' => ,
+                        // 'sanctum_tokens' =>
+                    ])
+                    ->withoutMyProfileComponents([
+                        'update_password'
+                    ])
+                    ->passwordUpdateRules(
+                        rules: [Password::default()->mixedCase()->uncompromised(3)], // you may pass an array of validation rules as well. (default = ['min:8'])
+                        requiresCurrentPassword: true // when false, the user can update their password without entering their current password. (default = true)
+                    )
+                    ->avatarUploadComponent(fn() => FileUpload::make('Photo de profil')->disk('public'))
+                    ->myProfile(
+                        shouldRegisterUserMenu: true,
+                        shouldRegisterNavigation: true,
+                        hasAvatars: true,
+                        slug: 'profil',
+                        navigationGroup: 'Paramètres'
+                    ),
                 FilamentBackgroundsPlugin::make()
                     ->imageProvider(
                         MyImages::make()
                             ->directory('\images\swisnl\filament-backgrounds\curated-by-swis')
                     )
+
             ])
-        ->brandLogo(fn() =>view('filament.admin.logo'))
+            ->brandLogo(fn() => view('filament.admin.logo'))
             ->brandName('Administration')
-            ->favicon(asset('images/logo_admin.png'))
-            ;
+            ->favicon(asset('images/logo_admin.png'));
 
     }
 }

@@ -116,8 +116,13 @@ class UserResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                /* Tables\Actions\EditAction::make(),
+                 EditAction::make('Payer')
+                     ->mutateRecordDataUsing(function (array $data): array {
+                         $data['user_id'] = auth()->id();
 
+                         return $data;
+                     })*/
             ])
             ->bulkActions([
                 /*Tables\Actions\BulkActionGroup::make([
@@ -132,6 +137,10 @@ class UserResource extends Resource
             //
             // RelationManagers\KitsRelationManager::class,
         ];
+    }
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
     }
 
     public static function getPages(): array
