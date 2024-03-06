@@ -71,11 +71,11 @@ class UserResource extends Resource
                 Forms\Components\TextInput::make('pourcentage')
                     ->label('Pourcentage de commission')
                     ->numeric(),
-                Forms\Components\TextInput::make('password')
+                /*Forms\Components\TextInput::make('password')
                     ->password()
                     ->hiddenOn('view')
                     ->label('Mot de passe')
-                    ->maxLength(255),
+                    ->maxLength(255),*/
             ]);
     }
 

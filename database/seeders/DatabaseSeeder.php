@@ -19,12 +19,14 @@ class DatabaseSeeder extends Seeder
              'name' => 'Admin',
              'email' => 'admin@gmail.com',
              'role' => 'admin',
+             'is_active'=>true,
              'password' => Hash::make('admin'),
          ]);
          \App\Models\User::factory()->create([
             'name' => 'fournisseur',
             'email' => 'fournisseur@gmail.com',
             'role' => 'fournisseur',
+             'is_active'=>true,
             'pourcentage' => 12,
             'password' => Hash::make('fournisseur'),
         ]);
@@ -32,6 +34,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'fournisseur2',
             'email' => 'fournisseur2@gmail.com',
             'role' => 'fournisseur',
+            'is_active'=>false,
             'pourcentage' => 10,
             'password' => Hash::make('fournisseur'),
         ]);

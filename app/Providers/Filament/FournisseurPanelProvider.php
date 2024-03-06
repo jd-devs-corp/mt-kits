@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use Filament\Forms\Components\FileUpload;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -16,7 +17,9 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Validation\Rules\Password;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Jeffgreco13\FilamentBreezy\BreezyCore;
 use Swis\Filament\Backgrounds\FilamentBackgroundsPlugin;
 use Swis\Filament\Backgrounds\ImageProviders\MyImages;
 
@@ -27,9 +30,11 @@ class FournisseurPanelProvider extends PanelProvider
         return $panel
             ->id('fournisseur')
             ->path('supplier')
-            // ->spa()
-            // ->unsavedChangesAlerts()
             ->login()
+            ->profile(Pages\Auth\EditProfile::class)
+            ->registration()
+            ->passwordReset()
+            ->emailVerification()
             ->colors([
                 'danger' => Color::Rose,
                 'gray' => Color::Gray,
@@ -43,13 +48,14 @@ class FournisseurPanelProvider extends PanelProvider
             ->pages([
                 Pages\Dashboard::class,
             ])
-            ->discoverClusters(in: app_path('Filament/Clusters'), for:'App\\Filament\\Clusters')
+            ->discoverClusters(in: app_path('Filament/Clusters'), for: 'App\\Filament\\Clusters')
             ->discoverWidgets(in: app_path('Filament/Fournisseur/Widgets'), for: 'App\\Filament\\Fournisseur\\Widgets')
             ->widgets([
 //                Widgets\AccountWidget::class,
 //                 Widgets\FilamentInfoWidget::class,
+
             ])
-            ->brandLogo(fn() =>view('filament.supplier.logo'))
+            ->brandLogo(fn() => view('filament.supplier.logo'))
             ->brandName('Fournisseur')
             ->favicon(asset('images/logo_supplier.png'))
             ->middleware([
@@ -65,6 +71,27 @@ class FournisseurPanelProvider extends PanelProvider
             ], isPersistent: true)
             ->authMiddleware([
                 Authenticate::class,
+            ])
+            ->plugins([
+                BreezyCore::make()
+                    ->passwordUpdateRules(
+                        rules: [Password::default()->mixedCase()->uncompromised(3)], // you may pass an array of validation rules as well. (default = ['min:8'])
+                        requiresCurrentPassword: true // when false, the user can update their password without entering their current password. (default = true)
+                    )
+                    ->avatarUploadComponent(fn() => FileUpload::make('avatar_url')->disk('public'))
+                    ->myProfile(
+                        shouldRegisterUserMenu: true,
+                        shouldRegisterNavigation: true,
+                        hasAvatars: true,
+                        slug: 'profil',
+                        navigationGroup: 'Paramètres',
+                    ),
+                FilamentBackgroundsPlugin::make()
+                    ->imageProvider(
+                        MyImages::make()
+                            ->directory('\images\swisnl\filament-backgrounds\curated-by-swis')
+                    )
+
             ])
             ->plugins([
                 FilamentBackgroundsPlugin::make()

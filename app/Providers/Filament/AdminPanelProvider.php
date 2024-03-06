@@ -2,7 +2,6 @@
 
 namespace App\Providers\Filament;
 
-use App\Livewire\MyCustomComponent;
 use Filament\Forms\Components\FileUpload;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -35,10 +34,9 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
-            ->registration()
+//            ->registration()
             ->passwordReset()
             ->emailVerification()
-            // ->spa()
             ->unsavedChangesAlerts()
             ->colors([
                 'danger' => Color::Rose,
@@ -74,19 +72,9 @@ class AdminPanelProvider extends PanelProvider
             ->authGuard('')
             ->plugins([
                 BreezyCore::make()
-                   /* ->enableTwoFactorAuthentication(
-                        force: false, // force the user to enable 2FA before they can use the application (default = false)
-//                        action: CustomTwoFactorPage::class // optionally, use a custom 2FA page
-                    )*/
-                    ->myProfileComponents([
-                        // 'personal_info' => ,
-                        'update_password' => MyCustomComponent::class, // replaces UpdatePassword component with your own.
-                        // 'two_factor_authentication' => ,
-                        // 'sanctum_tokens' =>
-                    ])
-                    ->withoutMyProfileComponents([
+                    /*->withoutMyProfileComponents([
                         'update_password'
-                    ])
+                    ])*/
                     ->passwordUpdateRules(
                         rules: [Password::default()->mixedCase()->uncompromised(3)], // you may pass an array of validation rules as well. (default = ['min:8'])
                         requiresCurrentPassword: true // when false, the user can update their password without entering their current password. (default = true)
@@ -97,7 +85,7 @@ class AdminPanelProvider extends PanelProvider
                         shouldRegisterNavigation: true,
                         hasAvatars: true,
                         slug: 'profil',
-                        navigationGroup: 'Paramètres'
+                        navigationGroup: 'Paramètres',
                     ),
                 FilamentBackgroundsPlugin::make()
                     ->imageProvider(
