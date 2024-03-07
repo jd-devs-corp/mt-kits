@@ -4,7 +4,11 @@
 <html lang="fr">
 <head>
     <title>Mentalits Kits</title>
+<<<<<<< HEAD
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+=======
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+>>>>>>> 9f7dd1b (Personnalisation du mail)
 </head>
 
 <body class="bg-gray-100">
