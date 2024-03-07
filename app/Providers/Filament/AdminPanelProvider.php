@@ -69,7 +69,7 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
-            ->authGuard('')
+            ->authGuard('web')
             ->plugins([
                 BreezyCore::make()
                     /*->withoutMyProfileComponents([
@@ -79,7 +79,7 @@ class AdminPanelProvider extends PanelProvider
                         rules: [Password::default()->mixedCase()->uncompromised(3)], // you may pass an array of validation rules as well. (default = ['min:8'])
                         requiresCurrentPassword: true // when false, the user can update their password without entering their current password. (default = true)
                     )
-                    ->avatarUploadComponent(fn() => FileUpload::make('Photo de profil')->disk('public'))
+                    ->avatarUploadComponent(fn() => FileUpload::make('avatar_url')->disk('public'))
                     ->myProfile(
                         shouldRegisterUserMenu: true,
                         shouldRegisterNavigation: true,

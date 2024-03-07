@@ -17,6 +17,8 @@ Route::get('/', function () {
     return redirect('supplier');
 });
 
+
+
 /*Route::get('/admin/login', [
     'as' => 'login',
     'uses' => 'AuthController@getLogin',
