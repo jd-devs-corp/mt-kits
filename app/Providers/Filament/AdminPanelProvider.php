@@ -69,7 +69,7 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
-            ->authGuard('')
+            ->authGuard('web')
             ->plugins([
                 BreezyCore::make()
                     /*->withoutMyProfileComponents([

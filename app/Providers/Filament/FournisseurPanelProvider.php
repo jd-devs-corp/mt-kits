@@ -2,6 +2,8 @@
 
 namespace App\Providers\Filament;
 
+use Awcodes\Overlook\OverlookPlugin;
+use Awcodes\Overlook\Widgets\OverlookWidget;
 use Filament\Forms\Components\FileUpload;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -32,7 +34,7 @@ class FournisseurPanelProvider extends PanelProvider
             ->path('supplier')
             ->login()
             ->profile(Pages\Auth\EditProfile::class)
-            ->registration()
+//            ->registration()
             ->passwordReset()
             ->emailVerification()
             ->colors([
@@ -50,9 +52,28 @@ class FournisseurPanelProvider extends PanelProvider
             ])
             ->discoverClusters(in: app_path('Filament/Clusters'), for: 'App\\Filament\\Clusters')
             ->discoverWidgets(in: app_path('Filament/Fournisseur/Widgets'), for: 'App\\Filament\\Fournisseur\\Widgets')
+
+            ->plugins([
+                OverlookPlugin::make()
+                    ->icons([
+                        'heroicon-o-users' => \App\Filament\Resources\ClientResource::class,
+                        'heroicon-o-wifi' => \App\Filament\Resources\KitResource::class,
+                    ])
+//                    ->sort(2)
+                    /*->columns([
+                        'default' => 1,
+                        'sm' => 2,
+                        'md' => 3,
+                        'lg' => 4,
+                        'xl' => 5,
+                        '2xl' => null,
+                    ]),*/
+            ])
             ->widgets([
 //                Widgets\AccountWidget::class,
 //                 Widgets\FilamentInfoWidget::class,
+                OverlookWidget::class
+
 
             ])
             ->brandLogo(fn() => view('filament.supplier.logo'))

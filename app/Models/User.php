@@ -10,7 +10,8 @@ use Filament\Models\Contracts\HasName;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Storage;
+ use Illuminate\Support\Facades\Auth;
+ use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\HasApiTokens;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -91,6 +92,18 @@ class User extends Authenticatable implements FilamentUser, HasName, HasAvatar, 
 
         return true;
     }
+    public function logout(): void
+    {
+        // Déconnexion de Sanctum
+        Auth::logout();
+
+        // Invalidation de la session
+        session()->invalidate();
+
+        // Redirection vers la page de connexion
+        redirect()->route('login');
+    }
+
 
     public function getFilamentName(): string
     {
