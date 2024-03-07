@@ -152,7 +152,7 @@ class ReabonnementResource extends Resource
             ->bulkActions([
                 Tables\Actions\ExportBulkAction::make('export'),
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    // Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

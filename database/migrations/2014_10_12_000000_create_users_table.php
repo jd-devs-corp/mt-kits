@@ -20,7 +20,8 @@ return new class extends Migration
             $table->integer('phone_number')->nullable();
             $table->enum('role', ['admin', 'fournisseur'])->default('admin');
             $table->timestamp('email_verified_at')->nullable();
-            $table->float('pourcentage')->nullable();
+            $table->float('pourcentage')->default(0);
+            $table->float('somme_a_percevoir')->default(0);
             $table->string('password')->default('new123');
             $table->string('avatar_url')->nullable();
             $table->rememberToken();
