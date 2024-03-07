@@ -46,7 +46,7 @@ class CheckSubscriptions extends Command
 
     public function sendEmail($email)
     {
-        Mail::raw('Votre abonnement est sur le point d\'expirer. Veuillez renouveler votre abonnement.', function ($message) use ($email) {
+        Mail::send('emails.fin_abonnement',[], function ($message) use ($email) {
             $message->to($email)
                 ->subject('Votre abonnement est sur le point d\'expirer');
         });
