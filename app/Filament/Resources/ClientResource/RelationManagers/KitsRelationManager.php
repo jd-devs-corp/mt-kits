@@ -30,10 +30,68 @@ class KitsRelationManager extends RelationManager
                     ->required()
                     ->label('Numero de kit')
                     ->maxLength(255),
-                Forms\Components\TextInput::make('localisation')
+                Forms\Components\Select::make('localisation')
+                    ->searchable()
                     ->required()
-                    ->label('Localisation')
-                    ->maxLength(255),
+                    ->placeholder('Veuillez selectionner une ville')
+                    ->options([
+                        'Abong-Mbang' => 'Abong-Mbang',
+                        'Akonolinga' => 'Akonolinga',
+                        'Ambam' => 'Ambam',
+                        'Bafang' => 'Bafang',
+                        'Bafia' => 'Bafia',
+                        'Bafoussam' => 'Bafoussam',
+                        'Bali' => 'Bali',
+                        'Bamenda' => 'Bamenda',
+                        'Bamendjou' => 'Bamendjou',
+                        'Bandjoun' => 'Bandjoun',
+                        'Bangangté' => 'Bangangté',
+                        'Bangem' => 'Bangem',
+                        'Banyo' => 'Banyo',
+                        'Batouri' => 'Batouri',
+                        'Bertoua' => 'Bertoua',
+                        'Bélabo' => 'Bélabo',
+                        'Buea' => 'Buea',
+                        'Dizangué' => 'Dizangué',
+                        'Douala' => 'Douala',
+                        'Dschang' => 'Dschang',
+                        'Ébolowa' => 'Ébolowa',
+                        'Éseka' => 'Éseka',
+                        'Fontem' => 'Fontem',
+                        'Foumban' => 'Foumban',
+                        'Foumbot' => 'Foumbot',
+                        'Fundong' => 'Fundong',
+                        'Garoua' => 'Garoua',
+                        'Guider' => 'Guider',
+                        'Kousséri' => 'Kousséri',
+                        'Kribi' => 'Kribi',
+                        'Kumba' => 'Kumba',
+                        'Limbe' => 'Limbe',
+                        'Loum' => 'Loum',
+                        'Mamfé' => 'Mamfé',
+                        'Maroua' => 'Maroua',
+                        'Mbalmayo' => 'Mbalmayo',
+                        'Mbanga' => 'Mbanga',
+                        'Mbouda' => 'Mbouda',
+                        'Meiganga' => 'Meiganga',
+                        'Melong' => 'Melong',
+                        'Mfou' => 'Mfou',
+                        'Mokolo' => 'Mokolo',
+                        'Mora' => 'Mora',
+                        'Mutengene' => 'Mutengene',
+                        'Nanga Eboko' => 'Nanga Eboko',
+                        'Ngaoundéré' => 'Ngaoundéré',
+                        'Nkongsamba' => 'Nkongsamba',
+                        'Ntui' => 'Ntui',
+                        'Obala' => 'Obala',
+                        'Poli' => 'Poli',
+                        'Sangmélima' => 'Sangmélima',
+                        'Tchollire' => 'Tchollire',
+                        'Wum' => 'Wum',
+                        'Yaoundé' => 'Yaoundé',
+                        'Yagoua' => 'Yagoua',
+                        'Yokadouma' => 'Yokadouma',
+                    ])
             ]);
     }
 
