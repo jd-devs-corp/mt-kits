@@ -1,6 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Spatie\Ignition\ErrorPage\ErrorPageViewModel;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +16,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect('supplier');
+    $user = Auth::user();
+    // dump($user);
+    if ($user && $user->role == 'fournisseur') {
+        return redirect('/supplier');
+    } elseif($user && $user->role == 'admin') {
+        return redirect('/admin');
+    }
+    else{
+        return view('welcome');
+    }
+
 });
 
 
