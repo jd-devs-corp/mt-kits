@@ -27,6 +27,7 @@ class ReabonnementsRelationManager extends RelationManager
                     ->minDate(now()),
                 Forms\Components\TextInput::make('plan_tarifaire')
                     ->required()
+                    ->prefix('Fcfa')
                     ->numeric(),
             ]);
     }
@@ -38,7 +39,8 @@ class ReabonnementsRelationManager extends RelationManager
             ->columns([
                 Tables\Columns\TextColumn::make('date_abonnement'),
                 Tables\Columns\TextColumn::make('date_fin_abonnement'),
-                Tables\Columns\TextColumn::make('plan_tarifaire'),
+                Tables\Columns\TextColumn::make('plan_tarifaire')
+                ->suffix('fcfa'),
                 Tables\Columns\TextColumn::make('kit.kit_number'),
                 /*StatusColumn::make('Statut')
                     ->badge()

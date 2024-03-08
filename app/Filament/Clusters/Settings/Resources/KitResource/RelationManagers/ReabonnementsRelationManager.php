@@ -2,6 +2,7 @@
 
 namespace App\Filament\Clusters\Settings\Resources\KitResource\RelationManagers;
 
+use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -36,11 +37,14 @@ class ReabonnementsRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('description')
             ->columns([
+                Tables\Columns\TextColumn::make('kit.kit_number')
+                ->label('Numero de kit')
+                ->prefix('N° '),
                 Tables\Columns\TextColumn::make('date_abonnement'),
                 Tables\Columns\TextColumn::make('date_fin_abonnement'),
-                Tables\Columns\TextColumn::make('plan_tarifaire'),
-                Tables\Columns\TextColumn::make('kit.kit_number'),
-                StatusColumn::make('Statut')
+                Tables\Columns\TextColumn::make('plan_tarifaire')
+                ->suffix(" Fcfa"),
+                // StatusColumn::make('Statut')
             ])
             ->filters([
                 //
@@ -50,12 +54,10 @@ class ReabonnementsRelationManager extends RelationManager
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\ExportAction::make(),
+                // Tables\Actions\ExportAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\ExportBulkAction::make(),
-                ]),
+                FilamentExportBulkAction::make('export'),
             ]);
     }
 }

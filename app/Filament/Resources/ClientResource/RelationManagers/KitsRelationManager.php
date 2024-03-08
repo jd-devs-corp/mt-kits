@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\ClientResource\RelationManagers;
 
+use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
 use App\Models\Kit;
 use App\Tables\Columns\StatusColumn;
 use Carbon\Carbon;
@@ -112,9 +113,7 @@ Utilisez ce code avec précaution.
                 // Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\ExportBulkAction::make(),
-                ]),
+                FilamentExportBulkAction::make('export'),
             ]);
     }
 }

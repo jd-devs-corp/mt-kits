@@ -70,9 +70,11 @@ class UserResource extends Resource
 
                 Forms\Components\TextInput::make('pourcentage')
                     ->label('Pourcentage de commission')
+                    ->suffix('%')
                     ->numeric(),
                 Forms\Components\TextInput::make('somme_a_percevoir')
                     // ->visibleOn('view')
+                    ->suffix(' FCFA')
                     ->label('Montant a percevoir')
             ]);
     }
@@ -96,9 +98,7 @@ class UserResource extends Resource
                     ->searchable(),
                 Tables\Columns\IconColumn::make('is_active')
                     ->label('Statut de compte')
-                    ->boolean()
-//                ->badge()
-                ,
+                    ->boolean(),
                 Tables\Columns\TextColumn::make('pourcentage')
                     ->label('Pourcentage de commission')
                     ->suffix(' %')

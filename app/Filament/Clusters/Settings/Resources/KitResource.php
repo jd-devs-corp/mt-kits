@@ -2,6 +2,7 @@
 
 namespace App\Filament\Clusters\Settings\Resources;
 
+use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
 use App\Filament\Clusters\Settings;
 use App\Filament\Clusters\Settings\Resources\KitResource\Pages;
 use App\Filament\Clusters\Settings\Resources\KitResource\RelationManagers;
@@ -215,9 +216,7 @@ Utilisez ce code avec précaution.
                 // Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\ExportBulkAction::make(),
-                ]),
+                FilamentExportBulkAction::make('export'),
             ]);
 
 

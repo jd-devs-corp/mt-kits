@@ -70,7 +70,7 @@ class KitResource extends Resource
                 Forms\Components\TextInput::make('kit_number')
                     ->required()
                     ->label('Numero de kit')
-                    ->prefix('N°')
+                    ->prefix('N° ')
                     ->maxLength(255),
 
                 Forms\Components\Select::make('localisation')

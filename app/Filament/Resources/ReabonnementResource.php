@@ -150,10 +150,7 @@ class ReabonnementResource extends Resource
                 FilamentExportHeaderAction::make('export')
             ])*/
             ->bulkActions([
-                Tables\Actions\ExportBulkAction::make('export'),
-                Tables\Actions\BulkActionGroup::make([
-                    // Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                FilamentExportBulkAction::make('export'),
             ]);
     }
 
