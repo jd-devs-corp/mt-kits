@@ -50,7 +50,7 @@ class KitResource extends Resource
                     ->preload()
                     ->createOptionForm([
                         Forms\Components\TextInput::make('name')
-                            ->label('nom')
+                            ->label('Nom')
                             ->required()
                             ->maxLength(255),
                         Forms\Components\TextInput::make('email')
@@ -59,6 +59,7 @@ class KitResource extends Resource
                             ->required()
                             ->maxLength(255),
                         PhoneInput::make('phone_number')
+                            ->label('Numero de telephone')
                             ->countryStatePath('phone_country')
                             ->defaultCountry('CM'),
                     ])
