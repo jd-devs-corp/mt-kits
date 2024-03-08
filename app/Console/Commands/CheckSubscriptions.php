@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Reabonnement;
+use DateTime;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Kit;
 use Carbon\Carbon;
@@ -42,22 +43,24 @@ class CheckSubscriptions extends Command
                     $email = $kit->client->email;
                     // Assurez-vous que la relation client est définie dans le modèle Kit
                     $kitId = $kit->id;
-                    $this->sendEmail($email, $dateFinAbonnement); // Fonction pour envoyer l'email
+                    $dateTime = DateTime::createFromFormat('Y-m-d H:i:s', $dateFinAbonnement);
+                    $dateSeule = $dateTime->format('Y-m-d');
+                    $heureMinute = $dateTime->format('H:i');
+                    $this->sendEmail($email, $dateSeule, $heureMinute); // Fonction pour envoyer l'email
                 }
             }
         }
     }
 
-    public function sendEmail($email, $dateFinAbonnement)
+    public function sendEmail($email, $dateSeule, $heureMinute)
     {
-//        $dateFinAbonnement = Reabonnement::where('kit_id', $kit)->sortByDesc('date_fin_abonnement')->first()->date_fin_abonnement->format('Y-m-d');
+        //        $dateFinAbonnement = Reabonnement::where('kit_id', $kit)->sortByDesc('date_fin_abonnement')->first()->date_fin_abonnement->format('Y-m-d');
+//        $image = "/images/logo_admin.png";
 
 
-        Mail::send('emails.fin_abonnement', ['dateFinAbonnement' => $dateFinAbonnement], function ($message) use ($email, $dateFinAbonnement) {
+        Mail::send('emails.fin_abonnement', ['dateSeule' => $dateSeule,'heureMinute'=>$heureMinute], function ($message) use ($email, $dateSeule, $heureMinute) {
             $message->to($email)
                 ->subject('Votre abonnement est sur le point d\'expirer');
         });
-
     }
 }
-

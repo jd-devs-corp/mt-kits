@@ -1,23 +1,23 @@
-<!-- resources/views/emails/email.blade.php -->
+<table style="background-color: #F3F4F6; padding: 0; margin: 0; width: 100%;" cellspacing="0" cellpadding="0">
+    <tbody>
+    <tr>
+        <td style="max-width: 30rem; margin: auto; background-color: #ffffff; padding: 2rem; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); border-radius: 0.5rem;">
+            <table style="width: 100%;" cellspacing="0" cellpadding="0">
+                <tbody>
+                <tr>
+                    <td style="text-align: center;">
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <title>Mentalits Kits</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-
-</head>
-
-<body class="bg-gray-100">
-<div class="max-w-2xl mx-auto p-8 bg-white shadow-lg rounded-lg">
-    <div class="text-center">
-        <img src="{{asset('images/logo_admin.png')}}" alt="Logo de votre application" class="mx-auto mb-4">
-        <h1 class="text-2xl font-bold mb-2">Votre abonnement est sur le point d'expirer</h1>
-        <p class="text-gray-700">Veuillez renouveler votre abonnement avant le <b>{{ $dateFinAbonnement }}</b>, pour eviter toute
-            interruption.</p>
-
-    </div>
-</div>
-</body>
-</html>
+                        <img src="{{ $message->embed(public_path().'/images/logo_admin.png')}}" alt="MTKits"
+                             style="margin: auto auto 1rem;max-width: 100%; height: auto;">
+                        <h1 style="font-size: 5rem;font-family: 'Sora', sans-serif; font-weight: bold; margin-bottom: 0.5rem;">
+                            Votre abonnement est sur le point d'expirer</h1>
+                        <p style="color: #4B5563;font-size: 2rem">Veuillez renouveler votre abonnement avant le
+                            <b>{{ $dateSeule }}</b> à <b>{{$heureMinute}}</b>, pour eviter toute interruption.</p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
