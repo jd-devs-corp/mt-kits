@@ -148,7 +148,10 @@ class KitResource extends Resource
                     ->label('Proprietaire')
                     ->sortable()
                     ->searchable(),
-
+                Tables\Columns\TextColumn::make('user.name')
+                    ->label('Fournisseur')
+                    ->sortable()
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('kit_number')
                     ->label('Numero de Kit')
                     ->prefix('N° ')

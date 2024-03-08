@@ -142,17 +142,12 @@ class KitResource extends Resource
                     ->label('Proprietaire')
                     ->sortable()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('user.name')
-                    ->sortable()
-                    ->label('Fournisseur')
-                    ->searchable(),
-
                 Tables\Columns\TextColumn::make('kit_number')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('localisation')
                     ->searchable(),
                     // StatusColumn::make('statut'),
-                    Tables\Columns\TextColumn::make('status')
+                Tables\Columns\TextColumn::make('status')
                     ->label('Statut')
                     ->getStateUsing(function ($record) {
                         $kitNumber = $record->kit_number;
@@ -204,7 +199,7 @@ Utilisez ce code avec précaution.
                     ->default('Inactif')
                     ->badge()
                     ->color(fn(string $state): string => match ($state) {
-                        'Valide' => 'success',
+                        'Valide' => 'primary',
                         'A terme' => 'warning',
                         'Expiré' => 'danger',
                         'Inactif' => 'gray',
