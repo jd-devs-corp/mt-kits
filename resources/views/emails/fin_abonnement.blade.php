@@ -11,7 +11,7 @@
                              style="margin: auto auto 1rem;max-width: 100%; height: auto;">
                         <h1 style="font-size: 5rem;font-family: 'Sora', sans-serif; font-weight: bold; margin-bottom: 0.5rem;">
                             Votre abonnement est sur le point d'expirer</h1>
-                        <p style="color: #4B5563;font-size: 2rem">Veuillez renouveler votre abonnement avant le
+                        <p style="color: #4B5563;font-size: 2rem;font-family: 'Arial Black', sans-serif">Veuillez renouveler votre abonnement avant le
                             <b>{{ $dateSeule }}</b> à <b>{{$heureMinute}}</b>, pour eviter toute interruption.</p>
                     </td>
                 </tr>
