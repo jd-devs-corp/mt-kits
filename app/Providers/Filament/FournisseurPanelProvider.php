@@ -59,20 +59,11 @@ class FournisseurPanelProvider extends PanelProvider
                         'heroicon-o-users' => \App\Filament\Resources\ClientResource::class,
                         'heroicon-o-wifi' => \App\Filament\Resources\KitResource::class,
                     ])
-//                    ->sort(2)
-                    /*->columns([
-                        'default' => 1,
-                        'sm' => 2,
-                        'md' => 3,
-                        'lg' => 4,
-                        'xl' => 5,
-                        '2xl' => null,
-                    ]),*/
             ])
             ->widgets([
 //                Widgets\AccountWidget::class,
 //                 Widgets\FilamentInfoWidget::class,
-                OverlookWidget::class
+//                OverlookWidget::class
 
 
             ])
