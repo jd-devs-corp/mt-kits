@@ -154,7 +154,7 @@ Utilisez ce code avec précaution.
                     ->default('Inactif')
                     ->badge()
                     ->color(fn(string $state): string => match ($state) {
-                        'Valide' => 'success',
+                        'Valide' => 'primary',
                         'A terme' => 'warning',
                         'Expiré' => 'danger',
                         'Inactif' => 'gray',

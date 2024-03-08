@@ -24,7 +24,7 @@ Route::get('/', function () {
         return redirect('/admin');
     }
     else{
-        return view('welcome');
+        return redirect('/supplier');
     }
 
 });
