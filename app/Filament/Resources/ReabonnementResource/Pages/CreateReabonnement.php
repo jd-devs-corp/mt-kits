@@ -21,8 +21,8 @@ class CreateReabonnement extends CreateRecord
         // dump($data);
         $user = User::find($kit->user_id);
 
-        if ($user && $user->role === 'fournisseur') {
-            $user->somme_a_percevoir += $data['plan_tarifaire'] * $user->pourcentage;
+        if ($user->isFournisseur) {
+            $user->somme_a_percevoir += ($data['plan_tarifaire'] * ($user->pourcentage/100));
             $user->save(); // Utilisez la méthode save() pour sauvegarder les modifications
         }
 
