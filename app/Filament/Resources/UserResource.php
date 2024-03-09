@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
 use App\Filament\Resources\UserResource\Pages;
 use App\Models\User;
+use Filament\Actions\Action;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Tables\Grouping\Group;
@@ -14,6 +15,7 @@ use Filament\Tables\Table;
 
 //use Svg\Tag\Group;
 use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
+use Filament\Resources\Pages\ListRecords;
 
 class UserResource extends Resource
 {
@@ -23,6 +25,7 @@ class UserResource extends Resource
     protected static ?string $navigationGroup = 'Administration';
 
     protected static ?string $navigationLabel = 'Gerants';
+
 
     public static function form(Form $form): Form
     {
@@ -74,7 +77,7 @@ class UserResource extends Resource
                     ->suffix('%')
                     ->numeric(),
                 Forms\Components\TextInput::make('somme_a_percevoir')
-                    // ->visibleOn('view')
+                     ->visibleOn('view')
                     ->suffix(' FCFA')
                     ->label('Montant a percevoir')
             ]);
@@ -98,7 +101,7 @@ class UserResource extends Resource
                     ->label('Rôle')
                     ->searchable(),
                 Tables\Columns\IconColumn::make('is_active')
-                    ->label('Statut')
+                    ->label('Statut de compte')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('pourcentage')
                     ->label('Commission')
@@ -110,22 +113,28 @@ class UserResource extends Resource
                 ->collapsible()
                 ->getTitleFromRecordUsing(fn($record) => $record->is_active ? 'Actif' : 'Inactif')
             )
+            ->groups(
+                ['role']
+            )
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\Action::make('reset_commission')
-                                    ->label('Marquer comme payé')
-                                    ->icon('heroicon-o-banknotes')
+                /*Tables\Actions\Action::make('generateReceipt')
+                    ->label('Payer')
+                    ->icon('heroicon-s-banknotes')
+                    ->action(function (User $record) {
+                        return redirect()->to('/download-receipt/' . $record->id);
+                    }),*/
+                /* Tables\Actions\EditAction::make(),
+                 EditAction::make('Payer')
+                     ->mutateRecordDataUsing(function (array $data): array {
+                         $data['user_id'] = auth()->id();
 
-                                    ->action(function (User $record, array $data) {
-                                        $record->somme_a_percevoir = 0;
-                                        $record->update();
-
-                                        return back();
-                                    }),
+                         return $data;
+                     })*/
             ])
             ->bulkActions([
                 FilamentExportBulkAction::make('Exporter')
@@ -134,6 +143,17 @@ class UserResource extends Resource
                 ]),*/
             ]);
     }
+    public function getTableActions(): array
+    {
+       /* return [
+            Action::make('generateReceipt')
+                ->label('Générer Reçu')
+                ->action(function (User $record) {
+                    return redirect()->to('/download-receipt/' . $record->id);
+                }),
+        ];*/
+    }
+
 
     public static function getRelations(): array
     {

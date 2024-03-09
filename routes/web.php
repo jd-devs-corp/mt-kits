@@ -15,16 +15,16 @@ use Spatie\Ignition\ErrorPage\ErrorPageViewModel;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/download-receipt/{userId}', [ReceiptController::class, 'downloadReceipt']);
 
 Route::get('/', function () {
     $user = Auth::user();
     // dump($user);
     if ($user && $user->role == 'fournisseur') {
         return redirect('/supplier');
-    } elseif($user && $user->role == 'admin') {
+    } elseif ($user && $user->role == 'admin') {
         return redirect('/admin');
-    }
-    else{
+    } else {
         return redirect('/supplier');
     }
 
