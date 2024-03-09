@@ -97,10 +97,10 @@ class UserResource extends Resource
                     ->label('Rôle')
                     ->searchable(),
                 Tables\Columns\IconColumn::make('is_active')
-                    ->label('Statut de compte')
+                    ->label('Statut')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('pourcentage')
-                    ->label('Pourcentage de commission')
+                    ->label('Commission')
                     ->suffix(' %')
                     ->searchable(),
             ])
@@ -115,13 +115,16 @@ class UserResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
-                /* Tables\Actions\EditAction::make(),
-                 EditAction::make('Payer')
-                     ->mutateRecordDataUsing(function (array $data): array {
-                         $data['user_id'] = auth()->id();
+                Tables\Actions\Action::make('reset_commission')
+                                    ->label('Marquer comme payé')
+                                    ->icon('heroicon-o-banknotes')
 
-                         return $data;
-                     })*/
+                                    ->action(function (User $record, array $data) {
+                                        $record->somme_a_percevoir = 0;
+                                        $record->update();
+
+                                        return back();
+                                    }),
             ])
             ->bulkActions([
                 /*Tables\Actions\BulkActionGroup::make([
