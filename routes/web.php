@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ReceiptController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Spatie\Ignition\ErrorPage\ErrorPageViewModel;
@@ -28,6 +29,8 @@ Route::get('/', function () {
     }
 
 });
+
+Route::get('admin/receipt/generate/{id}', [ReceiptController::class, 'generateReceipt'])->name('receipts.generate');
 
 
 

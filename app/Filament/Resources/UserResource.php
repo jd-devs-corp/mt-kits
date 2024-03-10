@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
 use App\Filament\Resources\UserResource\Pages;
 use App\Models\User;
 use Filament\Forms;
@@ -127,6 +128,7 @@ class UserResource extends Resource
                                     }),
             ])
             ->bulkActions([
+                FilamentExportBulkAction::make('Exporter')
                 /*Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),*/
@@ -139,10 +141,6 @@ class UserResource extends Resource
             //
             // RelationManagers\KitsRelationManager::class,
         ];
-    }
-    public static function getNavigationBadge(): ?string
-    {
-        return static::getModel()::count();
     }
 
     public static function getPages(): array

@@ -129,7 +129,7 @@ class ReabonnementResource extends Resource
                     ->label('Proprietaire')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('date_abonnement')
-                    ->dateTime()
+                    ->date()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('date_fin_abonnement')
                     ->dateTime()
@@ -144,6 +144,17 @@ class ReabonnementResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
+                Tables\Actions\Action::make('generate_receipt')
+                    ->label('Telecharger le reçu')
+                    ->icon('heroicon-o-document')
+                    // ->label('Waoh')
+                    ->action(function(Reabonnement $record, array $data){
+                        return redirect(url('admin/receipt/generate',$record->id));
+                    })
+                    // ->url(route('receipts.generate', function(User $record, array $data){
+                    //     return intval($record->id);
+// }
+//                     )),
                 // Tables\Actions\EditAction::make(),
             ])
             /*->headerActions([
@@ -152,31 +163,6 @@ class ReabonnementResource extends Resource
             ->bulkActions([
                 FilamentExportBulkAction::make('export'),
             ]);
-    }
-
-    protected function afterCreateOrUpdate(ComponentContainer $container, $record): void
-    {
-        parent::afterCreateOrUpdate($container, $record);
-
-        $container->getComponent('date_abonnement')->on('change', function ($value) use ($container) {
-            $startDate = $value;
-            $duration = $container->getComponent('duree_abonnement')->getValue();
-
-            if ($startDate && $duration) {
-                $endDate = Carbon::parse($startDate)->addMonths($duration);
-                $container->getComponent('date_fin_abonnement')->setValue($endDate->toDateString());
-            }
-        });
-
-        $container->getComponent('duree_abonnement')->on('change', function ($value) use ($container) {
-            $startDate = $container->getComponent('date_abonnement')->getValue();
-            $duration = $value;
-
-            if ($startDate && $duration) {
-                $endDate = Carbon::parse($startDate)->addMonths($duration);
-                $container->getComponent('date_fin_abonnement')->setValue($endDate->toDateString());
-            }
-        });
     }
 
     protected function getTableHeaderActions(): array
