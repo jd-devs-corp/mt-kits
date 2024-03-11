@@ -87,11 +87,7 @@ class ClientResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
 
             ])
-            ->defaultGroup(Group::make('statut')
-                            ->label('Statut')
-                            ->collapsible()
-                            ->getTitleFromRecordUsing(fn($record) => $record->is_active ? 'Actif' : 'Inactif')
-                        )
+            
             ->filters([
                 //
             ])

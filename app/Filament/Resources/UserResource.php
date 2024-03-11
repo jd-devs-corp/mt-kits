@@ -143,16 +143,6 @@ class UserResource extends Resource
                 ]),*/
             ]);
     }
-    public function getTableActions(): array
-    {
-       /* return [
-            Action::make('generateReceipt')
-                ->label('Générer Reçu')
-                ->action(function (User $record) {
-                    return redirect()->to('/download-receipt/' . $record->id);
-                }),
-        ];*/
-    }
 
 
     public static function getRelations(): array

@@ -14,6 +14,7 @@ use Carbon\Carbon;
 use Faker\Provider\ar_EG\Text;
 use Filament\Facades\Filament;
 use Filament\Forms;
+use Filament\Tables\Filters\Filter;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -23,10 +24,10 @@ use Illuminate\Support\Facades\Auth;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-
-//use Illuminate\Support\Facades\Html;
 use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Grouping\Group;
+use PhpOffice\PhpSpreadsheet\Calculation\Web;
 
 class KitResource extends Resource
 {
@@ -47,7 +48,7 @@ class KitResource extends Resource
                     ->label('Proprietaire')
                     ->relationship('client', 'name')
                     ->searchable()
-                    ->preload()
+                    // ->preload()
                     ->createOptionForm([
                         Forms\Components\TextInput::make('name')
                             ->label('Nom')
@@ -141,6 +142,7 @@ class KitResource extends Resource
 
     public static function table(Table $table): Table
     {
+
         return $table
             ->columns(components: [
                 Tables\Columns\TextColumn::make('client.name')
@@ -151,7 +153,6 @@ class KitResource extends Resource
                 Tables\Columns\TextColumn::make('user.name')
                     ->label('Fournisseur')
                     ->sortable()
-                    // ->url(fn ($record) => route('filament.resources.users.show', $record->user_id))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('kit_number')
                     ->label('Numero de Kit')
@@ -159,7 +160,6 @@ class KitResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('localisation')
                     ->searchable(),
-//                StatusColumn::make('status'),
                 Tables\Columns\TextColumn::make('status')
                     ->label('Statut')
                     ->sortable()
@@ -173,33 +173,9 @@ class KitResource extends Resource
                         if ($dateFinAbonnement === null) {
                             return 'Inactif';
                         }
-                        // Convertir la date de fin d'abonnement en objet Carbon
-                        /*Conversion de la date de fin d'abonnement en objet Carbon
-Le code // Convertir la date de fin d'abonnement en objet Carbon vise à convertir une date de fin d'abonnement (sous forme de string) en un objet Carbon.
-
-Pourquoi utiliser Carbon ?
-
-Carbon est une bibliothèque PHP puissante pour la manipulation de dates et d'heures. Elle offre de nombreuses fonctionnalités absentes des fonctions natives de PHP, telles que :
-
-Différences entre dates
-Ajout et soustraction de périodes
-Formatage de dates
-Gestion des fuseaux horaires
-Conversion en objet Carbon:
-
-Pour convertir une date de fin d'abonnement en objet Carbon, on peut utiliser la méthode parse() de la classe Carbon :
-
-PHP
-$dateFinAbonnement = Carbon::parse($dateFinAbonnementString);
-Utilisez ce code avec précaution.
-*/
                         $dateFinAbonnementCarbon = Carbon::parse($dateFinAbonnement);
-
-                        // Calculer la différence en jours entre la date de fin d'abonnement et la date actuelle
                         $diffEnJours = $dateFinAbonnementCarbon->diffInDays(now());
-
-                        // Déterminer la couleur et le texte du badge en fonction de la différence en jours
-                        if ($diffEnJours >= 20) {
+                        if ($diffEnJours > 15) {
                             return 'Valide';
                         } elseif ($diffEnJours <= 15) {
                             return 'A terme';
@@ -221,7 +197,25 @@ Utilisez ce code avec précaution.
 
             ])
             ->filters([
-                //
+                Filter::make('Valide')
+                    ->query(fn(Builder $query): Builder => $query->whereHas('reabonnements', function (Builder $query) {
+                        $query->whereDate('date_fin_abonnement', '>', now()->addDays(15));
+                    })
+
+                ),
+                Filter::make('A terme')
+                    ->query(fn(Builder $query): Builder => $query->whereHas('reabonnements', function (Builder $query) {
+                                $query->whereDate('date_fin_abonnement', '<=', now()->addDays(15));
+                            })
+                        ),
+                Filter::make('Expire')
+                    ->query(fn(Builder $query): Builder => $query->whereHas('reabonnements', function (Builder $query) {
+                        $query->whereDate('date_fin_abonnement', '<', now()->addDays(0));
+                    })
+                ),
+                Filter::make('Inactif')
+                    ->query(fn(Builder $query): Builder => $query->whereDoesntHave('reabonnements')
+                )
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
