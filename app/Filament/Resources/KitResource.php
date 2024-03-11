@@ -62,7 +62,7 @@ class KitResource extends Resource
                         PhoneInput::make('phone_number')
                             ->label('Numero de telephone')
                             ->countryStatePath('phone_country')
-                            ->defaultCountry('CM'),
+                            ->initialCountry('CM'),
                     ])
                     ->required(),
                 Forms\Components\Hidden::make('user_id')

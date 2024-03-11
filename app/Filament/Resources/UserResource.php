@@ -43,7 +43,7 @@ class UserResource extends Resource
                 PhoneInput::make('phone_number')
                     ->label('Numéro de téléphone')
                     ->countryStatePath('phone_country')
-                    ->defaultCountry('CM'),
+                    ->initialCountry('CM'),
                 Forms\Components\Select::make('role')
                     ->label('Rôle')
                     ->required()

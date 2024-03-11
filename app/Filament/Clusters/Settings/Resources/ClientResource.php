@@ -58,9 +58,12 @@ class ClientResource extends Resource
                 Tables\Columns\TextColumn::make('email')
                     ->searchable()
                     ->label('Adresse E-mail'),
-                Tables\Columns\TextColumn::make('phone_number')
-                    ->numeric()
-                    ->sortable(),
+                PhoneInput::make('phone_number')
+                    ->label('Numéro de téléphone')
+                    ->countryStatePath('phone_country')
+                    ->required()
+                    ->maxWidth('9')
+                    ->defaultCountry('CM'),
 
         ])
         ->filters([

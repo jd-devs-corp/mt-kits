@@ -62,7 +62,7 @@ class ClientResource extends Resource
                     ->countryStatePath('phone_country')
                     ->required()
                     ->maxWidth('9')
-                    ->defaultCountry('CM'),
+                    ->initialCountry('CM'),
 
             ]);
     }
@@ -87,7 +87,7 @@ class ClientResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
 
             ])
-            
+
             ->filters([
                 //
             ])

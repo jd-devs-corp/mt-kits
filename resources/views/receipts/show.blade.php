@@ -74,7 +74,7 @@
 <body>
 <div class="container">
     <div class="header">
-        <img src="{{ public_path().'/images/logo_admin.png'}}" alt="Logo">
+        <img src="{{ public_path().'/images/logo.png'}}" alt="Logo">
         <h1>Reçu de paiement</h1>
     </div>
 
