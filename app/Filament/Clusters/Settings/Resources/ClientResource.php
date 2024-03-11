@@ -15,6 +15,8 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
+use Ysfkaya\FilamentPhoneInput\PhoneInputNumberType;
+use Ysfkaya\FilamentPhoneInput\Tables\PhoneColumn;
 
 class ClientResource extends Resource
 {
@@ -58,12 +60,10 @@ class ClientResource extends Resource
                 Tables\Columns\TextColumn::make('email')
                     ->searchable()
                     ->label('Adresse E-mail'),
-                PhoneInput::make('phone_number')
-                    ->label('Numéro de téléphone')
-                    ->countryStatePath('phone_country')
-                    ->required()
-                    ->maxWidth('9')
-                    ->defaultCountry('CM'),
+            PhoneColumn::make('phone_number')
+                ->label('Numéro de téléphone')
+                ->displayFormat(PhoneInputNumberType::NATIONAL)
+                ->countryColumn('phone_country'),
 
         ])
         ->filters([

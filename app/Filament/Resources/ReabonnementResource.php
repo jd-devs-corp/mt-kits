@@ -140,7 +140,7 @@ class ReabonnementResource extends Resource
                     ->default(now()->addMonth()),
                 Forms\Components\TextInput::make('plan_tarifaire')
                     ->required()
-                    ->suffix('Fcfa')
+                    ->suffix('FCFA')
                     ->numeric(),
             ]);
     }
