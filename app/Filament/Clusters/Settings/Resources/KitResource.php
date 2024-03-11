@@ -8,7 +8,6 @@ use App\Filament\Clusters\Settings\Resources\KitResource\Pages;
 use App\Filament\Clusters\Settings\Resources\KitResource\RelationManagers;
 use App\Models\Kit;
 use App\Models\User;
-use App\Tables\Columns\StatusColumn;
 use Carbon\Carbon;
 use Filament\Facades\Filament;
 use Filament\Forms;
@@ -148,7 +147,6 @@ class KitResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('localisation')
                     ->searchable(),
-                    // StatusColumn::make('statut'),
                 Tables\Columns\TextColumn::make('status')
                     ->label('Statut')
                     ->getStateUsing(function ($record) {

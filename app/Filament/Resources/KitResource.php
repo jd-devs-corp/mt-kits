@@ -9,7 +9,6 @@ use App\Filament\Resources\KitResource\RelationManagers;
 use App\Models\Kit;
 use App\Models\Reabonnement;
 use App\Models\User;
-use App\Tables\Columns\StatusColumn;
 use Carbon\Carbon;
 use Faker\Provider\ar_EG\Text;
 use Filament\Facades\Filament;
@@ -162,7 +161,6 @@ class KitResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('status')
                     ->label('Statut')
-                    ->sortable()
                     ->getStateUsing(function ($record) {
                         $kitNumber = $record->kit_number;
 

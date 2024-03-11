@@ -9,7 +9,6 @@ use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
-//use App\Tables\Columns\StatusColumn;
 
 class ReabonnementsRelationManager extends RelationManager
 {
@@ -49,7 +48,7 @@ class ReabonnementsRelationManager extends RelationManager
                 ->label('Numero de kit')
                 ->prefix('N° '),
                 Tables\Columns\TextColumn::make('statut')
-                    ->label('Statut')  
+                    ->label('Statut')
                     ->getStateUsing(function ($record) {
                         $dateFinAbonnement = $record->date_fin_abonnement;
 

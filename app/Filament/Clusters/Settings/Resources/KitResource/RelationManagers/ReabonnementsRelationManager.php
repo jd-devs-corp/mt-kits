@@ -10,7 +10,6 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Tables\Columns\StatusColumn;
 
 class ReabonnementsRelationManager extends RelationManager
 {
@@ -46,7 +45,6 @@ class ReabonnementsRelationManager extends RelationManager
                 ->label('Date de fin'),
                 Tables\Columns\TextColumn::make('plan_tarifaire')
                 ->money('XAF'),
-                // StatusColumn::make('Statut')
             ])
             ->filters([
                 //

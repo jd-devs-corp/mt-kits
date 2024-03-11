@@ -34,9 +34,4 @@ Route::get('admin/receipt/generate/{id}', [ReceiptController::class, 'generateRe
 
 
 
-/*Route::get('/admin/login', [
-    'as' => 'login',
-    'uses' => 'AuthController@getLogin',
-    'middleware' => 'statut',
-]);*/
 

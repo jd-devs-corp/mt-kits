@@ -3,7 +3,6 @@
 namespace App\Filament\Clusters\Settings\Resources\ClientResource\RelationManagers;
 
 use App\Models\Kit;
-use App\Tables\Columns\StatusColumn;
 use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -48,7 +47,6 @@ class KitsRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('kit_number')->label('Numero de kit'),
                 Tables\Columns\TextColumn::make('status')
                     ->label('Statut')
-                    ->sortable()
                     ->getStateUsing(function ($record) {
                         $kitNumber = $record->kit_number;
 
