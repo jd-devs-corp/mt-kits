@@ -84,10 +84,10 @@ class User extends Authenticatable implements FilamentUser, HasName, HasAvatar, 
         }
 
         if ($panel->getId() === 'admin') {
-            return str_ends_with($this->email, '@gmail.com') && $this->role=="admin";
+            return str_ends_with($this->email, '@gmail.com') && $this->role=="admin" && $this->is_active;
         }
         else if ($panel->getId() === 'fournisseur') {
-            return str_ends_with($this->email, '@gmail.com') && $this->role=="fournisseur";
+            return str_ends_with($this->email, '@gmail.com') && $this->role=="fournisseur" && $this->is_active;
         }
 
         return true;
