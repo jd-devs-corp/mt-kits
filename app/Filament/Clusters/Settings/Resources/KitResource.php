@@ -15,6 +15,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Filters\Filter;
 use Illuminate\Support\Facades\Auth;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -208,7 +209,25 @@ Utilisez ce code avec précaution.
 
             ])
             ->filters([
-                //
+                Filter::make('Valide')
+                                    ->query(fn(Builder $query): Builder => $query->whereHas('reabonnements', function (Builder $query) {
+                                        $query->whereDate('date_fin_abonnement', '>', now()->addDays(15));
+                                    })
+
+                                ),
+                                Filter::make('A terme')
+                                    ->query(fn(Builder $query): Builder => $query->whereHas('reabonnements', function (Builder $query) {
+                                                $query->whereDate('date_fin_abonnement', '<=', now()->addDays(15));
+                                            })
+                                        ),
+                                Filter::make('Expire')
+                                    ->query(fn(Builder $query): Builder => $query->whereHas('reabonnements', function (Builder $query) {
+                                        $query->whereDate('date_fin_abonnement', '<', now()->addDays(0));
+                                    })
+                                ),
+                                Filter::make('Inactif')
+                                    ->query(fn(Builder $query): Builder => $query->whereDoesntHave('reabonnements')
+                                )
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
