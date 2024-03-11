@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
 use App\Filament\Resources\ClientResource\Pages;
 use App\Filament\Resources\ClientResource\RelationManagers;
 use App\Models\Client;
@@ -16,6 +17,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 use Filament\Infolists;
 use Filament\Infolists\Infolist;
+use Filament\Tables\Grouping\Group;
 use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
 use Ysfkaya\FilamentPhoneInput\PhoneInputNumberType;
 use Ysfkaya\FilamentPhoneInput\Tables\PhoneColumn;
@@ -80,14 +82,16 @@ class ClientResource extends Resource
                     ->displayFormat(PhoneInputNumberType::NATIONAL)
                     ->countryColumn('phone_country'),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
+                    ->dateTime('d-m-Y H:m:s')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+
             ])
+            ->defaultGroup(Group::make('statut')
+                            ->label('Statut')
+                            ->collapsible()
+                            ->getTitleFromRecordUsing(fn($record) => $record->is_active ? 'Actif' : 'Inactif')
+                        )
             ->filters([
                 //
             ])
@@ -96,9 +100,7 @@ class ClientResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    // Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                FilamentExportBulkAction::make('Exporter')
             ]);
     }
 

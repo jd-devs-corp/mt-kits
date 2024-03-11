@@ -2,6 +2,7 @@
 
 namespace App\Filament\Admin\Pages;
 
+use App\Filament\Widgets\KitsOverview;
 use App\Filament\Widgets\Overview;
 use Filament\Pages\Dashboard;
 use Filament\Pages\Page;
@@ -20,6 +21,7 @@ class TableauDeBord extends Dashboard
     protected function getHeaderWidgets(): array
     {
         return [
+            KitsOverview::class,
             Overview::class,
         ];
     }

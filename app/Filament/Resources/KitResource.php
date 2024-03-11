@@ -141,16 +141,17 @@ class KitResource extends Resource
 
     public static function table(Table $table): Table
     {
-//        $kit = new Reabonnement();
         return $table
             ->columns(components: [
                 Tables\Columns\TextColumn::make('client.name')
                     ->label('Proprietaire')
                     ->sortable()
                     ->searchable(),
+
                 Tables\Columns\TextColumn::make('user.name')
                     ->label('Fournisseur')
                     ->sortable()
+                    // ->url(fn ($record) => route('filament.resources.users.show', $record->user_id))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('kit_number')
                     ->label('Numero de Kit')
@@ -161,6 +162,7 @@ class KitResource extends Resource
 //                StatusColumn::make('status'),
                 Tables\Columns\TextColumn::make('status')
                     ->label('Statut')
+                    ->sortable()
                     ->getStateUsing(function ($record) {
                         $kitNumber = $record->kit_number;
 
@@ -224,10 +226,9 @@ Utilisez ce code avec précaution.
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
-                // Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                FilamentExportBulkAction::make('export'),
+                FilamentExportBulkAction::make('Exporter'),
             ]);
     }
 

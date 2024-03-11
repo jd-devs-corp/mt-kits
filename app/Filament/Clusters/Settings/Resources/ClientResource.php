@@ -2,6 +2,7 @@
 
 namespace App\Filament\Clusters\Settings\Resources;
 
+use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
 use App\Filament\Clusters\Settings\Resources\ClientResource\Pages;
 use App\Filament\Clusters\Settings\Resources\ClientResource\RelationManagers;
 use App\Models\Client;
@@ -35,7 +36,10 @@ class ClientResource extends Resource
                     ->required()
                     ->maxLength(255),
                 PhoneInput::make('phone_number')
+                    ->label('Numéro de téléphone')
                     ->countryStatePath('phone_country')
+                    ->required()
+                    ->maxWidth('9')
                     ->defaultCountry('CM'),
             ]);
     }
@@ -46,28 +50,32 @@ class ClientResource extends Resource
         $query->where('user_id', auth()->id());
     });
     return $table
-        ->query($filteredQuery)       ->columns([
+        ->query($filteredQuery)
+        ->columns([
                 Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
+                    ->searchable()
+                    ->label('Nom'),
                 Tables\Columns\TextColumn::make('email')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('phone_number')
-                    ->numeric()
-                    ->sortable(),
+                    ->searchable()
+                    ->label('Adresse E-mail'),
+                PhoneInput::make('phone_number')
+                    ->label('Numéro de téléphone')
+                    ->countryStatePath('phone_country')
+                    ->required()
+                    ->maxWidth('9')
+                    ->defaultCountry('CM'),
 
-            ])
-            ->filters([
-                //
-            ])
-            ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    // Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+        ])
+        ->filters([
+            //
+        ])
+        ->actions([
+            Tables\Actions\ViewAction::make(),
+            // Tables\Actions\EditAction::make(),
+        ])
+        ->bulkActions([
+            FilamentExportBulkAction::make('Exporter')
+        ]);
     }
 
     public static function getRelations(): array

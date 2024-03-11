@@ -86,7 +86,7 @@ class UserResource extends Resource
             ->emptyStateHeading('Aucun utilisateur')
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                    ->label('Noms(s)')
+                    ->label('Nom(s)')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
                     ->label('Adresse mail')

@@ -101,7 +101,9 @@ class KitsRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('KiS')
             ->columns([
-                Tables\Columns\TextColumn::make('kit_number')->label('Numero de kit'),
+                Tables\Columns\TextColumn::make('kit_number')
+                ->label('Numero de kit')
+                ->prefix('N° '),
                 Tables\Columns\TextColumn::make('status')
                     ->label('Statut')
                     ->getStateUsing(function ($record) {
@@ -167,7 +169,7 @@ Utilisez ce code avec précaution.
                 Tables\Actions\CreateAction::make(),
             ])
             ->actions([
-                // Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
                 // Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([

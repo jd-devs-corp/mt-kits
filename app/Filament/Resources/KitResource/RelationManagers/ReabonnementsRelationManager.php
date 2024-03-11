@@ -21,13 +21,13 @@ class ReabonnementsRelationManager extends RelationManager
             ->schema([
                 Forms\Components\DateTimePicker::make('date_abonnement')
                     ->required()
-                    ->default(now()),
+                    ->label('Date de debut'),
                 Forms\Components\DateTimePicker::make('date_fin_abonnement')
                     ->required()
-                    ->minDate(now()),
+                    ->label('Date de fin'),
                 Forms\Components\TextInput::make('plan_tarifaire')
                     ->required()
-                    ->prefix('Fcfa')
+                    ->suffix('Fcfa')
                     ->numeric(),
             ]);
     }
@@ -37,18 +37,19 @@ class ReabonnementsRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('description')
             ->columns([
-                Tables\Columns\TextColumn::make('date_abonnement'),
-                Tables\Columns\TextColumn::make('date_fin_abonnement'),
+                Tables\Columns\TextColumn::make('date_abonnement')
+                ->label('Date de debut')
+                ->date(),
+                Tables\Columns\TextColumn::make('date_fin_abonnement')
+                ->label('Date de fin')
+                ->date( ),
                 Tables\Columns\TextColumn::make('plan_tarifaire')
-                ->suffix('fcfa'),
-                Tables\Columns\TextColumn::make('kit.kit_number'),
-                /*StatusColumn::make('Statut')
-                    ->badge()
-                    ->color('success')*/
-                /* Tables\Columns\TextColumn::make('status')
-                 ->badge()*/
-                Tables\Columns\TextColumn::make('status')
-                    ->label('Statut')
+                ->money('XAF'),
+                Tables\Columns\TextColumn::make('kit.kit_number')
+                ->label('Numero de kit')
+                ->prefix('N° '),
+                Tables\Columns\TextColumn::make('statut')
+                    ->label('Statut')  
                     ->getStateUsing(function ($record) {
                         $dateFinAbonnement = $record->date_fin_abonnement;
 

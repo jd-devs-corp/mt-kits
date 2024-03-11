@@ -63,10 +63,6 @@ class ReabonnementResource extends Resource
                                     ->defaultCountry('CM'),
                             ])
                             ->required(),
-                        Forms\Components\TextInput::make('fournisseur_id')
-                            ->disabled()
-                            ->numeric()
-                            ->default($user && $user->role == 'fournisseur' ? $user->id : ''),
                         Forms\Components\TextInput::make('kit_number')
                             ->required()
                             ->label('Numero de kit')
@@ -81,39 +77,13 @@ class ReabonnementResource extends Resource
                     ->required()
                     ->default(now())
                 ,
-                /* Forms\Components\Select::make('duree_abonnement')
-                     ->options([
-                         '1' => '1 mois',
-                         '2' => '2 mois',
-                         '3' => '3 mois',
-                         '4' => '4 mois',
-                         '5' => '5 mois',
-                         '6' => '6 mois',
-                         '7' => '7 mois',
-                         '8' => '8 mois',
-                         '9' => '9 mois',
-                         '10' => '10 mois',
-                         '11' => '11 mois',
-                         '12' => '12 mois',
-                     ])
-                     ->live()
- //                    ->notIn(self::$model)
-                     ->default(1), */
                 Forms\Components\DateTimePicker::make('date_fin_abonnement')
                     ->required()
-                    /*->datalist([
-                        now()->addMonth(),
-                        now()->addMonth(),
-                        now()->addMonth(),
-                        now()->addMonth(),
-                        now()->addMonth(),
-                        now()->addMonth(),
-                        now()->addMonth(),
-                    ])*/
-//                    ->minDate(now()->addMonth())
+                    //   ->minDate(now()->addMonth())
                     ->default(now()->addMonth()),
                 Forms\Components\TextInput::make('plan_tarifaire')
                     ->required()
+                    ->suffix('Fcfa')
                     ->numeric(),
             ]);
     }
@@ -124,18 +94,19 @@ class ReabonnementResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('kit.kit_number')
                     ->label('Numero de kit')
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('kit.client.name')
-                    ->label('Proprietaire')
+                    ->prefix('N° ')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('date_abonnement')
                     ->date()
+                    ->label('Date de debut')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('date_fin_abonnement')
-                    ->dateTime()
+                    ->date()
+                    ->label('Date de fin')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('plan_tarifaire')
                     ->numeric()
+                    ->money('XAF')
                     ->sortable(),
 
             ])
@@ -146,7 +117,7 @@ class ReabonnementResource extends Resource
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\Action::make('generate_receipt')
                     ->label('Telecharger le reçu')
-                    ->icon('heroicon-o-document')
+                    ->icon('heroicon-o-receipt-refund')
                     // ->label('Waoh')
                     ->action(function(Reabonnement $record, array $data){
                         return redirect(url('admin/receipt/generate',$record->id));

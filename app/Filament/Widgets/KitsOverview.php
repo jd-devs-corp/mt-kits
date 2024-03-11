@@ -13,8 +13,8 @@ class KitsOverview extends BaseWidget
     {
         return [
             Stat::make('Kits Vendu aujourd\'hui', Kit::query()->whereDate('created_at', today())->count()),
-            Stat::make('Kits Vendu au total', Kit::count()),
             Stat::make('Reabonnements effectue aujourd\'hui', Reabonnement::query()->whereDate('created_at', today())->count()),
+            Stat::make('Kits Vendu au total', Kit::count()),
         ];
     }
 }

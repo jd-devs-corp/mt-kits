@@ -40,10 +40,12 @@ class ReabonnementsRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('kit.kit_number')
                 ->label('Numero de kit')
                 ->prefix('N° '),
-                Tables\Columns\TextColumn::make('date_abonnement'),
-                Tables\Columns\TextColumn::make('date_fin_abonnement'),
+                Tables\Columns\TextColumn::make('date_abonnement')
+                ->label('Date de debut'),
+                Tables\Columns\TextColumn::make('date_fin_abonnement')
+                ->label('Date de fin'),
                 Tables\Columns\TextColumn::make('plan_tarifaire')
-                ->suffix(" Fcfa"),
+                ->money('XAF'),
                 // StatusColumn::make('Statut')
             ])
             ->filters([
