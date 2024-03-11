@@ -5,7 +5,6 @@ namespace App\Filament\Resources;
 use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
 use AlperenErsoy\FilamentExport\Actions\FilamentExportHeaderAction;
 use App\Filament\Resources\ReabonnementResource\Pages;
-use App\Filament\Resources\ReabonnementResource\RelationManagers;
 use App\Models\Kit;
 use App\Models\Reabonnement;
 use App\Models\User;

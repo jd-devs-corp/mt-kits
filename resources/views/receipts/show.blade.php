@@ -37,23 +37,11 @@
             height: 100px;
         }
 
-        .title {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
         .section {
             margin-bottom: 20px;
             padding: 10px;
             border: 1px solid #D3DCE6;
             border-radius: 5px;
-        }
-
-        .section-title {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 5px;
         }
 
         .table {
