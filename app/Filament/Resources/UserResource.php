@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
 use App\Filament\Resources\UserResource\Pages;
+use App\Filament\Resources\UserResource\RelationManagers\KitRelationManager;
 use App\Models\User;
 use Filament\Actions\Action;
 use Filament\Forms;
@@ -149,7 +150,7 @@ class UserResource extends Resource
     {
         return [
             //
-            // RelationManagers\KitsRelationManager::class,
+             KitRelationManager::class,
         ];
     }
 
