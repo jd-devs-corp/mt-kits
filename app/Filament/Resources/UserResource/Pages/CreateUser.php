@@ -19,6 +19,9 @@ class CreateUser extends CreateRecord
             $data['somme_a_percevoir'] = null;
 
         }
+        if($data['role'] == 'fournisseur'){
+            $data['somme_a_percevoir'] = 0;
+        }
         return $data;
     }
 }

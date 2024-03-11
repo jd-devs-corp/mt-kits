@@ -40,7 +40,7 @@ class KitResource extends Resource
                     ->label('Proprietaire')
                     ->relationship('client','name')
                     ->searchable()
-                    ->preload()
+                    // ->preload()
                     ->createOptionForm([
                         Forms\Components\TextInput::make('name')
                             ->label('Nom')
