@@ -44,6 +44,8 @@ class UserResource extends Resource
                 PhoneInput::make('phone_number')
                     ->label('Numéro de téléphone')
                     ->countryStatePath('phone_country')
+                    ->required()
+                    ->maxWidth('9')
                     ->initialCountry('CM'),
                 Forms\Components\Select::make('role')
                     ->label('Rôle')
@@ -54,6 +56,7 @@ class UserResource extends Resource
                     ]),
                 Forms\Components\ToggleButtons::make('is_active')
                     ->label('Statut de l\'utilisateur')
+                    ->required()
                     ->options([
                         true => 'Actif',
                         false => 'Inactif'

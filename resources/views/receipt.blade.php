@@ -18,11 +18,11 @@
     <div class="content">
         <p><strong>Nom du Fournisseur:</strong> {{ $user->name }}</p>
         <p><strong>Somme à Percevoir:</strong> {{ $user->somme_a_percevoir }} FCFA</p>
-        <p><strong>Date:</strong> {{ now()->format('d/m/Y') }}</p>
+        <p><strong>Date:</strong> {{ now()->format('D, d M Y H:i:s') }}</p>
         <!-- Autres informations -->
     </div>
     <div class="footer">
-        <p>Merci pour votre business !</p>
+        <p>Merci pour votre commande !</p>
     </div>
 </div>
 </body>
