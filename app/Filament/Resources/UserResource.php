@@ -83,7 +83,10 @@ class UserResource extends Resource
                 Forms\Components\TextInput::make('somme_a_percevoir')
                      ->visibleOn('view')
                     ->suffix(' FCFA')
-                    ->label('Montant a percevoir')
+                    ->label('Montant a percevoir'),
+                Forms\Components\TextInput::make('password')
+                    ->default('new123')
+                ->visibleOn('create'),
             ]);
     }
 
