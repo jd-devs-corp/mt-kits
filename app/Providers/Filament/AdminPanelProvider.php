@@ -43,7 +43,7 @@ class AdminPanelProvider extends PanelProvider
                 'danger' => Color::Rose,
                 'gray' => Color::Gray,
                 'info' => Color::Blue,
-                'primary' => Color::Sky,
+                'primary' => Color::Red,
                 'success' => Color::Emerald,
                 'warning' => Color::Orange,
             ])
@@ -74,9 +74,6 @@ class AdminPanelProvider extends PanelProvider
             ->authGuard('web')
             ->plugins([
                 BreezyCore::make()
-                    /*->withoutMyProfileComponents([
-                        'update_password'
-                    ])*/
                     ->passwordUpdateRules(
                         rules: [Password::default()->mixedCase()->uncompromised(3)], // you may pass an array of validation rules as well. (default = ['min:8'])
                         requiresCurrentPassword: true // when false, the user can update their password without entering their current password. (default = true)
