@@ -70,21 +70,44 @@
                         class="mb-10 flex flex-wrap items-center justify-center gap-5"
                     >
                         <li>
+
+                        </li>
+                        <li>
+
+                        </li>
+                        @if ($userRole === 'admin')
                             <a
                                 href="{{url('admin')}}"
                                 class="inline-flex items-center justify-center rounded-md bg-white px-7 py-[14px] text-center text-base font-medium text-dark shadow-1 transition duration-300 ease-in-out hover:bg-gray-2 hover:text-body-color"
                             >
-                                Je suis administrateur
+                                Accéder à ma session
                             </a>
-                        </li>
-                        <li>
+                        @elseif ($userRole === 'fournisseur')
                             <a
                                 href="{{url('supplier')}}"
-                                class="flex items-center gap-4 rounded-md bg-white/[0.12] px-6 py-[14px] text-base font-medium text-white transition duration-300 ease-in-out hover:bg-white hover:text-dark"
+                                class="inline-flex items-center justify-center rounded-md bg-white px-7 py-[14px] text-center text-base font-medium text-dark shadow-1 transition duration-300 ease-in-out hover:bg-gray-2 hover:text-body-color"
                             >
-                                Je suis fournisseur
+                                Accéder à ma session
                             </a>
-                        </li>
+                        @else
+                            <li>
+                                <a
+                                    href="{{url('admin')}}"
+                                    class="inline-flex items-center justify-center rounded-md bg-white px-7 py-[14px] text-center text-base font-medium text-dark shadow-1 transition duration-300 ease-in-out hover:bg-gray-2 hover:text-body-color"
+                                >
+                                    Je suis administrateur
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    href="{{url('supplier')}}"
+                                    class="flex items-center gap-4 rounded-md bg-white/[0.12] px-6 py-[14px] text-base font-medium text-white transition duration-300 ease-in-out hover:bg-white hover:text-dark"
+                                >
+                                    Je suis fournisseur
+                                </a>
+                            </li>
+                        @endif
+
                     </ul>
                 </div>
             </div>

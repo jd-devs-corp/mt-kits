@@ -7,15 +7,19 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Filament\Support\Assets\Js;
 use Filament\Support\Facades\FilamentAsset;
+use App\Http\Responses\CustomLogoutResponse;
+use Filament\Http\Responses\Auth\LogoutResponse;
 
 class AppServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
      */
-    public function register(): void
+    public function register()
     {
-        //
+        // ...
+
+        $this->app->bind(LogoutResponse::class, CustomLogoutResponse::class);
     }
 
     /**
