@@ -33,7 +33,7 @@ class FournisseurPanelProvider extends PanelProvider
             ->id('fournisseur')
             ->path('supplier')
             ->login()
-            ->profile(Pages\Auth\EditProfile::class)
+//            ->profile(Pages\Auth\EditProfile::class)
 //            ->registration()
             ->passwordReset()
             ->emailVerification()
@@ -101,7 +101,7 @@ class FournisseurPanelProvider extends PanelProvider
                 FilamentBackgroundsPlugin::make()
                     ->imageProvider(
                         MyImages::make()
-                            ->directory('\images\swisnl\filament-backgrounds\curated-by-swis')
+                            ->directory('images/swisnl/filament-backgrounds/curated-by-swis')
                     )
 
             ])
@@ -109,7 +109,7 @@ class FournisseurPanelProvider extends PanelProvider
                 FilamentBackgroundsPlugin::make()
                     ->imageProvider(
                         MyImages::make()
-                            ->directory('\images\swisnl\filament-backgrounds\curated-by-swis')
+                            ->directory('images/swisnl/filament-backgrounds/curated-by-swis')
                     )
             ]);
     }

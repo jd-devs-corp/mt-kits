@@ -89,7 +89,7 @@ class AdminPanelProvider extends PanelProvider
                 FilamentBackgroundsPlugin::make()
                     ->imageProvider(
                         MyImages::make()
-                            ->directory('\images\swisnl\filament-backgrounds\curated-by-swis')
+                            ->directory('images/swisnl/filament-backgrounds/curated-by-swis')
                     )
 
             ])
