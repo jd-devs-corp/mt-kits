@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\ProfilePage;
 use Filament\Forms\Components\FileUpload;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -84,8 +85,9 @@ class AdminPanelProvider extends PanelProvider
                         shouldRegisterNavigation: true,
                         hasAvatars: true,
                         slug: 'profil',
-                        navigationGroup: 'Paramètres',
-                    ),
+                        navigationGroup: 'Paramètres'
+                    )
+                ->customMyProfilePage(ProfilePage::class),
                 FilamentBackgroundsPlugin::make()
                     ->imageProvider(
                         MyImages::make()

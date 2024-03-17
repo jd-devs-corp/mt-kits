@@ -24,6 +24,7 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
 use Swis\Filament\Backgrounds\FilamentBackgroundsPlugin;
 use Swis\Filament\Backgrounds\ImageProviders\MyImages;
+use App\Filament\Clusters\Settings\Pages\ProfilePage;
 
 class FournisseurPanelProvider extends PanelProvider
 {
@@ -97,7 +98,8 @@ class FournisseurPanelProvider extends PanelProvider
                         hasAvatars: true,
                         slug: 'profil',
                         navigationGroup: 'Paramètres',
-                    ),
+                    )
+                    ->customMyProfilePage(ProfilePage::class),
                 FilamentBackgroundsPlugin::make()
                     ->imageProvider(
                         MyImages::make()
