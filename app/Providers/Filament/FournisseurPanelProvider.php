@@ -24,6 +24,7 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
 use Swis\Filament\Backgrounds\FilamentBackgroundsPlugin;
 use Swis\Filament\Backgrounds\ImageProviders\MyImages;
+use App\Filament\Clusters\Settings\Pages\ProfilePage;
 
 class FournisseurPanelProvider extends PanelProvider
 {
@@ -97,7 +98,12 @@ class FournisseurPanelProvider extends PanelProvider
                         hasAvatars: true,
                         slug: 'profil',
                         navigationGroup: 'Paramètres',
-                    ),
+                    )
+                    ->enableTwoFactorAuthentication(
+                        force: false // force the user to enable 2FA before they can use the application (default = false)
+//                        action: CustomTwoFactorPage::class // optionally, use a custom 2FA page
+                    )
+                    ->customMyProfilePage(ProfilePage::class),
                 FilamentBackgroundsPlugin::make()
                     ->imageProvider(
                         MyImages::make()
