@@ -8,7 +8,7 @@
 
     <link
         rel="shortcut icon"
-{{--        href="{{asset('images/logo.png')}}"--}}
+        {{--        href="{{asset('images/logo.png')}}"--}}
         type="image/x-icon"
     />
     <link rel="stylesheet" href="{{asset('css/animate.css')}}"/>
@@ -23,25 +23,27 @@
 </head>
 <body class="bg-img">
 
+
 <!-- ====== Navbar Section Start -->
-<div
-    class="ud-header absolute left-0 top-0 z-40 flex w-full items-center bg-transparent"
->
-    <div class="container">
-        <div class="relative -mx-4 flex items-center justify-between">
-            <div class="w-60 max-w-full px-4">
-                <a href="{{url('/')}}" class="navbar-logo block w-full py-5">
-                    <img
-                        src="{{asset('images/logo.png')}}"
-                        alt="logo"
-                        class="header-logo w-full"
-                    />
-                </a>
+<nav>
+    <div
+        class="ud-header absolute left-0 top-0 z-40 flex w-full items-center bg-transparent"
+    >
+        <div class="container">
+            <div class="relative -mx-4 flex items-center justify-between">
+                <div class="w-60 max-w-full px-4">
+                    <a href="{{url('/')}}" class="navbar-logo block w-full py-5">
+                        <img
+                            src="{{asset('images/logo.png')}}"
+                            alt="logo"
+                            class="header-logo w-full"
+                        />
+                    </a>
+                </div>
             </div>
         </div>
     </div>
-</div>
-</div>
+</nav>
 <!-- ====== Navbar Section End -->
 
 <!-- ====== Hero Section Start -->
@@ -57,137 +59,105 @@
                     data-wow-delay=".2s"
                 >
                     <h1
-                        class="mb-6 text-3xl hover:text-body-color font-bold leading-snug sm:text-4xl sm:leading-snug lg:text-5xl lg:leading-[1.2]"
-                    >
-                        Bienvenue sur MtKits
+                        class="mb-6 text-5xl hover:text-body-color font-extrabold leading-snug sm:text-4xl sm:leading-snug lg:text-5xl lg:leading-[1.2]"
+                    >Bienvenue sur <span class="auto-type1"
+                                         style="color: red;font-family: 'Poppins', sans-serif;"></span>
                     </h1>
-                    <p
-                        class="mx-auto mb-9 max-w-[600px] text-base font-medium text-gray-600 sm:text-lg sm:leading-[1.44]"
-                    >
-                        Votre plateforme de gestion de stock, de vente de kits de connexion starlink .
-                    </p>
-                    <ul
-                        class="mb-10 flex flex-wrap items-center justify-center gap-5"
-                    >
+                    <p class="mx-auto mb-9 max-w-[600px] font-medium text-5xl sm:text-lg sm:leading-[1.44]">
+                    <h1 class="text-5xl">Votre plateforme de, <span class="auto-type font-extrabold"
+                                                                    style="font-family: 'Poppins', sans-serif;color: darkblue"></span>
+                    </h1>
+                </div>
+                <ul
+                    class="mb-10 mt-8 flex flex-wrap items-center justify-center gap-5"
+                >
+                    @if ($userRole === 'admin')
+                        <a
+                            href="{{url('admin')}}"
+                            class="inline-flex items-center justify-center rounded-md bg-white px-7 py-[14px] text-center text-base font-medium text-dark shadow-1 transition duration-300 ease-in-out hover:bg-gray-2 hover:text-body-color"
+                        >
+                            Accéder à ma session
+                        </a>
+                    @elseif ($userRole === 'fournisseur')
+                        <a
+                            href="{{url('supplier')}}"
+                            class="inline-flex items-center justify-center rounded-md bg-white px-7 py-[14px] text-center text-base font-medium text-dark shadow-1 transition duration-300 ease-in-out hover:bg-gray-2 hover:text-body-color"
+                        >
+                            Accéder à ma session
+                        </a>
+                    @else
                         <li>
-
-                        </li>
-                        <li>
-
-                        </li>
-                        @if ($userRole === 'admin')
                             <a
                                 href="{{url('admin')}}"
                                 class="inline-flex items-center justify-center rounded-md bg-white px-7 py-[14px] text-center text-base font-medium text-dark shadow-1 transition duration-300 ease-in-out hover:bg-gray-2 hover:text-body-color"
                             >
-                                Accéder à ma session
+                                Je suis administrateur
                             </a>
-                        @elseif ($userRole === 'fournisseur')
+                        </li>
+                        <li>
                             <a
                                 href="{{url('supplier')}}"
-                                class="inline-flex items-center justify-center rounded-md bg-white px-7 py-[14px] text-center text-base font-medium text-dark shadow-1 transition duration-300 ease-in-out hover:bg-gray-2 hover:text-body-color"
+                                class="flex items-center gap-4 rounded-md bg-white/[0.12] px-6 py-[14px] text-base font-medium text-white transition duration-300 ease-in-out hover:bg-white hover:text-dark"
                             >
-                                Accéder à ma session
+                                Je suis fournisseur
                             </a>
-                        @else
-                            <li>
-                                <a
-                                    href="{{url('admin')}}"
-                                    class="inline-flex items-center justify-center rounded-md bg-white px-7 py-[14px] text-center text-base font-medium text-dark shadow-1 transition duration-300 ease-in-out hover:bg-gray-2 hover:text-body-color"
-                                >
-                                    Je suis administrateur
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="{{url('supplier')}}"
-                                    class="flex items-center gap-4 rounded-md bg-white/[0.12] px-6 py-[14px] text-base font-medium text-white transition duration-300 ease-in-out hover:bg-white hover:text-dark"
-                                >
-                                    Je suis fournisseur
-                                </a>
-                            </li>
-                        @endif
+                        </li>
+                    @endif
 
-                    </ul>
-                </div>
+                </ul>
             </div>
-
-
         </div>
+
+
     </div>
 </div>
 
-<script src="{{asset('js/swiper-bundle.min.js')}}"></script>
-<script src="{{asset('js/main.js')}}"></script>
+<!-- ====== Footer Section Start -->
+<footer class="footer">
+
+
+    <div class="relative border-[#8890A4] border-opacity-40">
+        <div class="w-full flex justify-center">
+
+
+                <div class="w-full px-4 md:w-1/3 lg:w-1/2 text-white ">
+                    <div class="my-1 flex justify-center md:justify-center">
+                        <p class="font-medium text-center" >
+                           <span class="" id="copyright"><script>
+                                document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
+                               </script></span> &copy; MtKits developpé par :
+                            <a
+                                href="mailto:brainforcode@gmail.com"
+                                target="_blank"
+                                class="hover:text-primary"
+                            >
+                                Brain4Code
+                            </a>
+                        </p>
+                    </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- ====== Footer Section End -->
+
+<!-- Load library from the CDN -->
+<script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+
+<!-- Setup and start animation! -->
 <script>
-    // ==== for menu scroll
-    const pageLink = document.querySelectorAll(".ud-menu-scroll");
 
-    pageLink.forEach((elem) => {
-        elem.addEventListener("click", (e) => {
-            e.preventDefault();
-            document.querySelector(elem.getAttribute("href")).scrollIntoView({
-                behavior: "smooth",
-                offsetTop: 1 - 60,
-            });
-        });
-    });
-
-    // section menu active
-    function onScroll(event) {
-        const sections = document.querySelectorAll(".ud-menu-scroll");
-        const scrollPos =
-            window.pageYOffset ||
-            document.documentElement.scrollTop ||
-            document.body.scrollTop;
-
-        for (let i = 0; i < sections.length; i++) {
-            const currLink = sections[i];
-            const val = currLink.getAttribute("href");
-            const refElement = document.querySelector(val);
-            const scrollTopMinus = scrollPos + 73;
-            if (
-                refElement.offsetTop <= scrollTopMinus &&
-                refElement.offsetTop + refElement.offsetHeight > scrollTopMinus
-            ) {
-                document
-                    .querySelector(".ud-menu-scroll")
-                    .classList.remove("active");
-                currLink.classList.add("active");
-            } else {
-                currLink.classList.remove("active");
-            }
-        }
-    }
-
-    window.document.addEventListener("scroll", onScroll);
-
-    // Testimonial
-    const testimonialSwiper = new Swiper(".testimonial-carousel", {
-        slidesPerView: 1,
-        spaceBetween: 30,
-
-        // Navigation arrows
-        navigation: {
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
-        },
-
-        breakpoints: {
-            640: {
-                slidesPerView: 2,
-                spaceBetween: 30,
-            },
-            1024: {
-                slidesPerView: 3,
-                spaceBetween: 30,
-            },
-            1280: {
-                slidesPerView: 3,
-                spaceBetween: 30,
-            },
-        },
-    });
+    var typed = new Typed('.auto-type1', {
+        strings: ['Mentalists Kits'],
+        typeSpeed: 300,
+        backSpeed: 100,
+        loop: true
+    }, new Typed('.auto-type', {
+        strings: [' vente de kits de connexion',' et ', 'de reabonnements de vos kits '],
+        typeSpeed: 200,
+        backSpeed: 100,
+        loop: true
+    }));
 </script>
 </body>
 </html>
