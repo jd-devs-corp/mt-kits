@@ -1,9 +1,52 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+{{--<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#e23725">
+
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="Mentalists | Agence Créative">
+    <meta name="description" content="Mentalists est une agence créative qui accompagne les entreprises sur plusieurs aspects de leur communication visuelle et digitale.
+    Notre approche consiste à créer une lien particulier avec notre clientèle.L'idée est de s'identifier à vous,d'examiner, d'explorer et d'évaluer votre réalité,
+    afin de cerner votre état d'esprit.
+    Cette attitude d'empathie permet à notre équipe de ressortir toute la complexité des enjeux de vos projets et de penser des stratégies simples et créatives en réponse.">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mentalists.ca/">
+    <meta property="og:title" content="Mentalists | Agence Créative">
+    <meta property="og:description" content="Mentalists est une agence créative qui accompagne les entreprises sur plusieurs aspects de leur communication visuelle et digitale.
+    Notre approche consiste à créer une lien particulier avec notre clientèle.L'idée est de s'identifier à vous,d'examiner, d'explorer et d'évaluer votre réalité,
+    afin de cerner votre état d'esprit.
+    Cette attitude d'empathie permet à notre équipe de ressortir toute la complexité des enjeux de vos projets et de penser des stratégies simples et créatives en réponse.">
+    <meta property="og:image" content="https://mentalists.ca/images/mentalists.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="https://mentalists.ca/images/mentalists.png">
+    <meta property="twitter:url" content="https://mentalists.ca/">
+    <meta property="twitter:title" content="Mentalists | Agence Créative">
+    <meta property="twitter:description" content="Mentalists est une agence créative qui accompagne les entreprises sur plusieurs aspects de leur communication visuelle et digitale.
+    Notre approche consiste à créer une lien particulier avec notre clientèle.L'idée est de s'identifier à vous,d'examiner, d'explorer et d'évaluer votre réalité,
+    afin de cerner votre état d'esprit.
+    Cette attitude d'empathie permet à notre équipe de ressortir toute la complexité des enjeux de vos projets et de penser des stratégies simples et créatives en réponse.">
+    <meta property="twitter:image" content="https://mentalists.ca/images/mentalists.png">
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <title>
+        Mentalists | Agence Créative    </title>
+
+</head>--}}
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#e23725">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{asset('images/apple-touch-icon.png')}}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{asset('images/favicon-32x32.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{asset('images/favicon-16x16.png')}}">
+    <link rel="manifest" href="{{asset('images/site.webmanifest')}}">
     <title>MtKits | Accueil</title>
 
     <link
@@ -88,18 +131,18 @@
                     @else
                         <li>
                             <a
-                                href="{{url('admin')}}"
+                                href="{{url('supplier')}}"
                                 class="inline-flex items-center justify-center rounded-md bg-white px-7 py-[14px] text-center text-base font-medium text-dark shadow-1 transition duration-300 ease-in-out hover:bg-gray-2 hover:text-body-color"
                             >
-                                Je suis administrateur
+                                Je suis fournisseur
                             </a>
                         </li>
                         <li>
                             <a
-                                href="{{url('supplier')}}"
+                                href="{{url('admin')}}"
                                 class="flex items-center gap-4 rounded-md bg-white/[0.12] px-6 py-[14px] text-base font-medium text-white transition duration-300 ease-in-out hover:bg-white hover:text-dark"
                             >
-                                Je suis fournisseur
+                                Je suis administrateur
                             </a>
                         </li>
                     @endif
@@ -120,21 +163,21 @@
         <div class="w-full flex justify-center">
 
 
-                <div class="w-full px-4 md:w-1/3 lg:w-1/2 text-white ">
-                    <div class="my-1 flex justify-center md:justify-center">
-                        <p class="font-medium text-center" >
+            <div class="w-full px-4 md:w-1/3 lg:w-1/2 text-white ">
+                <div class="my-1 flex justify-center md:justify-center">
+                    <p class="font-medium text-center" >
                            <span class="" id="copyright"><script>
                                 document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
                                </script></span> &copy; MtKits developpé par :
-                            <a
-                                href="mailto:brainforcode@gmail.com"
-                                target="_blank"
-                                class="hover:text-primary"
-                            >
-                                Brain4Code
-                            </a>
-                        </p>
-                    </div>
+                        <a
+                            href="mailto:brainforcode@gmail.com"
+                            target="_blank"
+                            class="hover:text-primary"
+                        >
+                            Brain4Code
+                        </a>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
