@@ -66,6 +66,8 @@ body {
     /* 2 */
     height: 100vh;
     width: 100vw;
+    overflow-x: hidden;
+
 }
 
 /*
@@ -602,6 +604,9 @@ video {
 
 .absolute {
     position: absolute;
+}
+svg{
+    color: white;
 }
 
 .relative {
@@ -1433,8 +1438,9 @@ video {
     background-size: cover;
     height: 100vh;
 }
-footer {
-    position: fixed; /* ou absolute */
+.footer {
+
+    position: relative; /* ou absolute */
     bottom: 0;
     width: 100%;
     padding-top: 1em;
