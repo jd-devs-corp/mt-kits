@@ -13,13 +13,11 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    $user = $request->user(); // Récupérer l'utilisateur authentifié
 
-    if (!$user->is_active) { // Vérifier l'existence et le statut actif
-        return response()->json(['message' => 'Compte inactif'], 401);
-    } else {
-        return $user;
-    }
+    return  $request->user(); // Récupérer l'utilisateur authentifié
+
+
 });
+
+Route::get('/users', [\App\Http\Controllers\Api\UserController::class, 'index']);
