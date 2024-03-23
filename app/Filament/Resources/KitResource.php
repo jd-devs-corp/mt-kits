@@ -65,8 +65,8 @@ class KitResource extends Resource
                     ])
                     ->required(),
                 Forms\Components\Hidden::make('user_id')
-                    ->visibleOn('view')
-                    ->default($user->role == 'fournisseur' ? $user->id : null),
+                    // ->visibleOn('view')
+                    ->default($user->id),
                 Forms\Components\TextInput::make('kit_number')
                     ->required()
                     ->label('Numero de kit')
@@ -145,13 +145,24 @@ class KitResource extends Resource
         return $table
             ->columns(components: [
                 Tables\Columns\TextColumn::make('client.name')
-                    ->label('Proprietaire')
                     ->sortable()
+                    ->url(fn(Kit $record): string | null => route('filament.admin.resources.clients.view', $record->client_id))
                     ->searchable(),
 
                 Tables\Columns\TextColumn::make('user.name')
                     ->label('Fournisseur')
                     ->sortable()
+                    ->getStateUsing(function($record){
+                        $user = User::find($record->user_id);
+                        if($user && $user->role == 'fournisseur'){
+                            return 'SUP. '.$user->name;
+                        }
+                        elseif($user && $user->role == 'admin'){
+                            return 'AD. '.$user->name;
+                        }
+                        return null;
+                    })
+                    ->url(fn(Kit $record): string | null  => $record->user_id ? route('filament.admin.resources.users.view', $record->user_id) : null)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('kit_number')
                     ->label('Numero de Kit')

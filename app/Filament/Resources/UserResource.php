@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers\KitRelationManager;
+use App\Models\Kit;
 use App\Models\User;
 use Filament\Actions\Action;
 use Filament\Forms;
@@ -107,6 +108,16 @@ class UserResource extends Resource
                 Tables\Columns\IconColumn::make('is_active')
                     ->label('Statut de compte')
                     ->boolean(),
+                    Tables\Columns\TextColumn::make('status')
+                    ->label('Nbre de kits vendu')
+                    ->getStateUsing(function($record){
+                        if($record->role == 'fournisseur'){
+                            $id = $record->id;
+                            $number_of_kits = Kit::where('user_id', $id)->count();
+                            return $number_of_kits;
+                        }
+                        return null;
+                    }),
                 Tables\Columns\TextColumn::make('pourcentage')
                     ->label('Commission')
                     ->suffix(' %')
