@@ -2,7 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\LoginRegisterController;
+use App\Http\Controllers\Api\LoginRegisterController;
+use App\Http\Controllers\Api\ClientController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,15 +25,22 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Public routes of authtication
 Route::controller(LoginRegisterController::class)->group(function() {
     Route::post('/register', 'register');
-    Route::post('/login', 'login');
+    Route::post('/login', 'login')->name('login');
+});
+
+// Public routes of product
+Route::controller(ClientController::class)->group(function() {
+    Route::get('/clients', 'index');
+    Route::get('/clients/{id}', 'show');
+    Route::get('/clients/search/{name}', 'search');
 });
 
 // Protected routes of product and logout
 Route::middleware('auth:sanctum')->group( function () {
     Route::post('/logout', [LoginRegisterController::class, 'logout']);
 
-    /*Route::controller(KitController::class)->group(function() {
-        Route::post('/kits', 'store');
-        Route::post('/kits/{id}', 'update');
-    });*/
+    Route::controller(ClientController::class)->group(function() {
+        Route::post('/clients', 'store');
+        Route::post('/clients/{id}', 'update');
+    });
 });
