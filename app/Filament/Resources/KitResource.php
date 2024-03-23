@@ -22,6 +22,7 @@ use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
 use Hamcrest\Core\IsNull;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
@@ -38,6 +39,7 @@ class KitResource extends Resource
     protected static ?string $navigationGroup = 'Services';
 
     protected static ?string $navigationIcon = 'heroicon-o-wifi';
+    protected static ?string $recordTitleAttribute='kit_number';
 
     // protected static ?string $cluster = Settings::class;
 
@@ -151,6 +153,7 @@ class KitResource extends Resource
             ->query($query)
             ->columns(components: [
                 Tables\Columns\TextColumn::make('client.name')
+                    ->searchable()
                 ->sortable()
                     ->url(fn(Kit $record): string | null => route('filament.admin.resources.clients.view', $record->client_id))
                     ->searchable(),
@@ -269,6 +272,15 @@ class KitResource extends Resource
             //
             RelationManagers\ReabonnementsRelationManager::class,
         ];
+    }
+
+    public static function getGlobalSearchResultTitle(Model $record): string | Htmlable
+    {
+        return $record->kit_number;
+    }
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['kit_number', 'client.name'];
     }
 
     public static function getPages(): array

@@ -58,6 +58,7 @@ class AdminPanelProvider extends PanelProvider
             ->widgets([
 //                Widgets\WidgetsServiceProvider::class,
             ])
+            ->globalSearchKeyBindings(['command+k', 'ctrl+k'])
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,

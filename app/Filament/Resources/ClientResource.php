@@ -87,15 +87,18 @@ class ClientResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
 
             ])
-
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make()
-                ->icon('heroicon-o-eye'),
-                Tables\Actions\EditAction::make()
-                ->icon('heroicon-o-pencil'),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\ViewAction::make()
+                        ->icon('heroicon-o-eye')
+                    ->color('primary'),
+                    Tables\Actions\EditAction::make()
+                        ->icon('heroicon-o-pencil')
+                    ->color('info'),
+                ])
             ])
             ->bulkActions([
                 FilamentExportBulkAction::make('Exporter')

@@ -43,4 +43,9 @@ Route::middleware('auth:sanctum')->group( function () {
         Route::post('/clients', 'store');
         Route::post('/clients/{id}', 'update');
     });
+
+    Route::controller(KitController::class)->group(function() {
+        Route::post('/kits', 'store');
+        Route::post('/kits/{id}', 'update');
+    });
 });
