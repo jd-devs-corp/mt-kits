@@ -63,12 +63,12 @@ class ClientController extends Controller
         if (is_null($client)) {
             return response()->json([
                 'status' => 404,
-                'message' => 'No kit Found'
+                'message' => 'No client Found'
             ], 200);
         }
         $response = [
             'status' => 200,
-            'kits' => 'products are here',
+            'clients' => 'clients are here',
             'data' => $client,
         ];
         return response()->json($response, 200);
