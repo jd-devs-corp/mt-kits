@@ -7,7 +7,7 @@
                 <tr>
                     <td style="text-align: center;">
 
-                        <img src="{{ $message->embed(public_path().'/images/logo_admin.png')}}" alt="MTKits"
+                        <img src="{{ $message->embed(public_path().'/images/logo.png')}}" alt="MTKits"
                              style="margin: auto auto 1rem;max-width: 100%; height: auto;">
                         <h1 style="font-size: 5rem;font-family: 'Sora', sans-serif; font-weight: bold; margin-bottom: 0.5rem;">
                             Votre abonnement est sur le point d'expirer</h1>

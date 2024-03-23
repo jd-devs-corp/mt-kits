@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\ProfilePage;
 use Filament\Forms\Components\FileUpload;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -43,7 +44,7 @@ class AdminPanelProvider extends PanelProvider
                 'danger' => Color::Rose,
                 'gray' => Color::Gray,
                 'info' => Color::Blue,
-                'primary' => Color::Sky,
+                'primary' => Color::Red,
                 'success' => Color::Emerald,
                 'warning' => Color::Orange,
             ])
@@ -74,9 +75,6 @@ class AdminPanelProvider extends PanelProvider
             ->authGuard('web')
             ->plugins([
                 BreezyCore::make()
-                    /*->withoutMyProfileComponents([
-                        'update_password'
-                    ])*/
                     ->passwordUpdateRules(
                         rules: [Password::default()->mixedCase()->uncompromised(3)], // you may pass an array of validation rules as well. (default = ['min:8'])
                         requiresCurrentPassword: true // when false, the user can update their password without entering their current password. (default = true)
@@ -87,12 +85,13 @@ class AdminPanelProvider extends PanelProvider
                         shouldRegisterNavigation: true,
                         hasAvatars: true,
                         slug: 'profil',
-                        navigationGroup: 'Paramètres',
-                    ),
+                        navigationGroup: 'Paramètres'
+                    )
+                ->customMyProfilePage(ProfilePage::class),
                 FilamentBackgroundsPlugin::make()
                     ->imageProvider(
                         MyImages::make()
-                            ->directory('\images\swisnl\filament-backgrounds\curated-by-swis')
+                            ->directory('images/swisnl/filament-backgrounds/curated-by-swis')
                     )
 
             ])

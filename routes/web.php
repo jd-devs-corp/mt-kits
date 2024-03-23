@@ -17,18 +17,8 @@ use Spatie\Ignition\ErrorPage\ErrorPageViewModel;
 */
 Route::get('/download-receipt/{userId}', [ReceiptController::class, 'downloadReceipt']);
 
-Route::get('/', function () {
-    $user = Auth::user();
-    // dump($user);
-    if ($user && $user->role == 'fournisseur') {
-        return redirect('/supplier');
-    } elseif ($user && $user->role == 'admin') {
-        return redirect('/admin');
-    } else {
-        return redirect('/supplier');
-    }
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-});
 
 Route::get('admin/receipt/generate/{id}', [ReceiptController::class, 'generateReceipt'])->name('receipts.generate');
 

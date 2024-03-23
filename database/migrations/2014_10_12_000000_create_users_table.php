@@ -22,7 +22,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->float('pourcentage')->nullable();
             $table->float('somme_a_percevoir')->nullable();
-            $table->string('password')->default('new123');
+            $table->string('password');
             $table->string('avatar_url')->nullable();
             $table->rememberToken();
             $table->timestamps();

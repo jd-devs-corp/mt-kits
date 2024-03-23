@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\LoginRegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,13 +14,25 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    $user = $request->user(); // Récupérer l'utilisateur authentifié
 
-    if (!$user->is_active) { // Vérifier l'existence et le statut actif
-        return response()->json(['message' => 'Compte inactif'], 401);
-    } else {
-        return $user;
-    }
+    return  $request->user(); // Récupérer l'utilisateur authentifié
+
+
+});
+
+// Public routes of authtication
+Route::controller(LoginRegisterController::class)->group(function() {
+    Route::post('/register', 'register');
+    Route::post('/login', 'login');
+});
+
+// Protected routes of product and logout
+Route::middleware('auth:sanctum')->group( function () {
+    Route::post('/logout', [LoginRegisterController::class, 'logout']);
+
+    /*Route::controller(KitController::class)->group(function() {
+        Route::post('/kits', 'store');
+        Route::post('/kits/{id}', 'update');
+    });*/
 });

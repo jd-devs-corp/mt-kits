@@ -22,7 +22,7 @@ class ClientResource extends Resource
 {
     protected static ?string $model = Client::class;
 
-    protected static ?string $navigationGroup = 'Exterieur';
+    protected static ?string $navigationGroup = 'Services';
 
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
 
