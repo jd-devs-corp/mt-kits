@@ -90,11 +90,14 @@ class ReabonnementsRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                Tables\Actions\CreateAction::make()
+                ->icon('heroiocon-o-plus'),
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make()
+                ->icon('heroiocon-o-eye'),
+                Tables\Actions\EditAction::make()
+                ->icon('heroiocon-o-pencil'),
 //                Tables\Actions\ExportAction::make(),
             ])
             ->bulkActions([

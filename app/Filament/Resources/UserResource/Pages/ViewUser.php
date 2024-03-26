@@ -19,7 +19,7 @@ class ViewUser extends ViewRecord
     {
         return [
             Actions\EditAction::make()
-                ->icon('heroicon-s-pencil-square'),
+                ->icon('heroicon-s-pencil'),
             Actions\Action::make('generateReceipt')
                 ->label('Payer')
                 ->icon('heroicon-s-banknotes')

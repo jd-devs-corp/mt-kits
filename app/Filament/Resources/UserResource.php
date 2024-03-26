@@ -14,10 +14,10 @@ use Filament\Tables\Grouping\Group;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-
-//use Svg\Tag\Group;
 use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
 use Filament\Resources\Pages\ListRecords;
+use Filament\Tables\Filters\TernaryFilter;
+use Illuminate\Database\Eloquent\Builder;
 
 class UserResource extends Resource
 {
@@ -75,7 +75,8 @@ class UserResource extends Resource
 
                 Forms\Components\DateTimePicker::make('email_verified_at')
                     ->label('Vérifié le')
-                    ->visibleOn('view'),
+                    // ->visibleOn('view')
+                    ,
 
                 Forms\Components\TextInput::make('pourcentage')
                     ->label('Pourcentage de commission')
@@ -93,7 +94,9 @@ class UserResource extends Resource
 
     public static function table(Table $table): Table
     {
+        $query= User::query()->OrderBy('is_active', 'DESC');
         return $table
+            ->query($query)
             ->emptyStateHeading('Aucun utilisateur')
             ->columns([
                 Tables\Columns\TextColumn::make('name')
@@ -126,33 +129,26 @@ class UserResource extends Resource
                     ->suffix(' %')
                     ->searchable(),
             ])
-            ->defaultGroup(Group::make('is_active')
-                ->label('État de compte')
-                ->collapsible()
-                ->getTitleFromRecordUsing(fn($record) => $record->is_active ? 'Actif' : 'Inactif')
-            )
-            ->groups(
-                ['role']
-            )
+
             ->filters([
-                //
+                TernaryFilter::make('is_active')
+                        ->label('Statut de compte')
+                        ->placeholder('Tous les utilisateurs')
+                        ->trueLabel('Utilisateurs actifs')
+                        ->falseLabel('Utilisateurs inactifs')
+                        ->queries(
+                            true: fn (Builder $query) => $query->where('is_active',  true),
+                            false: fn (Builder $query) => $query->where('is_active', false),
+                            blank: fn (Builder $query) => $query, // In this example, we do not want to filter the query when it is blank.
+                        )
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
-                /*Tables\Actions\Action::make('generateReceipt')
-                    ->label('Payer')
-                    ->icon('heroicon-s-banknotes')
-                    ->action(function (User $record) {
-                        return redirect()->to('/download-receipt/' . $record->id);
-                    }),*/
-                /* Tables\Actions\EditAction::make(),
-                 EditAction::make('Payer')
-                     ->mutateRecordDataUsing(function (array $data): array {
-                         $data['user_id'] = auth()->id();
-
-                         return $data;
-                     })*/
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\ViewAction::make()
+                        ->icon('heroiocon-o-eye'),
+                    Tables\Actions\EditAction::make()
+                    ->icon('heroiocon-o-pencil'),
+                ])
             ])
             ->bulkActions([
                 FilamentExportBulkAction::make('Exporter')
@@ -175,8 +171,8 @@ class UserResource extends Resource
     {
         return [
             'index' => Pages\ListUsers::route('/'),
-            'create' => Pages\CreateUser::route('/create'),
-            'view' => Pages\ViewUser::route('/{record}'),
+            // 'create' => Pages\CreateUser::route('/create'),
+            'view' => Pages\ViewUser::route('/{record}      '),
             'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
     }

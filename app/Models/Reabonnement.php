@@ -12,6 +12,13 @@ class Reabonnement extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'kit_id',
+        'date_debut_abonnement',
+        'date_fin_abonnement',
+        'plan_tarifaire',
+    ];
+
     public function kit(): BelongsTo
     {
         return $this->belongsTo(Kit::class, 'kit_id');

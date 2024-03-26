@@ -92,8 +92,10 @@ class ClientResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make()
+                ->icon('heroiocon-o-eye'),
+                Tables\Actions\EditAction::make()
+                ->icon('heroiocon-o-pencil'),
             ])
             ->bulkActions([
                 FilamentExportBulkAction::make('Exporter')
@@ -113,7 +115,7 @@ class ClientResource extends Resource
     {
         return [
             'index' => Pages\ListClients::route('/'),
-            'create' => Pages\CreateClient::route('/create'),
+            // 'create' => Pages\CreateClient::route('/create'),
             'view' => Pages\ViewClient::route('/{record}'),
             'edit' => Pages\EditClient::route('/{record}/edit'),
         ];

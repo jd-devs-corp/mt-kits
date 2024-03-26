@@ -10,23 +10,26 @@ use App\Models\Kit;
 use App\Models\Reabonnement;
 use App\Models\User;
 use Carbon\Carbon;
-use Faker\Provider\ar_EG\Text;
 use Filament\Facades\Filament;
 use Filament\Forms;
-use Filament\Tables\Filters\Filter;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\Column;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\TernaryFilter;
+use Filament\Tables\Grouping\Group;
+use Filament\Tables\Table;
+use Hamcrest\Core\IsNull;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
-use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Grouping\Group;
 use PhpOffice\PhpSpreadsheet\Calculation\Web;
+
 
 class KitResource extends Resource
 {
@@ -47,7 +50,6 @@ class KitResource extends Resource
                     ->label('Proprietaire')
                     ->relationship('client', 'name')
                     ->searchable()
-                    ->preload()
                     ->createOptionForm([
                         Forms\Components\TextInput::make('name')
                             ->label('Nom')
@@ -141,17 +143,20 @@ class KitResource extends Resource
 
     public static function table(Table $table): Table
     {
-
+        $query = Kit::query()->leftJoin('reabonnements', 'kits.id', '=', 'reabonnements.kit_id')
+        ->select('kits.*')
+        ->orderByRaw('reabonnements.date_fin_abonnement = null, reabonnements.date_fin_abonnement ASC');
         return $table
+            // ->defaultSort(Kit::query()->with('reabonnements', )->getModels()[0]->id)
+            ->query($query)
             ->columns(components: [
                 Tables\Columns\TextColumn::make('client.name')
-                    ->sortable()
+                ->sortable()
                     ->url(fn(Kit $record): string | null => route('filament.admin.resources.clients.view', $record->client_id))
                     ->searchable(),
 
                 Tables\Columns\TextColumn::make('user.name')
                     ->label('Fournisseur')
-                    ->sortable()
                     ->getStateUsing(function($record){
                         $user = User::find($record->user_id);
                         if($user && $user->role == 'fournisseur'){
@@ -206,32 +211,55 @@ class KitResource extends Resource
 
             ])
             ->filters([
-                Filter::make('Valide')
-                    ->query(fn(Builder $query): Builder => $query->whereHas('reabonnements', function (Builder $query) {
-                        $query->whereDate('date_fin_abonnement', '>', now()->addDays(15));
-                    })
+                    Filter::make('Valide')
+                        ->query(fn(Builder $query): Builder => $query->whereHas('reabonnements', function (Builder $query) {
+                            $query->whereDate('date_fin_abonnement', '>', now()->addDays(15));
+                        })
 
+                    ),
+                    Filter::make('A terme')
+                        ->query(fn(Builder $query): Builder => $query->whereHas('reabonnements', function (Builder $query) {
+                                    $query->whereDate('date_fin_abonnement', '<=', now()->addDays(15));
+                                })
+                            ),
+                    Filter::make('Expire')
+                        ->query(fn(Builder $query): Builder => $query->whereHas('reabonnements', function (Builder $query) {
+                            $query->whereDate('date_fin_abonnement', '<', now());
+                        })
+                    ),
+                    Filter::make('Inactif')
+                        ->query(fn(Builder $query): Builder => $query->whereDoesntHave('reabonnements')
                 ),
-                Filter::make('A terme')
-                    ->query(fn(Builder $query): Builder => $query->whereHas('reabonnements', function (Builder $query) {
-                                $query->whereDate('date_fin_abonnement', '<=', now()->addDays(15));
-                            })
-                        ),
-                Filter::make('Expire')
-                    ->query(fn(Builder $query): Builder => $query->whereHas('reabonnements', function (Builder $query) {
-                        $query->whereDate('date_fin_abonnement', '<', now()->addDays(0));
-                    })
-                ),
-                Filter::make('Inactif')
-                    ->query(fn(Builder $query): Builder => $query->whereDoesntHave('reabonnements')
-                )
-            ])
+
+                ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\ViewAction::make()
+                        ->icon('heroicon-o-eye'),
+                    Tables\Actions\EditAction::make()
+                        ->icon('heroicon-o-pencil')
+                        ,
+                ])
             ])
+
             ->bulkActions([
-                FilamentExportBulkAction::make('Exporter'),
+                Tables\Actions\BulkAction::make('Acheter')
+                        ->form([
+                            Forms\Components\Select::make('user_id')
+                                ->label('Fournisseur')
+                                ->options(User::cursor()->filter(function(User $user){
+                                    return $user->role == 'fournisseur' && $user->is_active;
+                                })->pluck('name', 'id'))
+                                ->required(),
+                        ])
+                        ->action(function(Collection $records, array $data){
+                            foreach($records as $record){
+                                $record->user_id  = $data['user_id'];
+                                $record->update();
+                            }
+
+                        }),
+                FilamentExportBulkAction::make('Exporter')
             ]);
     }
 
@@ -247,7 +275,7 @@ class KitResource extends Resource
     {
         return [
             'index' => Pages\ListKits::route('/'),
-            'create' => Pages\CreateKit::route('/create'),
+            // 'create' => Pages\CreateKit::route('/create'),
             'view' => Pages\ViewKit::route('/{record}'),
             'edit' => Pages\EditKit::route('/{record}/edit'),
         ];

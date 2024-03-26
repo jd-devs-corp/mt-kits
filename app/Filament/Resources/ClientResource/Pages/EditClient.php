@@ -13,7 +13,8 @@ class EditClient extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\ViewAction::make(),
+            Actions\ViewAction::make()
+            ->icon('heroiocon-o-eye'),
             // Actions\DeleteAction::make(),
         ];
     }

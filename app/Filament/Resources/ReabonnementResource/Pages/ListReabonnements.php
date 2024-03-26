@@ -18,7 +18,8 @@ class ListReabonnements extends ListRecords
                 ->slideOver()
                 ->color("primary")
                 ->use(Reabonnement::class),*/
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()
+            ->icon('heroiocon-o-plus'),
         ];
     }
 }

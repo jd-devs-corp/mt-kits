@@ -17,6 +17,7 @@ use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 use Filament\Resources\Resource;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Filament\Tables;
+use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\Auth;
 use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
@@ -173,23 +174,18 @@ class ReabonnementResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\Action::make('generate_receipt')
-                    ->label('Telecharger le reçu')
-                    ->icon('heroicon-o-receipt-refund')
-                    // ->label('Waoh')
-                    ->action(function(Reabonnement $record, array $data){
-                        return redirect(url('admin/receipt/generate',$record->id));
-                    })
-                    // ->url(route('receipts.generate', function(User $record, array $data){
-                    //     return intval($record->id);
-// }
-//                     )),
-                // Tables\Actions\EditAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\ViewAction::make()
+                        ->icon('heroicon-o-eye'),
+                    Tables\Actions\Action::make('generate_receipt')
+                        ->label('Telecharger le reçu')
+                        ->icon('heroicon-o-receipt-refund')
+                        // ->label('Waoh')
+                        ->action(function(Reabonnement $record, array $data){
+                            return redirect(url('admin/receipt/generate',$record->id));
+                        })
+                ])
             ])
-            /*->headerActions([
-                FilamentExportHeaderAction::make('export')
-            ])*/
             ->bulkActions([
                 FilamentExportBulkAction::make('export'),
             ]);
@@ -215,7 +211,7 @@ class ReabonnementResource extends Resource
     {
         return [
             'index' => Pages\ListReabonnements::route('/'),
-            'create' => Pages\CreateReabonnement::route('/create'),
+            // 'create' => Pages\CreateReabonnement::route('/create'),
             'view' => Pages\ViewReabonnement::route('/{record}'),
             'edit' => Pages\EditReabonnement::route('/{record}/edit'),
         ];

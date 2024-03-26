@@ -228,8 +228,10 @@ Utilisez ce code avec précaution.
                                 )
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make()
+                ->icon('heroiocon-o-eye'),
+                Tables\Actions\EditAction::make()
+                ->icon('heroiocon-o-pencil'),
                 // Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
@@ -251,7 +253,7 @@ Utilisez ce code avec précaution.
     {
         return [
             'index' => Pages\ListKits::route('/'),
-            'create' => Pages\CreateKit::route('/create'),
+            // 'create' => Pages\CreateKit::route('/create'),
             'view' => Pages\ViewKit::route('/{record}'),
             'edit' => Pages\EditKit::route('/{record}/edit'),
         ];

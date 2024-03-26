@@ -165,10 +165,12 @@ Utilisez ce code avec précaution.
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                Tables\Actions\CreateAction::make()
+                    ->icon('heroiocon-o-plus'),
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
+                Tables\Actions\ViewAction::make()
+                    ->icon('heroiocon-o-eye'),
                 // Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([

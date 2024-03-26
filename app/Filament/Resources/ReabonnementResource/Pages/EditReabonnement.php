@@ -13,7 +13,8 @@ class EditReabonnement extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\ViewAction::make(),
+            Actions\ViewAction::make()
+            ->icon('heroiocon-o-plus'),
             // Actions\DeleteAction::make(),
         ];
     }
