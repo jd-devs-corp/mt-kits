@@ -166,11 +166,11 @@ Utilisez ce code avec précaution.
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make()
-                    ->icon('heroiocon-o-plus'),
+                    ->icon('heroicon-o-plus'),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make()
-                    ->icon('heroiocon-o-eye'),
+                    ->icon('heroicon-o-eye'),
                 // Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([

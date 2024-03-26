@@ -16,7 +16,7 @@ class EditUser extends EditRecord
     {
         return [
             Actions\ViewAction::make()
-                ->icon('heroiocon-o-eye'),
+                ->icon('heroicon-o-eye'),
             // Actions\DeleteAction::make(),
         ];
     }

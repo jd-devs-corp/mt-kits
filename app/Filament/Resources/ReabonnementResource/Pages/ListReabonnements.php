@@ -19,7 +19,7 @@ class ListReabonnements extends ListRecords
                 ->color("primary")
                 ->use(Reabonnement::class),*/
             Actions\CreateAction::make()
-            ->icon('heroiocon-o-plus'),
+            ->icon('heroicon-o-plus'),
         ];
     }
 }

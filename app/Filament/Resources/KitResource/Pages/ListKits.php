@@ -17,7 +17,7 @@ class ListKits extends ListRecords
     {
         return [
             Actions\CreateAction::make()
-            ->icon('heroiocon-o-plus'),
+            ->icon('heroicon-o-plus'),
         ];
     }
 }

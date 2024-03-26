@@ -14,7 +14,7 @@ class ViewReabonnement extends ViewRecord
     {
         return [
             Actions\EditAction::make()
-            ->icon('heroiocon-o-pencil'),
+            ->icon('heroicon-o-pencil'),
         ];
     }
 }

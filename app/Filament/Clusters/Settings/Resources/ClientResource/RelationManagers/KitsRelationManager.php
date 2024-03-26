@@ -86,7 +86,8 @@ class KitsRelationManager extends RelationManager
                 // Tables\Actions\CreateAction::make(),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                ->icon('heroicono-pencil'),
                 // Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([

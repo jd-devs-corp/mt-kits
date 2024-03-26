@@ -16,7 +16,7 @@ class EditKit extends EditRecord
     {
         return [
             Actions\ViewAction::make()
-            ->icon('heroiocon-o-eye'),
+            ->icon('heroicono-eye'),
             // Actions\DeleteAction::make(),
         ];
     }

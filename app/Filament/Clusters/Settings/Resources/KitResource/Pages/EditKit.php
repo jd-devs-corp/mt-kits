@@ -15,8 +15,8 @@ class EditKit extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\ViewAction::make(),
-            Actions\DeleteAction::make(),
+            Actions\ViewAction::make()
+            ->icon('heroicon-o-eye'),
         ];
     }
 }

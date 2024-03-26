@@ -14,7 +14,7 @@ class ListUsers extends ListRecords
     {
         return [
             Actions\CreateAction::make()
-            ->icon('heroiocon-o-plus'),
+            ->icon('heroicon-o-plus'),
         ];
     }
     protected static ?string $title = 'Utilisateurs';

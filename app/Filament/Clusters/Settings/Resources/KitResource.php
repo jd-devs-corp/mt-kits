@@ -229,9 +229,9 @@ Utilisez ce code avec précaution.
             ])
             ->actions([
                 Tables\Actions\ViewAction::make()
-                ->icon('heroiocon-o-eye'),
+                ->icon('heroicon-o-eye'),
                 Tables\Actions\EditAction::make()
-                ->icon('heroiocon-o-pencil'),
+                ->icon('heroicon-o-pencil'),
                 // Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([

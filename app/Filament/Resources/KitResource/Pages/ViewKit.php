@@ -17,7 +17,7 @@ class ViewKit extends ViewRecord
     {
         return [
             Actions\EditAction::make()
-            ->icon('heroiocon-o-eye'),
+            ->icon('heroicon-o-eye'),
         ];
     }
 }

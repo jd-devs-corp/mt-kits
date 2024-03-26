@@ -14,7 +14,7 @@ class EditReabonnement extends EditRecord
     {
         return [
             Actions\ViewAction::make()
-            ->icon('heroiocon-o-plus'),
+            ->icon('heroicon-o-plus'),
             // Actions\DeleteAction::make(),
         ];
     }

@@ -53,7 +53,8 @@ class ReabonnementsRelationManager extends RelationManager
                 // Tables\Actions\CreateAction::make(),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                ->icon('heroicon-o-pencil'),
                 // Tables\Actions\ExportAction::make(),
             ])
             ->bulkActions([

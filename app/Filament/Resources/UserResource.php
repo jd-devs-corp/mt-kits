@@ -145,9 +145,9 @@ class UserResource extends Resource
             ->actions([
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\ViewAction::make()
-                        ->icon('heroiocon-o-eye'),
+                        ->icon('heroicon-o-eye'),
                     Tables\Actions\EditAction::make()
-                    ->icon('heroiocon-o-pencil'),
+                    ->icon('heroicon-o-pencil'),
                 ])
             ])
             ->bulkActions([
