@@ -12,6 +12,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
+use Ysfkaya\FilamentPhoneInput\PhoneInputNumberType;
 
 class KitsRelationManager extends RelationManager
 {
@@ -35,7 +36,7 @@ class KitsRelationManager extends RelationManager
                     ->countryStatePath('phone_country')
                     ->required()
                     ->maxWidth('9')
-                    ->initialCountry('CM'),
+                    ->defaultCountry('CM'),
             ]);
     }
 
