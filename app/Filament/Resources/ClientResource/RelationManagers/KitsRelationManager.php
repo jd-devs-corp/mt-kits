@@ -5,7 +5,6 @@ namespace App\Filament\Resources\ClientResource\RelationManagers;
 use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
 use App\Models\Kit;
 use Carbon\Carbon;
-use Filament\Actions\ActionGroup;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -29,9 +28,8 @@ class KitsRelationManager extends RelationManager
                     ->default($user->role == 'fournisseur' ? $user->id : null),
                 Forms\Components\TextInput::make('kit_number')
                     ->required()
-                    ->unique(Kit::class, 'kit_number')
-                    ->length(9)
-                    ->label('Numero de kit'),
+                    ->label('Numero de kit')
+                    ->maxLength(255),
                 Forms\Components\Select::make('localisation')
                     ->searchable()
                     ->required()
@@ -103,9 +101,8 @@ class KitsRelationManager extends RelationManager
             ->recordTitleAttribute('KiS')
             ->columns([
                 Tables\Columns\TextColumn::make('kit_number')
-                    ->label('Numero de kit')
-                    ->color('info')
-                    ->prefix('KIT-'),
+                ->label('Numero de kit')
+                ->prefix('KIT'),
                 Tables\Columns\TextColumn::make('status')
                     ->label('Statut')
                     ->getStateUsing(function ($record) {
@@ -150,7 +147,8 @@ Utilisez ce code avec précaution.
                             return 'A terme';
                         } elseif ($diffEnJours < 3) {
                             return 'Expiré';
-                        } else {
+                        }
+                        else{
                             return 'Inactif';
                         }
                     })
@@ -171,11 +169,9 @@ Utilisez ce code avec précaution.
                     ->icon('heroicon-o-plus'),
             ])
             ->actions([
-               Tables\Actions\ActionGroup::make([
-                   Tables\Actions\ViewAction::make()
-                       ->icon('heroicon-o-eye'),
-                   // Tables\Actions\DeleteAction::make(),
-               ])
+                Tables\Actions\ViewAction::make()
+                    ->icon('heroicon-o-eye'),
+                // Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 FilamentExportBulkAction::make('export'),

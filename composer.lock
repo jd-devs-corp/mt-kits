@@ -9482,23 +9482,23 @@
         },
         {
             "name": "ysfkaya/filament-phone-input",
-            "version": "v2.3.3",
+            "version": "v2.3.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ysfkaya/filament-phone-input.git",
-                "reference": "c6c93f73c4352d3dd13cda13566b8b031c61f239"
+                "reference": "520c2e759e2c01c794f506317fc4ab2cbd23f9b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ysfkaya/filament-phone-input/zipball/c6c93f73c4352d3dd13cda13566b8b031c61f239",
-                "reference": "c6c93f73c4352d3dd13cda13566b8b031c61f239",
+                "url": "https://api.github.com/repos/ysfkaya/filament-phone-input/zipball/520c2e759e2c01c794f506317fc4ab2cbd23f9b0",
+                "reference": "520c2e759e2c01c794f506317fc4ab2cbd23f9b0",
                 "shasum": ""
             },
             "require": {
                 "filament/filament": "^3.0",
                 "php": "^8.1",
                 "propaganistas/laravel-phone": "^5.0",
-                "spatie/laravel-package-tools": "^1.14.0"
+                "spatie/laravel-package-tools": "^1.16"
             },
             "require-dev": {
                 "laravel/pint": "^1.0",
@@ -9540,9 +9540,9 @@
             ],
             "support": {
                 "issues": "https://github.com/ysfkaya/filament-phone-input/issues",
-                "source": "https://github.com/ysfkaya/filament-phone-input/tree/v2.3.3"
+                "source": "https://github.com/ysfkaya/filament-phone-input/tree/v2.3.5"
             },
-            "time": "2024-02-24T14:06:33+00:00"
+            "time": "2024-03-21T14:33:50+00:00"
         }
     ],
     "packages-dev": [

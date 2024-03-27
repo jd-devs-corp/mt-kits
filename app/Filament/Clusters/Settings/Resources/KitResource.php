@@ -52,9 +52,12 @@ class KitResource extends Resource
                             ->required()
                             ->maxLength(255),
                         PhoneInput::make('phone_number')
-                            ->label('Numero de telephone')
+                            ->label('Numéro de téléphone')
                             ->countryStatePath('phone_country')
-                            ->initialCountry('CM'),
+                            ->required()
+                            ->maxWidth('9')
+                            ->onlyCountries(['CM'])
+                            ->defaultCountry('CM'),
                     ])
                     ->required(),
                 Forms\Components\Hidden::make('user_id')

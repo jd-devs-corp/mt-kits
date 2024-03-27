@@ -21,7 +21,8 @@ use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\Auth;
 use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
-
+use libphonenumber\PhoneNumberType;
+use Ysfkaya\FilamentPhoneInput\Infolists\PhoneEntry;
 class ReabonnementResource extends Resource
 {
     protected static ?string $model = Reabonnement::class;
@@ -61,14 +62,20 @@ class ReabonnementResource extends Resource
                                     ->required()
                                     ->maxLength(255),
                                 PhoneInput::make('phone_number')
+                                    ->label('Numéro de téléphone')
                                     ->countryStatePath('phone_country')
-                                    ->initialCountry('CM'),
+                                    ->required()
+                                    ->maxWidth('9')
+                                    ->onlyCountries(['CM'])
+                                    ->defaultCountry('CM'),
                             ])
                             ->required(),
                         Forms\Components\TextInput::make('kit_number')
                             ->required()
                             ->label('Numero de kit')
-                            ->maxLength(255),
+                            ->prefix('KIT')
+                            ->unique(Kit::class, 'kit_number')
+                            ->length(9),
                         Forms\Components\Select::make('localisation')
                             ->searchable()
                             ->required()
@@ -155,7 +162,7 @@ class ReabonnementResource extends Resource
                 Tables\Columns\TextColumn::make('kit.kit_number')
                     ->label('Numero de kit')
                     ->url(fn(Reabonnement $record): string => route('filament.admin.resources.kits.view', $record->kit_id))
-                    ->prefix('N° ')
+                    ->prefix('KIT')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('date_abonnement')
                     ->date()

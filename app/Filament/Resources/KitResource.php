@@ -65,7 +65,9 @@ class KitResource extends Resource
                         PhoneInput::make('phone_number')
                             ->label('Numero de telephone')
                             ->countryStatePath('phone_country')
-                            ->initialCountry('CM'),
+                            ->maxWidth('9')
+                            ->onlyCountries(['CM'])
+                            ->defaultCountry('CM'),
                     ])
                     ->required(),
                 Forms\Components\Hidden::make('user_id')
@@ -77,7 +79,8 @@ class KitResource extends Resource
                     ->unique(Kit::class, 'kit_number')
                     ->prefix('KIT')
                     ->numeric()
-                    ->length(9),
+                    ->length(9)
+                ->maxLength(9),
 
                 Forms\Components\Select::make('localisation')
                     ->searchable()
