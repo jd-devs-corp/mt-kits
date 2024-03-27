@@ -40,6 +40,7 @@ class ReabonnementResource extends Resource
                 Forms\Components\Select::make('kit_id')
                     ->required()
                     ->relationship('kit', 'kit_number')
+                    ->prefix('KIT')
                     ->searchable()
                     ->label('Numero de kit')
                     ->preload()
@@ -153,7 +154,7 @@ class ReabonnementResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('kit.kit_number')
                     ->label('Numero de kit')
-                    ->url(fn(Reabonnement $record): string => route('filament.fournisseur.resources.kits.view', $record->kit_id))
+                    ->url(fn(Reabonnement $record): string => route('filament.admin.resources.kits.view', $record->kit_id))
                     ->prefix('N° ')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('date_abonnement')

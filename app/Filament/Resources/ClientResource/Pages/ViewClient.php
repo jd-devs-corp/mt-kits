@@ -14,7 +14,7 @@ class ViewClient extends ViewRecord
     {
         return [
             Actions\EditAction::make()
-            ->icon('heroicono-pencil'),
+            ->icon('heroicon-o-pencil'),
         ];
     }
 }
