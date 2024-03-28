@@ -18,8 +18,8 @@ use Ysfkaya\FilamentPhoneInput\Tables\PhoneColumn;
 class ClientResource extends Resource
 {
     protected static ?string $model = Client::class;
-    protected static ?int $navigationSort = 3;
-    protected static ?string $navigationLabel = 'Nos clients';
+    protected static ?int $navigationSort=3;
+    protected static ?string $navigationLabel='Nos clients';
 
     protected static ?string $navigationGroup = 'Services';
 
@@ -74,10 +74,10 @@ class ClientResource extends Resource
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\ViewAction::make()
                         ->icon('heroicon-o-eye')
-                        ->color('primary'),
+                    ->color('primary'),
                     Tables\Actions\EditAction::make()
                         ->icon('heroicon-o-pencil')
-                        ->color('info'),
+                    ->color('info'),
                 ])
             ])
             ->bulkActions([

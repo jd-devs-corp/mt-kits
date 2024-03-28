@@ -20,7 +20,7 @@ class UnpayKitResource extends Resource
 {
     protected static ?string $model = UnpayKit::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-s-signal-slash';
     protected static ?string $navigationLabel = 'Nos kits';
     protected static ?string $modelLabel='Kit';
     protected static ?string $pluralModelLabel='Nos kits en stock';
@@ -38,6 +38,7 @@ class UnpayKitResource extends Resource
                     ->numeric()
                     ->maxLength(9)
                     ->minLength(9 )
+                    ->placeholder('Entrer le code à 9 chiffres')
                     ->validationMessages([
                         'unique' => 'Le numero :attribute est deja enregistré',
                         'max_digits' => 'Trop long, doit avoir 9 chiffres.',
