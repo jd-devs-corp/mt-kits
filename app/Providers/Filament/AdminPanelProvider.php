@@ -83,7 +83,7 @@ class AdminPanelProvider extends PanelProvider
                         shouldRegisterNavigation: true,
                         hasAvatars: true,
                         slug: 'profil',
-                        navigationGroup: 'Paramètres'
+                        navigationGroup: 'Administration'
                     )
                     ->customMyProfilePage(ProfilePage::class),
                 FilamentBackgroundsPlugin::make()
@@ -94,7 +94,8 @@ class AdminPanelProvider extends PanelProvider
 
             ])
             ->brandLogo(fn() => view('filament.admin.logo'))
-            ->brandName('Administration')
+            ->brandLogoHeight('5rem')
+            ->brandName('Mentalists kits')
             ->favicon(asset('images/logo_admin.png'));
 
     }

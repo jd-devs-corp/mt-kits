@@ -67,7 +67,8 @@ class FournisseurPanelProvider extends PanelProvider
 
             ])
             ->brandLogo(fn() => view('filament.supplier.logo'))
-            ->brandName('Fournisseur')
+            ->brandLogoHeight('5rem')
+            ->brandName('Mentalists kits')
             ->favicon(asset('images/logo_supplier.png'))
             ->middleware([
                 EncryptCookies::class,
@@ -89,7 +90,10 @@ class FournisseurPanelProvider extends PanelProvider
                         rules: [Password::default()->mixedCase()->uncompromised(3)], // you may pass an array of validation rules as well. (default = ['min:8'])
                         requiresCurrentPassword: true // when false, the user can update their password without entering their current password. (default = true)
                     )
-                    ->avatarUploadComponent(fn() => FileUpload::make('avatar_url')->disk('public'))
+                    ->avatarUploadComponent(
+                        fn() => FileUpload::make('avatar_url')
+                        ->disk('public')
+                    )
                     ->myProfile(
                         shouldRegisterUserMenu: true,
                         shouldRegisterNavigation: true,

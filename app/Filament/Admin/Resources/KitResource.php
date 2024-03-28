@@ -25,10 +25,12 @@ use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
 class KitResource extends Resource
 {
     protected static ?string $model = Kit::class;
+    protected static ?int $navigationSort=2;
+    protected static ?string $navigationLabel='Kits vendus';
 
     protected static ?string $navigationGroup = 'Services';
 
-    protected static ?string $navigationIcon = 'heroicon-o-wifi';
+    protected static ?string $navigationIcon = 'heroicon-s-signal';
     protected static ?string $recordTitleAttribute = 'kit_number';
 
     // protected static ?string $cluster = Settings::class;

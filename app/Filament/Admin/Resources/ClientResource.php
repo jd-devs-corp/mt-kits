@@ -18,6 +18,8 @@ use Ysfkaya\FilamentPhoneInput\Tables\PhoneColumn;
 class ClientResource extends Resource
 {
     protected static ?string $model = Client::class;
+    protected static ?int $navigationSort=3;
+    protected static ?string $navigationLabel='Nos clients';
 
     protected static ?string $navigationGroup = 'Services';
 

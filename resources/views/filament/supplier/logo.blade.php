@@ -1,8 +1,5 @@
 <style>
-    img.logo {
-        width: 300%;
-        height: 300%;
-    }
+
 
     .alink {
         color: #3b82f6;
@@ -77,7 +74,7 @@
 
 @else
     <!-- Code pour afficher le logo de la marque -->
-    <img class="logo fadeInLeft animated delay-2s" src="{{asset('images/logo_supplier.png')}}" title="logo supplieristrateur"
+    <img src="{{asset('images/logo_supplier.png')}}" title="Mentalists kits"
          alt="Logo supplieristrateur">
 @endif
 

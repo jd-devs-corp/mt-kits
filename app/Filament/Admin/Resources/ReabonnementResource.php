@@ -17,7 +17,7 @@ use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
 class ReabonnementResource extends Resource
 {
     protected static ?string $model = Reabonnement::class;
-
+    protected static ?int $navigationSort = 4;
     protected static ?string $navigationGroup = 'Services';
     protected static ?string $navigationLabel = 'Abonnements';
 
@@ -180,8 +180,8 @@ class ReabonnementResource extends Resource
                         ->label('Telecharger le reçu')
                         ->icon('heroicon-o-receipt-refund')
                         // ->label('Waoh')
-                        ->action(function(Reabonnement $record, array $data){
-                            return redirect(url('admin/receipt/generate',$record->id));
+                        ->action(function (Reabonnement $record, array $data) {
+                            return redirect(url('admin/receipt/generate', $record->id));
                         })
                 ])
             ])
