@@ -2,8 +2,8 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Fournisseur\Pages\ProfilePage;
 use Awcodes\Overlook\OverlookPlugin;
-use Awcodes\Overlook\Widgets\OverlookWidget;
 use Filament\Forms\Components\FileUpload;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -12,7 +12,6 @@ use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
-use Filament\Widgets;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -24,7 +23,6 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
 use Swis\Filament\Backgrounds\FilamentBackgroundsPlugin;
 use Swis\Filament\Backgrounds\ImageProviders\MyImages;
-use App\Filament\Clusters\Settings\Pages\ProfilePage;
 
 class FournisseurPanelProvider extends PanelProvider
 {
@@ -51,14 +49,14 @@ class FournisseurPanelProvider extends PanelProvider
             ->pages([
                 Pages\Dashboard::class,
             ])
-            ->discoverClusters(in: app_path('Filament/Clusters'), for: 'App\\Filament\\Clusters')
+            /*->discoverClusters(in: app_path('Filament/Clusters'), for: 'App\\Filament\\Clusters')*/
             ->discoverWidgets(in: app_path('Filament/Fournisseur/Widgets'), for: 'App\\Filament\\Fournisseur\\Widgets')
 
             ->plugins([
                 OverlookPlugin::make()
                     ->icons([
-                        'heroicon-o-users' => \App\Filament\Resources\ClientResource::class,
-                        'heroicon-o-wifi' => \App\Filament\Resources\KitResource::class,
+                        'heroicon-o-users' => \App\Filament\Admin\Resources\ClientResource::class,
+                        'heroicon-o-wifi' => \App\Filament\Admin\Resources\KitResource::class,
                     ])
             ])
             ->widgets([
