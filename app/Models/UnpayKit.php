@@ -11,16 +11,11 @@ class UnpayKit extends Model
 
     protected $filable = [
         'kit_number',
+        'statut',
         'user_id',
-        'statut'
     ];
 
     public function is_paid(){
         return $this->hasOne(Kit::class);
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
     }
 }

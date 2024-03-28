@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('unpay_kits', function (Blueprint $table) {
             $table->id();
             $table->string('kit_number')->unique();
-            $table->foreignId('user_id')->nullabe()->constrained('users')->nullable()->cascadeOnDelete()->nullable();
             $table->enum('statut', ['Payé', 'En stock','Vendu'])->default('En stock');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->timestamps();
         });
     }

@@ -37,12 +37,15 @@ class UnpayKitResource extends Resource
                     ->required()
                     ->numeric()
                     ->maxLength(9)
+                    ->minLength(9 )
                     ->validationMessages([
                         'unique' => 'Le numero :attribute est deja enregistré',
                         'maxLength' => 'le numero est trop long, 9 chiffres.'
                     ])
                     ->prefix('KIT')
-                    ->unique(UnpayKit::class, 'kit_number')
+                    ->unique(UnpayKit::class, 'kit_number'),
+                Forms\Components\Hidden::make('user_id')
+                        // ->default(null)
             ]);
     }
 
