@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kits', function (Blueprint $table) {
+        Schema::create('unpay_kits', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('client_id')->constrained('clients')->cascadeOnDelete();
-            $table->foreignId('kit_id')->constrained('unpay_kits')->cascadeOnDelete();
-            $table->string('localisation');
-            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->string('kit_number')->unique();
+            $table->foreignId('user_id')->nullabe()->constrained('users')->cascadeOnDelete();
+            $table->enum('statut', ['Payé', 'En stock'])->default('En stock');
             $table->timestamps();
-      });
+        });
     }
 
     /**
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kits');
+        Schema::dropIfExists('unpay_kits');
     }
 };
