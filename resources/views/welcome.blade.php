@@ -247,7 +247,7 @@ MTKITS s'adapte aux besoins des particuliers, des entreprises et des professionn
                         </h1>
                         <p class="mx-auto mb-9 max-w-[600px] font-medium text-5xl sm:text-lg sm:leading-[1.44]">
                         <h1 class="text-5xl dark:text-white">La plateforme <span class="auto-type font-extrabold"
-                                                                 style="font-family: 'Poppins', sans-serif;color: darkblue"></span>
+                                                                                 style="font-family: 'Poppins', sans-serif;color: darkblue"></span>
                         </h1>
                     </div>
                     <ul
@@ -399,7 +399,8 @@ MTKITS s'adapte aux besoins des particuliers, des entreprises et des professionn
         class="absolute left-0 top-0 -z-[1] h-full w-full dark:bg-dark"
     ></div>
     <div
-        class="absolute left-0 top-0 -z-[1] h-1/2 w-full  dark:bg-dark-700 lg:h-[45%] xl:h-1/2" style="background-color: #57667e"
+        class="absolute left-0 top-0 -z-[1] h-1/2 w-full  dark:bg-dark-700 lg:h-[45%] xl:h-1/2"
+        style="background-color: #57667e"
     ></div>
     <div class="container px-4">
         <div class="-mx-4 flex flex-wrap items-center">
@@ -475,6 +476,13 @@ MTKITS s'adapte aux besoins des particuliers, des entreprises et des professionn
                     </div>
                 </div>
             </div>
+            <div class="w-full px-4 lg:w-5/12 xl:w-4/12">
+
+                <iframe class="w-full lg:h-[400px]"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d994.9118061534036!2d9.743522888242978!3d4.0920152648863555!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x10610d0018a14141%3A0x6bd4b06afb045373!2sMentalist!5e0!3m2!1sen!2see!4v1711646103573!5m2!1sen!2see"  style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+            </div>
         </div>
     </div>
 </section>
@@ -518,7 +526,31 @@ MTKITS s'adapte aux besoins des particuliers, des entreprises et des professionn
       ></span>
 </a>
 <!-- ====== Back To Top End -->
-
+<!-- ====== Made With Button Start -->
+<a
+    target="_blank"
+    rel="nofollow noopener"
+    class="fixed bottom-8 left-4 z-[999] inline-flex items-center gap-[10px] rounded-lg bg-white px-[14px] py-2 shadow-2 dark:bg-dark-2 sm:left-9"
+    href="mailto:brainforcode@gmail.com"
+>
+      <span class="text-base font-medium text-dark-3 dark:text-dark-6">
+        Made by
+      </span>
+    <span class="block h-4 w-px bg-stroke dark:bg-dark-3"></span>
+    <span class="block w-full max-w-[88px]">
+        <img
+            src="{{asset('images/b4c.png')}}"
+            alt="tailgrids"
+            class="dark:hidden"
+        />
+        <img
+            src="{{asset('images/b4c.png')}}"
+            alt="tailgrids"
+            class="hidden dark:block"
+        />
+      </span>
+</a>
+<!-- ====== Made With Button End -->
 
 <!-- Load library from the CDN -->
 <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
