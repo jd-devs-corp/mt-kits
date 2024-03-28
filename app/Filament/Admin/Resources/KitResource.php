@@ -25,8 +25,8 @@ use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
 class KitResource extends Resource
 {
     protected static ?string $model = Kit::class;
-    protected static ?int $navigationSort=2;
-    protected static ?string $navigationLabel='Kits vendus';
+    protected static ?int $navigationSort = 2;
+    protected static ?string $navigationLabel = 'Kits vendus';
 
     protected static ?string $navigationGroup = 'Services';
 
@@ -73,7 +73,7 @@ class KitResource extends Resource
                     ->numeric()
                     ->length(9)
                     ->placeholder('Veuillez entrer 9 chiffres')
-                ->maxLength(9),
+                    ->maxLength(9),
 
                 Forms\Components\Select::make('localisation')
                     ->searchable()
@@ -242,22 +242,7 @@ class KitResource extends Resource
                 ])
             ])
             ->bulkActions([
-                Tables\Actions\BulkAction::make('Acheter')
-                    ->form([
-                        Forms\Components\Select::make('user_id')
-                            ->label('Fournisseur')
-                            ->options(User::cursor()->filter(function (User $user) {
-                                return $user->role == 'fournisseur' && $user->is_active;
-                            })->pluck('name', 'id'))
-                            ->required(),
-                    ])
-                    ->action(function (Collection $records, array $data) {
-                        foreach ($records as $record) {
-                            $record->user_id = $data['user_id'];
-                            $record->update();
-                        }
 
-                    }),
                 FilamentExportBulkAction::make('Exporter')
             ]);
     }
