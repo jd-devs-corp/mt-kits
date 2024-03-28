@@ -25,7 +25,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Public routes of authtication
 Route::controller(LoginRegisterController::class)->group(function() {
     Route::post('/register', 'register');
-    Route::post('/login', 'login')->name('login');
+    Route::post('/login', 'login')->name('api_login');
 });
 
 // Public routes of product

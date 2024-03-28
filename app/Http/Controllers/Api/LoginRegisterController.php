@@ -13,7 +13,7 @@ class LoginRegisterController extends Controller
     /**
      * Register a new user.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function register(Request $request)
@@ -24,7 +24,7 @@ class LoginRegisterController extends Controller
             'password' => 'required|string|min:8|confirmed'
         ]);
 
-        if($validate->fails()){
+        if ($validate->fails()) {
             return response()->json([
                 'status' => 'failed',
                 'message' => 'Validation Error!',
@@ -53,7 +53,7 @@ class LoginRegisterController extends Controller
     /**
      * Authenticate the user.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function login(Request $request)
@@ -63,7 +63,7 @@ class LoginRegisterController extends Controller
             'password' => 'required|string'
         ]);
 
-        if($validate->fails()){
+        if ($validate->fails()) {
             return response()->json([
                 'status' => 'failed',
                 'message' => 'Validation Error!',
@@ -75,7 +75,7 @@ class LoginRegisterController extends Controller
         $user = User::where('email', $request->email)->first();
 
         // Check password
-        if(!$user || !Hash::check($request->password, $user->password)) {
+        if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json([
                 'status' => 'failed',
                 'message' => 'Invalid credentials'
@@ -97,7 +97,7 @@ class LoginRegisterController extends Controller
     /**
      * Log out the user from application.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function logout(Request $request)
