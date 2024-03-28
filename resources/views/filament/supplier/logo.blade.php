@@ -5,7 +5,7 @@
     }
 
     .alink {
-        color: #DC2626;
+        color: #3b82f6;
         font-weight: bold;
         font-family: 'Sora', sans-serif;
         display: inline-flex;

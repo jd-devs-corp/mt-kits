@@ -29,7 +29,11 @@ class KitsRelationManager extends RelationManager
                 Forms\Components\TextInput::make('kit_number')
                     ->required()
                     ->label('Numero de kit')
-                    ->maxLength(255),
+                    ->unique(Kit::class, 'kit_number')
+                    ->prefix('KIT')
+                    ->numeric()
+                    ->length(9)
+                    ->placeholder('Veuillez entrer 9 chiffres'),
                 Forms\Components\Select::make('localisation')
                     ->searchable()
                     ->required()

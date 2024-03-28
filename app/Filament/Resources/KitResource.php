@@ -80,6 +80,7 @@ class KitResource extends Resource
                     ->prefix('KIT')
                     ->numeric()
                     ->length(9)
+                    ->placeholder('Veuillez entrer 9 chiffres')
                 ->maxLength(9),
 
                 Forms\Components\Select::make('localisation')
@@ -194,7 +195,7 @@ class KitResource extends Resource
                         if ($dateFinAbonnement === null) {
                             return 'Inactif';
                         }
-                        
+
                         $dateFinAbonnementCarbon = Carbon::parse($dateFinAbonnement);
                         $diffEnJours = $dateFinAbonnementCarbon->diffInDays(now());
                         if ($diffEnJours > 15) {
