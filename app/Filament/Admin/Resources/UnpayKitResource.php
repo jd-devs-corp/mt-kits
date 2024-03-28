@@ -18,10 +18,9 @@ class UnpayKitResource extends Resource
     protected static ?string $model = UnpayKit::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-    protected static ?string $navigationLabel='Kits non payés';
-    protected static ?string $navigationGroup='Services';
-    protected static ?int $navigationSort=1;
-
+    protected static ?string $navigationLabel = 'Kits non payés';
+    protected static ?string $navigationGroup = 'Services';
+    protected static ?int $navigationSort = 1;
 
 
     public static function form(Form $form): Form
