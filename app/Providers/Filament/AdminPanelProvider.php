@@ -58,6 +58,7 @@ class AdminPanelProvider extends PanelProvider
             ->widgets([
 //                Widgets\WidgetsServiceProvider::class,
             ])
+            ->globalSearchKeyBindings(['command+k', 'ctrl+k'])
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
@@ -87,7 +88,7 @@ class AdminPanelProvider extends PanelProvider
                         slug: 'profil',
                         navigationGroup: 'Paramètres'
                     )
-                ->customMyProfilePage(ProfilePage::class),
+                    ->customMyProfilePage(ProfilePage::class),
                 FilamentBackgroundsPlugin::make()
                     ->imageProvider(
                         MyImages::make()

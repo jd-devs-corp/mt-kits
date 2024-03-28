@@ -42,6 +42,7 @@ class ClientResource extends Resource
                     ->countryStatePath('phone_country')
                     ->required()
                     ->maxWidth('9')
+                    ->onlyCountries(['CM'])
                     ->defaultCountry('CM'),
             ]);
     }

@@ -30,20 +30,6 @@ class ClientResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
 
-    public static function infolists(Infolist $infolist): Infolist
-    {
-        return $infolist
-            ->columns([
-                Infolists\Components\TextEntry::make('name'),
-                Tables\Columns\TextColumn::make('email'),
-                PhoneEntry::make('phone_number')
-                    ->displayFormat(PhoneInputNumberType::NATIONAL)
-                    ->badge()
-                    ->color('success')
-                    ->countryColumn('phone_country'),
-            ]);
-    }
-
     public static function form(Form $form): Form
     {
         return $form
@@ -60,11 +46,7 @@ class ClientResource extends Resource
                     ->label('Numéro de téléphone')
                     ->countryStatePath('phone_country')
                     ->required()
-                    ->nationalMode(true)
-                    ->formatOnDisplay(false)
-                    ->displayNumberFormat(PhoneInputNumberType::NATIONAL)
-                    ->inputNumberFormat(PhoneInputNumberType::NATIONAL)
-                    ->useFullscreenPopup()
+                    ->maxWidth(9)
                     ->initialCountry('CM'),
 
             ]);
@@ -90,15 +72,18 @@ class ClientResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
 
             ])
-
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make()
-                ->icon('heroicon-o-eye'),
-                Tables\Actions\EditAction::make()
-                ->icon('heroicon-o-pencil'),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\ViewAction::make()
+                        ->icon('heroicon-o-eye')
+                    ->color('primary'),
+                    Tables\Actions\EditAction::make()
+                        ->icon('heroicon-o-pencil')
+                    ->color('info'),
+                ])
             ])
             ->bulkActions([
                 FilamentExportBulkAction::make('Exporter')

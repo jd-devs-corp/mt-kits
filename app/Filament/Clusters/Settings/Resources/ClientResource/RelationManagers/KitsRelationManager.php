@@ -12,6 +12,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
+use Ysfkaya\FilamentPhoneInput\PhoneInputNumberType;
 
 class KitsRelationManager extends RelationManager
 {
@@ -35,7 +36,7 @@ class KitsRelationManager extends RelationManager
                     ->countryStatePath('phone_country')
                     ->required()
                     ->maxWidth('9')
-                    ->initialCountry('CM'),
+                    ->defaultCountry('CM'),
             ]);
     }
 
@@ -44,7 +45,11 @@ class KitsRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('Kits')
             ->columns([
-                Tables\Columns\TextColumn::make('kit_number')->label('Numero de kit'),
+                Tables\Columns\TextColumn::make('kit_number')
+                    ->prefix('KIT-')
+                    ->searchable()
+                    ->sortable()
+                    ->label('Numero de kit'),
                 Tables\Columns\TextColumn::make('status')
                     ->label('Statut')
                     ->getStateUsing(function ($record) {
@@ -87,7 +92,7 @@ class KitsRelationManager extends RelationManager
             ])
             ->actions([
                 Tables\Actions\EditAction::make()
-                ->icon('heroicono-pencil'),
+                ->icon('heroicon-o-pencil'),
                 // Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([

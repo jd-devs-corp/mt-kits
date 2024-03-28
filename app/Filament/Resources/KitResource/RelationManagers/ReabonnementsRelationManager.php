@@ -46,7 +46,7 @@ class ReabonnementsRelationManager extends RelationManager
                 ->money('XAF'),
                 Tables\Columns\TextColumn::make('kit.kit_number')
                 ->label('Numero de kit')
-                ->prefix('N° '),
+                ->prefix('KIT'),
                 Tables\Columns\TextColumn::make('statut')
                     ->label('Statut')
                     ->getStateUsing(function ($record) {
