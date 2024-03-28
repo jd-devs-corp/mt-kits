@@ -187,6 +187,7 @@ class KitResource extends Resource
                         if ($dateFinAbonnement === null) {
                             return 'Inactif';
                         }
+                        
                         $dateFinAbonnementCarbon = Carbon::parse($dateFinAbonnement);
                         $diffEnJours = $dateFinAbonnementCarbon->diffInDays(now());
                         if ($diffEnJours > 15) {

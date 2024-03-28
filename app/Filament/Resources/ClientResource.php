@@ -14,7 +14,6 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-
 use Filament\Infolists;
 use Filament\Infolists\Infolist;
 use Filament\Tables\Grouping\Group;
@@ -37,7 +36,7 @@ class ClientResource extends Resource
             ->columns([
                 Infolists\Components\TextEntry::make('name'),
                 Tables\Columns\TextColumn::make('email'),
-                PhoneEntry::make('phone')
+                PhoneEntry::make('phone_number')
                     ->displayFormat(PhoneInputNumberType::NATIONAL)
                     ->badge()
                     ->color('success')
@@ -61,7 +60,11 @@ class ClientResource extends Resource
                     ->label('Numéro de téléphone')
                     ->countryStatePath('phone_country')
                     ->required()
-                    ->maxWidth('9')
+                    ->nationalMode(true)
+                    ->formatOnDisplay(false)
+                    ->displayNumberFormat(PhoneInputNumberType::NATIONAL)
+                    ->inputNumberFormat(PhoneInputNumberType::NATIONAL)
+                    ->useFullscreenPopup()
                     ->initialCountry('CM'),
 
             ]);

@@ -172,6 +172,7 @@ return [
         App\Providers\Filament\FournisseurPanelProvider::class,
         App\Providers\RouteServiceProvider::class,
         Livewire\LivewireServiceProvider::class,
+        'Ritey\LibPhoneNumberLaravel\LibPhoneNumberLaravelServiceProvider',
 
     ])->toArray(),
 
@@ -188,6 +189,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
+        'LibPhoneNumber' => 'Ritey\LibPhoneNumberLaravel\LibPhoneNumberLaravelFacade',
     ])->toArray(),
 
 ];
