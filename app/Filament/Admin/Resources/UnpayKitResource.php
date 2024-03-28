@@ -5,12 +5,14 @@ namespace App\Filament\Admin\Resources;
 use App\Filament\Admin\Resources\UnpayKitResource\Pages;
 use App\Filament\Admin\Resources\UnpayKitResource\RelationManagers;
 use App\Models\UnpayKit;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class UnpayKitResource extends Resource
@@ -48,6 +50,22 @@ class UnpayKitResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
+                Tables\Actions\BulkAction::make('Acheter')
+                    ->form([
+                        Forms\Components\Select::make('user_id')
+                            ->label('Fournisseur')
+                            ->options(User::cursor()->filter(function (User $user) {
+                                return $user->role == 'fournisseur' && $user->is_active;
+                            })->pluck('name', 'id'))
+                            ->required(),
+                    ])
+                    ->action(function (Collection $records, array $data) {
+                        foreach ($records as $record) {
+                            $record->user_id = $data['user_id'];
+                            $record->update();
+                        }
+
+                    }),
             ]);
     }
 

@@ -242,22 +242,7 @@ class KitResource extends Resource
                 ])
             ])
             ->bulkActions([
-                Tables\Actions\BulkAction::make('Acheter')
-                    ->form([
-                        Forms\Components\Select::make('user_id')
-                            ->label('Fournisseur')
-                            ->options(User::cursor()->filter(function (User $user) {
-                                return $user->role == 'fournisseur' && $user->is_active;
-                            })->pluck('name', 'id'))
-                            ->required(),
-                    ])
-                    ->action(function (Collection $records, array $data) {
-                        foreach ($records as $record) {
-                            $record->user_id = $data['user_id'];
-                            $record->update();
-                        }
 
-                    }),
                 FilamentExportBulkAction::make('Exporter')
             ]);
     }

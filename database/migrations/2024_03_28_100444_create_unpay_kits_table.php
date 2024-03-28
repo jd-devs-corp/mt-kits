@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('kit_number')->unique();
             $table->foreignId('user_id')->nullabe()->constrained('users')->cascadeOnDelete();
-            $table->enum('statut', ['Payé', 'En stock'])->default('En stock');
+            $table->enum('statut', ['Payé', 'En stock','Vendu'])->default('En stock');
             $table->timestamps();
         });
     }
