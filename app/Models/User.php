@@ -33,7 +33,6 @@ class User extends Authenticatable implements FilamentUser, HasName, HasAvatar, 
         'role',
         'pourcentage',
         'avatar_url',
-        'anciennete',
         'phone_number',
     ];
 
@@ -56,6 +55,10 @@ class User extends Authenticatable implements FilamentUser, HasName, HasAvatar, 
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function unpayed_kits(): HasMany{
+        return $this->hasMany(UnpayKit::class);
+    }
 
     public function kits(): HasMany{
         return $this->hasMany(Kit::class);

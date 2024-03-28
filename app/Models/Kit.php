@@ -13,10 +13,14 @@ class Kit extends Model
 
     protected $fillable =[
         'client_id',
-        'kit_number',
+        'kit_id',
         'localisation',
-        'fournisseur_id',
+        'user_id',
     ];
+
+    public function was() : BelongsTo{
+        return $this->belongsTo(UnpayKit::class);
+    }
 
     public function client() : BelongsTo{
         return $this->belongsTo(Client::class);
