@@ -439,10 +439,10 @@ MTKITS s'adapte aux besoins des particuliers, des entreprises et des professionn
                                 <h5
                                     class="mb-[18px] text-lg font-semibold text-dark dark:text-white"
                                 >
-                                    Notre localisantion
+                                    Notre localisation
                                 </h5>
                                 <p class="text-base text-body-color dark:text-dark-6">
-                                    Mentalits agence créative, Bonamoussadi, Douala, Cameroun
+                                    Mentalists agence créative, Bonamoussadi, Douala, Cameroun
                                 </p>
                             </div>
                         </div>
