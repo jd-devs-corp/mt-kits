@@ -102,7 +102,7 @@ class KitsRelationManager extends RelationManager
             ->columns([
                 Tables\Columns\TextColumn::make('kit_number')
                 ->label('Numero de kit')
-                ->prefix('N° '),
+                ->prefix('KIT'),
                 Tables\Columns\TextColumn::make('status')
                     ->label('Statut')
                     ->getStateUsing(function ($record) {

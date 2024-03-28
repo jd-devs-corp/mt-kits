@@ -162,7 +162,7 @@ class ReabonnementResource extends Resource
                 Tables\Columns\TextColumn::make('kit.kit_number')
                     ->label('Numero de kit')
                     ->url(fn(Reabonnement $record): string => route('filament.admin.resources.kits.view', $record->kit_id))
-                    ->prefix('N° ')
+                    ->prefix('KIT')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('date_abonnement')
                     ->date()

@@ -38,7 +38,7 @@ class ReabonnementsRelationManager extends RelationManager
             ->columns([
                 Tables\Columns\TextColumn::make('kit.kit_number')
                 ->label('Numero de kit')
-                ->prefix('N° '),
+                ->prefix('KIT'),
                 Tables\Columns\TextColumn::make('date_abonnement')
                 ->label('Date de debut'),
                 Tables\Columns\TextColumn::make('date_fin_abonnement')

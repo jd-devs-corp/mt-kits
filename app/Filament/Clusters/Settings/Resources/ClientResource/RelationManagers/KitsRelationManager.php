@@ -36,6 +36,7 @@ class KitsRelationManager extends RelationManager
                     ->countryStatePath('phone_country')
                     ->required()
                     ->maxWidth('9')
+                    ->onlyCountries(['CM'])
                     ->defaultCountry('CM'),
             ]);
     }
@@ -46,7 +47,7 @@ class KitsRelationManager extends RelationManager
             ->recordTitleAttribute('Kits')
             ->columns([
                 Tables\Columns\TextColumn::make('kit_number')
-                    ->prefix('KIT-')
+                    ->prefix('KIT')
                     ->searchable()
                     ->sortable()
                     ->label('Numero de kit'),
