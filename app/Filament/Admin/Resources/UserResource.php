@@ -167,10 +167,10 @@ class UserResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => \App\Filament\Admin\Resources\UserResource\Pages\ListUsers::route('/'),
+            'index' => Pages\ListUsers::route('/'),
             // 'create' => Pages\CreateUser::route('/create'),
-            'view' => \App\Filament\Admin\Resources\UserResource\Pages\ViewUser::route('/{record}      '),
-            'edit' => \App\Filament\Admin\Resources\UserResource\Pages\EditUser::route('/{record}/edit'),
+            'view' => Pages\ViewUser::route('/{record}      '),
+            'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
     }
 }
