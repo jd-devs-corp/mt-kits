@@ -3,6 +3,7 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Admin\Pages\ProfilePage;
+use App\Filament\Admin\Pages\TableauDeBord;
 use Filament\Forms\Components\FileUpload;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -77,7 +78,9 @@ class AdminPanelProvider extends PanelProvider
                         rules: [Password::default()->mixedCase()->uncompromised(3)], // you may pass an array of validation rules as well. (default = ['min:8'])
                         requiresCurrentPassword: true // when false, the user can update their password without entering their current password. (default = true)
                     )
-                    ->avatarUploadComponent(fn() => FileUpload::make('avatar_url')->disk('public')->label('Photo de profil'))
+                    ->avatarUploadComponent(fn() => FileUpload::make('avatar_url')
+                        ->disk('public')
+                        ->label('Photo de profil'))
                     ->myProfile(
                         shouldRegisterUserMenu: true,
                         shouldRegisterNavigation: true,

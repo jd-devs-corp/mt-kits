@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Admin\Resources;
 
-use App\Filament\Resources\UnpayKitResource\Pages;
-use App\Filament\Resources\UnpayKitResource\RelationManagers;
+use App\Filament\Admin\Resources\UnpayKitResource\Pages;
+use App\Filament\Admin\Resources\UnpayKitResource\RelationManagers;
 use App\Models\UnpayKit;
 use Filament\Forms;
 use Filament\Forms\Form;

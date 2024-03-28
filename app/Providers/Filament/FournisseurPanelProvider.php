@@ -93,6 +93,7 @@ class FournisseurPanelProvider extends PanelProvider
                     ->avatarUploadComponent(
                         fn() => FileUpload::make('avatar_url')
                         ->disk('public')
+                        ->optimize('webp')
                     )
                     ->myProfile(
                         shouldRegisterUserMenu: true,
