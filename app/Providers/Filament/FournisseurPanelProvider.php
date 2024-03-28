@@ -24,7 +24,7 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
 use Swis\Filament\Backgrounds\FilamentBackgroundsPlugin;
 use Swis\Filament\Backgrounds\ImageProviders\MyImages;
-use App\Filament\Clusters\Settings\Pages\ProfilePage;
+use App\Filament\Fournisseur\Pages\ProfilePage;
 
 class FournisseurPanelProvider extends PanelProvider
 {
@@ -51,14 +51,13 @@ class FournisseurPanelProvider extends PanelProvider
             ->pages([
                 Pages\Dashboard::class,
             ])
-            ->discoverClusters(in: app_path('Filament/Clusters'), for: 'App\\Filament\\Clusters')
             ->discoverWidgets(in: app_path('Filament/Fournisseur/Widgets'), for: 'App\\Filament\\Fournisseur\\Widgets')
 
             ->plugins([
                 OverlookPlugin::make()
                     ->icons([
-                        'heroicon-o-users' => \App\Filament\Resources\ClientResource::class,
-                        'heroicon-o-wifi' => \App\Filament\Resources\KitResource::class,
+                        'heroicon-o-users' => \App\Filament\Admin\Resources\ClientResource::class,
+                        'heroicon-o-wifi' => \App\Filament\Admin\Resources\KitResource::class,
                     ])
             ])
             ->widgets([
