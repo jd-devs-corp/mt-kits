@@ -1,35 +1,25 @@
 <?php
 
-namespace App\Filament\Admin\Resources;
+namespace App\Filament\Resources;
 
 use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
-use App\Filament\Fournisseur;
 use App\Filament\Admin\Resources\KitResource\Pages;
 use App\Filament\Admin\Resources\KitResource\RelationManagers;
 use App\Models\Kit;
-use App\Models\Reabonnement;
 use App\Models\User;
 use Carbon\Carbon;
-use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Columns\Column;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
-use Filament\Tables\Filters\TernaryFilter;
-use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
-use Hamcrest\Core\IsNull;
 use Illuminate\Contracts\Support\Htmlable;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
-use PhpOffice\PhpSpreadsheet\Calculation\Web;
 
 
 class KitResource extends Resource
@@ -274,7 +264,7 @@ class KitResource extends Resource
     {
         return [
             //
-            RelationManagers\ReabonnementsRelationManager::class,
+            \App\Filament\Admin\Resources\KitResource\RelationManagers\ReabonnementsRelationManager::class,
         ];
     }
 

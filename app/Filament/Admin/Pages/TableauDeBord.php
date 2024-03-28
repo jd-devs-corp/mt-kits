@@ -5,7 +5,6 @@ namespace App\Filament\Admin\Pages;
 use App\Filament\Admin\Widgets\KitsOverview;
 use App\Filament\Admin\Widgets\Overview;
 use Filament\Pages\Dashboard;
-use Filament\Pages\Page;
 
 class TableauDeBord extends Dashboard
 {

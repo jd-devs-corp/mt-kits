@@ -2,8 +2,7 @@
 
 namespace App\Filament\Admin\Pages;
 
-use Filament\Pages\Page;
-use Jeffgreco13\FilamentBreezy\Pages\MyProfilePage ;
+use Jeffgreco13\FilamentBreezy\Pages\MyProfilePage;
 
 class ProfilePage extends MyProfilePage
 {

@@ -2,7 +2,7 @@
 
 namespace App\Filament\Fournisseur\Pages;
 
-use App\Filament\Fournisseur;
+//use App\Filament\Fournisseur;
 use Filament\Pages\Page;
 use Jeffgreco13\FilamentBreezy\Pages\MyProfilePage;
 

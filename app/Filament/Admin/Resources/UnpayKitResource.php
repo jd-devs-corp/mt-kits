@@ -16,6 +16,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class UnpayKitResource extends Resource
 {
     protected static ?string $model = UnpayKit::class;
+    protected static ?string $navigationLabel="Kits en stock";
+    protected static ?string $navigationGroup="Services";
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 

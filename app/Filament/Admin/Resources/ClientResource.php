@@ -8,19 +8,12 @@ use App\Filament\Admin\Resources\ClientResource\RelationManagers;
 use App\Models\Client;
 use Filament\Forms;
 use Filament\Forms\Form;
-use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Filament\Infolists;
-use Filament\Infolists\Infolist;
-use Filament\Tables\Grouping\Group;
 use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
 use Ysfkaya\FilamentPhoneInput\PhoneInputNumberType;
 use Ysfkaya\FilamentPhoneInput\Tables\PhoneColumn;
-use Ysfkaya\FilamentPhoneInput\Infolists\PhoneEntry;
 
 class ClientResource extends Resource
 {
@@ -94,7 +87,7 @@ class ClientResource extends Resource
     {
         return [
             //
-            RelationManagers\KitsRelationManager::class,
+            \App\Filament\Admin\Resources\ClientResource\RelationManagers\KitsRelationManager::class,
         ];
     }
 
@@ -102,10 +95,10 @@ class ClientResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListClients::route('/'),
+            'index' => \App\Filament\Admin\Resources\ClientResource\Pages\ListClients::route('/'),
             // 'create' => Pages\CreateClient::route('/create'),
-            'view' => Pages\ViewClient::route('/{record}'),
-            'edit' => Pages\EditClient::route('/{record}/edit'),
+            'view' => \App\Filament\Admin\Resources\ClientResource\Pages\ViewClient::route('/{record}'),
+            'edit' => \App\Filament\Admin\Resources\ClientResource\Pages\EditClient::route('/{record}/edit'),
         ];
     }
 }

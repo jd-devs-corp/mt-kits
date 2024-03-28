@@ -3,21 +3,18 @@
 namespace App\Filament\Admin\Resources;
 
 use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
-use App\Filament\Admin\Resources\UserResource\Pages;
 use App\Filament\Admin\Resources\UserResource\RelationManagers\KitRelationManager;
+use App\Filament\Admin\Resources\UserResource\Pages;
 use App\Models\Kit;
 use App\Models\User;
-use Filament\Actions\Action;
 use Filament\Forms;
 use Filament\Forms\Form;
-use Filament\Tables\Grouping\Group;
 use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Table;
-use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
-use Filament\Resources\Pages\ListRecords;
 use Filament\Tables\Filters\TernaryFilter;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
 
 class UserResource extends Resource
 {
@@ -140,7 +137,7 @@ class UserResource extends Resource
                         ->queries(
                             true: fn (Builder $query) => $query->where('is_active',  true),
                             false: fn (Builder $query) => $query->where('is_active', false),
-                            blank: fn (Builder $query) => $query, // In this example, we do not want to filter the query when it is blank.
+                            blank: fn (Builder $query) => $query // In this example, we do not want to filter the query when it is blank.
                         )
             ])
             ->actions([
@@ -171,10 +168,10 @@ class UserResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListUsers::route('/'),
+            'index' => \App\Filament\Admin\Resources\UserResource\Pages\ListUsers::route('/'),
             // 'create' => Pages\CreateUser::route('/create'),
-            'view' => Pages\ViewUser::route('/{record}      '),
-            'edit' => Pages\EditUser::route('/{record}/edit'),
+            'view' => \App\Filament\Admin\Resources\UserResource\Pages\ViewUser::route('/{record}      '),
+            'edit' => \App\Filament\Admin\Resources\UserResource\Pages\EditUser::route('/{record}/edit'),
         ];
     }
 }
