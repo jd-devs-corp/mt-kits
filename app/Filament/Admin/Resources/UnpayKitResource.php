@@ -4,6 +4,7 @@ namespace App\Filament\Admin\Resources;
 
 use App\Filament\Admin\Resources\UnpayKitResource\Pages;
 use App\Filament\Admin\Resources\UnpayKitResource\RelationManagers;
+use App\Models\Kit;
 use App\Models\UnpayKit;
 use App\Models\User;
 use Filament\Forms;
@@ -32,7 +33,16 @@ class UnpayKitResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('kit_number')
+                    ->required()
+                    ->numeric()
+                    ->maxLength(9)
+                    ->validationMessages([
+                        'unique' => 'Le numero :attribute est deja enregistré',
+                        'maxLength' => 'le numero est trop long, 9 chiffres.'
+                    ])
+                    ->prefix('KIT')
+                    ->unique(UnpayKit::class, 'kit_number')
             ]);
     }
 
@@ -40,7 +50,15 @@ class UnpayKitResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('kit_number')
+                    ->prefix('KIT'),
+                Tables\columns\TextColumn::make('statut')
+                    ->badge()
+                    ->color(fn($state): string => match($state){
+                        'En stock' => 'success',
+                        'Payé' => "danger",
+                        'Vendu' => 'warning'
+                    })
             ])
             ->filters([
                 //
@@ -65,7 +83,9 @@ class UnpayKitResource extends Resource
                     ->action(function (Collection $records, array $data) {
                         foreach ($records as $record) {
                             $record->user_id = $data['user_id'];
+                            $record->statut = 'Payé';
                             $record->update();
+
                         }
 
                     }),
@@ -83,7 +103,7 @@ class UnpayKitResource extends Resource
     {
         return [
             'index' => Pages\ListUnpayKits::route('/'),
-            'create' => Pages\CreateUnpayKit::route('/create'),
+            // 'create' => Pages\CreateUnpayKit::route('/create'),
             'view' => Pages\ViewUnpayKit::route('/{record}'),
             'edit' => Pages\EditUnpayKit::route('/{record}/edit'),
         ];

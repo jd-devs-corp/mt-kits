@@ -15,7 +15,7 @@ return new  class extends Migration
             $table->id();
             $table->foreignId('client_id')->constrained('clients')->cascadeOnDelete();
             $table->string('kit_id')->unique();
-            $table->string('localisation');
+            $table->string('localisation')->nullable();
             $table->foreignId('user_id')->nullable()->constrained('users')->cascadeOnDelete()->nullable();
             $table->timestamps();
       });
