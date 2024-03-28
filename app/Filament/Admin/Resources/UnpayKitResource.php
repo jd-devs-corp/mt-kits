@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Admin\Resources;
 
-use App\Filament\Resources\UnpayKitResource\Pages;
-use App\Filament\Resources\UnpayKitResource\RelationManagers;
+use App\Filament\Admin\Resources\UnpayKitResource\Pages;
+use App\Filament\Admin\Resources\UnpayKitResource\RelationManagers;
 use App\Models\UnpayKit;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -16,6 +16,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class UnpayKitResource extends Resource
 {
     protected static ?string $model = UnpayKit::class;
+    protected static ?string $navigationLabel="Kits en stock";
+    protected static ?string $navigationGroup="Services";
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 

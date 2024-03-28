@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\UnpayKitResource\Pages;
+namespace App\Filament\Admin\Resources\UnpayKitResource\Pages;
 
-use App\Filament\Resources\UnpayKitResource;
+use App\Filament\Admin\Resources\UnpayKitResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ViewRecord;
 

@@ -137,7 +137,7 @@ class UserResource extends Resource
                         ->queries(
                             true: fn (Builder $query) => $query->where('is_active',  true),
                             false: fn (Builder $query) => $query->where('is_active', false),
-                            blank: fn (Builder $query) => $query, // In this example, we do not want to filter the query when it is blank.
+                            blank: fn (Builder $query) => $query // In this example, we do not want to filter the query when it is blank.
                         )
             ])
             ->actions([
