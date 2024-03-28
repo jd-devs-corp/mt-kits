@@ -25,8 +25,8 @@ use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
 class KitResource extends Resource
 {
     protected static ?string $model = Kit::class;
-    protected static ?int $navigationSort=2;
-    protected static ?string $navigationLabel='Kits vendus';
+    protected static ?int $navigationSort = 2;
+    protected static ?string $navigationLabel = 'Kits vendus';
 
     protected static ?string $navigationGroup = 'Services';
 
@@ -73,7 +73,7 @@ class KitResource extends Resource
                     ->numeric()
                     ->length(9)
                     ->placeholder('Veuillez entrer 9 chiffres')
-                ->maxLength(9),
+                    ->maxLength(9),
 
                 Forms\Components\Select::make('localisation')
                     ->searchable()
