@@ -40,7 +40,9 @@ class UnpayKitResource extends Resource
                     ->minLength(9 )
                     ->validationMessages([
                         'unique' => 'Le numero :attribute est deja enregistré',
-                        'maxLength' => 'le numero est trop long, 9 chiffres.'
+                        'max_digits' => 'Trop long, doit avoir 9 chiffres.',
+                        'min_digits' => 'Trop court, doit avoir 9 chiffres',
+                        'required' => 'Ce champ est requis'
                     ])
                     ->prefix('KIT')
                     ->unique(UnpayKit::class, 'kit_number'),
@@ -73,25 +75,25 @@ class UnpayKitResource extends Resource
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\BulkAction::make('Acheter')
+                        ->form([
+                            Forms\Components\Select::make('user_id')
+                                ->label('Fournisseur')
+                                ->options(User::cursor()->filter(function (User $user) {
+                                    return $user->role == 'fournisseur' && $user->is_active;
+                                })->pluck('name', 'id'))
+                                ->required(),
+                        ])
+                        ->action(function (Collection $records, array $data) {
+                            foreach ($records as $record) {
+                                $record->user_id = $data['user_id'];
+                                $record->statut = 'Payé';
+                                $record->update();
+    
+                            }
+    
+                        }),
                 ]),
-                Tables\Actions\BulkAction::make('Acheter')
-                    ->form([
-                        Forms\Components\Select::make('user_id')
-                            ->label('Fournisseur')
-                            ->options(User::cursor()->filter(function (User $user) {
-                                return $user->role == 'fournisseur' && $user->is_active;
-                            })->pluck('name', 'id'))
-                            ->required(),
-                    ])
-                    ->action(function (Collection $records, array $data) {
-                        foreach ($records as $record) {
-                            $record->user_id = $data['user_id'];
-                            $record->statut = 'Payé';
-                            $record->update();
-
-                        }
-
-                    }),
             ]);
     }
 
