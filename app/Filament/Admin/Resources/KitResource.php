@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Admin\Resources;
 
 use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
 use App\Filament\Admin\Resources\KitResource\Pages;

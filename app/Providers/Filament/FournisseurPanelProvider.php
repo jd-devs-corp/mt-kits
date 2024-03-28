@@ -12,6 +12,7 @@ use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
+use App\Filament\Fournisseur\Resources;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -54,8 +55,8 @@ class FournisseurPanelProvider extends PanelProvider
             ->plugins([
                 OverlookPlugin::make()
                     ->icons([
-                        'heroicon-o-users' => \App\Filament\Admin\Resources\ClientResource::class,
-                        'heroicon-o-wifi' => \App\Filament\Admin\Resources\KitResource::class,
+                        'heroicon-o-users' => Resources\ClientResource::class,
+                        'heroicon-o-wifi' => Resources\KitResource::class,
                     ])
             ])
             ->widgets([
