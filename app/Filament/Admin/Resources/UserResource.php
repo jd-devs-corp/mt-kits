@@ -4,7 +4,7 @@ namespace App\Filament\Admin\Resources;
 
 use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
 use App\Filament\Admin\Resources\UserResource\RelationManagers\KitRelationManager;
-use App\Filament\Resources\UserResource\Pages;
+use App\Filament\Admin\Resources\UserResource\Pages;
 use App\Models\Kit;
 use App\Models\User;
 use Filament\Forms;

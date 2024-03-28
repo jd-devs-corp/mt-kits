@@ -3,8 +3,8 @@
 namespace App\Filament\Admin\Resources;
 
 use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
-use App\Filament\Resources\KitResource\Pages;
-use App\Filament\Resources\KitResource\RelationManagers;
+use App\Filament\Admin\Resources\KitResource\Pages;
+use App\Filament\Admin\Resources\KitResource\RelationManagers;
 use App\Models\Kit;
 use App\Models\User;
 use Carbon\Carbon;

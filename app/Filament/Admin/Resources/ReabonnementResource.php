@@ -3,7 +3,7 @@
 namespace App\Filament\Admin\Resources;
 
 use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
-use App\Filament\Resources\ReabonnementResource\Pages;
+use App\Filament\Admin\Resources\ReabonnementResource\Pages;
 use App\Models\Kit;
 use App\Models\Reabonnement;
 use Filament\Forms;
