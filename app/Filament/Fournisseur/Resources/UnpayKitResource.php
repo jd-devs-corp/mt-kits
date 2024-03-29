@@ -62,9 +62,9 @@ class UnpayKitResource extends Resource
     {
         return [
             'index' => Pages\ListUnpayKits::route('/'),
-            'create' => Pages\CreateUnpayKit::route('/create'),
-            'view' => Pages\ViewUnpayKit::route('/{record}'),
-            'edit' => Pages\EditUnpayKit::route('/{record}/edit'),
+            // 'create' => Pages\CreateUnpayKit::route('/create'),
+            // 'view' => Pages\ViewUnpayKit::route('/{record}'),
+            // 'edit' => Pages\EditUnpayKit::route('/{record}/edit'),
         ];
     }
 }

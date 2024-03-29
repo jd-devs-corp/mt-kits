@@ -6,6 +6,7 @@ use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
 use App\Filament\Admin\Resources\KitResource\Pages;
 use App\Filament\Admin\Resources\KitResource\RelationManagers;
 use App\Models\Kit;
+use App\Models\UnpayKit;
 use App\Models\User;
 use Carbon\Carbon;
 use Filament\Forms;
@@ -61,22 +62,32 @@ class KitResource extends Resource
                             ->onlyCountries(['CM'])
                             ->defaultCountry('CM'),
                     ])
+                    ->validationMessages([
+                        'required' => 'Ce champ est requis'
+                    ])
                     ->required(),
                 Forms\Components\Hidden::make('user_id')
-                    // ->visibleOn('view')
                     ->default($user->id),
-                Forms\Components\TextInput::make('kit_number')
+                Forms\Components\Select::make('kit_id')
                     ->required()
+                    ->options(UnpayKit::cursor()->filter(function(UnpayKit $kit){
+                        return $kit->user_id == null;
+                    }))
                     ->label('Numero de kit')
-                    ->unique(Kit::class, 'kit_number')
                     ->prefix('KIT')
-                    ->numeric()
-                    ->length(9)
-                    ->placeholder('Veuillez entrer 9 chiffres')
-                    ->maxLength(9),
+                    ->validationMessages([
+                        'unique' => 'Le numero :attribute est deja enregistré',
+                        'max_digits' => 'Trop long, doit avoir 9 chiffres.',
+                        'min_digits' => 'Trop court, doit avoir 9 chiffres',
+                        'required' => 'Ce champ est requis'
+                    ])
+                    ,
 
                 Forms\Components\Select::make('localisation')
                     ->searchable()
+                    ->validationMessages([
+                        'required' => 'Ce champ est requis'
+                    ])
                     ->required()
                     ->placeholder('Veuillez selectionner une ville')
                     ->options([

@@ -40,7 +40,7 @@ class UnpayKitResource extends Resource
                     ->minLength(9 )
                     ->placeholder('Entrer le code à 9 chiffres')
                     ->validationMessages([
-                        'unique' => 'Le numero :attribute est deja enregistré',
+                        'unique' => 'Le numero de kit est deja enregistré',
                         'max_digits' => 'Trop long, doit avoir 9 chiffres.',
                         'min_digits' => 'Trop court, doit avoir 9 chiffres',
                         'required' => 'Ce champ est requis'

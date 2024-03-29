@@ -7,6 +7,7 @@ use App\Filament\Fournisseur;
 use App\Filament\Fournisseur\Resources\KitResource\Pages;
 use App\Filament\Fournisseur\Resources\KitResource\RelationManagers;
 use App\Models\Kit;
+use App\Models\UnpayKit;
 use App\Models\User;
 use Carbon\Carbon;
 use Filament\Facades\Filament;
@@ -59,19 +60,27 @@ class KitResource extends Resource
                             ->onlyCountries(['CM'])
                             ->defaultCountry('CM'),
                     ])
+                    ->validationMessages([
+                        'required' => 'Ce champ est requis'
+                    ])
                     ->required(),
                 Forms\Components\Hidden::make('user_id')
                     ->default($user->role=='fournisseur' ? $user->id : null),
-                Forms\Components\TextInput::make('kit_number')
+                Forms\Components\Select::make('kit_number')
                     ->required()
                     ->label('Numero de kit')
-                    ->unique(Kit::class, 'kit_number')
+                    ->options(UnpayKit::cursor()->filter(function(UnpayKit $kit){
+                        return $kit->user_id = Auth::user()->id;
+                    }))
                     ->prefix('KIT')
-                    ->numeric()
-                    ->length(9)
-                    ->placeholder('Veuillez entrer 9 chiffres'),
+                    ->validationMessages([
+                        'required' => 'Ce champ est requis'
+                    ]),
                     Forms\Components\Select::make('localisation')
                     ->searchable()
+                    ->validationMessages([
+                        'required' => 'Ce champ est requis'
+                    ])
                     ->required()
                     ->placeholder('Veuillez selectionner une ville')
                     ->options([

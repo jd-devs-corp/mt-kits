@@ -32,16 +32,30 @@ class ClientResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')
                     ->required()
+                    ->validationMessages([
+                        'max_digits' => 'Trop long, doit avoir 9 chiffres.',
+                        'required' => 'Ce champ est requis'
+                    ])
                     ->maxLength(255),
                 Forms\Components\TextInput::make('email')
                     ->email()
+                    ->unique(Client::class, 'email')
                     ->required()
+                    ->validationMessages([
+                        'unique' => 'Le numero :attribute est deja enregistré',
+                        'max_digits' => 'Trop long.',
+                        'required' => 'Ce champ est requis'
+                    ])
                     ->maxLength(255),
                 PhoneInput::make('phone_number')
                     ->label('Numéro de téléphone')
                     ->countryStatePath('phone_country')
                     ->required()
-                    ->maxWidth('9')
+                    ->validationMessages([
+                        'max_digits' => 'Trop long, doit avoir 9 chiffres.',
+                        'required' => 'Ce champ est requis'
+                    ])
+                    ->maxWidth(9)
                     ->onlyCountries(['CM'])
                     ->defaultCountry('CM'),
             ]);

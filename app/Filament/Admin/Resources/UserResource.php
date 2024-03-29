@@ -34,16 +34,33 @@ class UserResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->label('Nom')
                     ->required()
+                    ->validationMessages([
+                        'max_digits' => 'Trop long.',
+                        'min_digits' => 'Trop court.',
+                        'required' => 'Ce champ est requis'
+                    ])
                     ->maxLength(255),
                 Forms\Components\TextInput::make('email')
                     ->label('Adresse E-mail')
                     ->email()
+                    ->unique()
                     ->required()
+                    ->validationMessages([
+                        'unique' => 'Le numero :attribute est deja enregistré',
+                        'max_digits' => 'Trop long.',
+                        'min_digits' => 'Trop court',
+                        'required' => 'Ce champ est requis'
+                    ])
                     ->maxLength(255),
                 PhoneInput::make('phone_number')
                     ->label('Numéro de téléphone')
                     ->countryStatePath('phone_country')
                     ->required()
+                    ->validationMessages([
+                        'max_digits' => 'Trop long, doit avoir 9 chiffres.',
+                        'min_digits' => 'Trop court, doit avoir 9 chiffres',
+                        'required' => 'Ce champ est requis'
+                    ])
                     ->maxWidth('9')
                     ->onlyCountries(['CM'])
                     ->defaultCountry('CM'),
@@ -74,19 +91,29 @@ class UserResource extends Resource
 
                 Forms\Components\DateTimePicker::make('email_verified_at')
                     ->label('Vérifié le')
-                // ->visibleOn('view')
+                    ->visibleOn('view')
                 ,
 
                 Forms\Components\TextInput::make('pourcentage')
                     ->label('Pourcentage de commission')
                     ->suffix('%')
-                    ->numeric(),
+                    ->numeric()
+                    ->maxLength(2)
+                    ->minValue(1)
+                    ,
                 Forms\Components\TextInput::make('somme_a_percevoir')
                     ->visibleOn('view')
                     ->suffix(' FCFA')
                     ->label('Montant a percevoir'),
                 Forms\Components\TextInput::make('password')
                     ->default('new123')
+                    ->password()
+                    ->minLength(8)
+                    ->validationMessages([
+                        'max_digits' => 'Trop long, doit avoir 9 chiffres.',
+                        'min_digits' => 'Trop court, doit avoir 8 chiffres'
+                    ])
+                    ->revealable()
                     ->visibleOn('create'),
             ]);
     }

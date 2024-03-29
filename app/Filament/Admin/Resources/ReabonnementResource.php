@@ -34,115 +34,33 @@ class ReabonnementResource extends Resource
                     ->relationship('kit', 'kit_number')
                     ->prefix('KIT')
                     ->searchable()
+                    ->validationMessages([
+                        'unique' => 'Le numero :attribute est deja enregistré',
+                        'required' => 'Ce champ est requis'
+                    ])
                     ->label('Numero de kit')
-                    ->preload()
-                    ->createOptionForm([
-                        Forms\Components\Select::make('client_id')
-                            ->label('Proprietaire')
-                            ->relationship('client', 'name')
-                            ->searchable()
-                            ->preload()
-                            ->createOptionForm([
-                                Forms\Components\TextInput::make('name')
-                                    ->label('nom')
-                                    ->required()
-                                    ->maxLength(255),
-                                Forms\Components\TextInput::make('email')
-                                    ->email()
-                                    ->label('Addresse E-mail')
-                                    ->required()
-                                    ->maxLength(255),
-                                PhoneInput::make('phone_number')
-                                    ->label('Numéro de téléphone')
-                                    ->countryStatePath('phone_country')
-                                    ->required()
-                                    ->maxWidth('9')
-                                    ->onlyCountries(['CM'])
-                                    ->defaultCountry('CM'),
-                            ])
-                            ->required(),
-                        Forms\Components\TextInput::make('kit_number')
-                            ->required()
-                            ->label('Numero de kit')
-                            ->prefix('KIT')
-                            ->unique(Kit::class, 'kit_number')
-                            ->length(9),
-                        Forms\Components\Select::make('localisation')
-                            ->searchable()
-                            ->required()
-                            ->placeholder('Veuillez selectionner une ville')
-                            ->options([
-                                'Abong-Mbang' => 'Abong-Mbang',
-                                'Akonolinga' => 'Akonolinga',
-                                'Ambam' => 'Ambam',
-                                'Bafang' => 'Bafang',
-                                'Bafia' => 'Bafia',
-                                'Bafoussam' => 'Bafoussam',
-                                'Bali' => 'Bali',
-                                'Bamenda' => 'Bamenda',
-                                'Bamendjou' => 'Bamendjou',
-                                'Bandjoun' => 'Bandjoun',
-                                'Bangangté' => 'Bangangté',
-                                'Bangem' => 'Bangem',
-                                'Banyo' => 'Banyo',
-                                'Batouri' => 'Batouri',
-                                'Bertoua' => 'Bertoua',
-                                'Bélabo' => 'Bélabo',
-                                'Buea' => 'Buea',
-                                'Dizangué' => 'Dizangué',
-                                'Douala' => 'Douala',
-                                'Dschang' => 'Dschang',
-                                'Ébolowa' => 'Ébolowa',
-                                'Éseka' => 'Éseka',
-                                'Fontem' => 'Fontem',
-                                'Foumban' => 'Foumban',
-                                'Foumbot' => 'Foumbot',
-                                'Fundong' => 'Fundong',
-                                'Garoua' => 'Garoua',
-                                'Guider' => 'Guider',
-                                'Kousséri' => 'Kousséri',
-                                'Kribi' => 'Kribi',
-                                'Kumba' => 'Kumba',
-                                'Limbe' => 'Limbe',
-                                'Loum' => 'Loum',
-                                'Mamfé' => 'Mamfé',
-                                'Maroua' => 'Maroua',
-                                'Mbalmayo' => 'Mbalmayo',
-                                'Mbanga' => 'Mbanga',
-                                'Mbouda' => 'Mbouda',
-                                'Meiganga' => 'Meiganga',
-                                'Melong' => 'Melong',
-                                'Mfou' => 'Mfou',
-                                'Mokolo' => 'Mokolo',
-                                'Mora' => 'Mora',
-                                'Mutengene' => 'Mutengene',
-                                'Nanga Eboko' => 'Nanga Eboko',
-                                'Ngaoundéré' => 'Ngaoundéré',
-                                'Nkongsamba' => 'Nkongsamba',
-                                'Ntui' => 'Ntui',
-                                'Obala' => 'Obala',
-                                'Poli' => 'Poli',
-                                'Sangmélima' => 'Sangmélima',
-                                'Tchollire' => 'Tchollire',
-                                'Wum' => 'Wum',
-                                'Yaoundé' => 'Yaoundé',
-                                'Yagoua' => 'Yagoua',
-                                'Yokadouma' => 'Yokadouma',
-                            ])
-                    ]),
+                    ->preload(),
 
                 Forms\Components\DateTimePicker::make('date_abonnement')
                     ->required()
+                    ->validationMessages([
+                        'required' => 'Ce champ est requis'
+                    ])
                     ->default(now())
                 ,
                 Forms\Components\DateTimePicker::make('date_fin_abonnement')
                     ->required()
-                    //   ->minDate(now()->addMonth())
+                    ->validationMessages([
+                        'required' => 'Ce champ est requis'
+                    ])
                     ->default(now()->addMonth()),
                 Forms\Components\TextInput::make('plan_tarifaire')
                     ->required()
                     ->suffix('FCFA')
-                    ->numeric(),
+                    ->numeric()
+                    ->validationMessages([
+                        'required' => 'Ce champ est requis'
+                    ]),
             ]);
     }
 
