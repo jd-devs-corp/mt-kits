@@ -22,8 +22,9 @@ class UnpayKitResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-s-signal-slash';
     protected static ?string $navigationLabel = 'Nos kits';
-    protected static ?string $modelLabel='Kit';
-    protected static ?string $pluralModelLabel='Nos kits en stock';
+    protected static ?string $slug = 'kits_en_stock';
+    protected static ?string $modelLabel = 'Kit';
+    protected static ?string $pluralModelLabel = 'Nos kits en stock';
 
     protected static ?string $navigationGroup = 'Services';
     protected static ?int $navigationSort = 1;
@@ -37,7 +38,7 @@ class UnpayKitResource extends Resource
                     ->required()
                     ->numeric()
                     ->maxLength(9)
-                    ->minLength(9 )
+                    ->minLength(9)
                     ->placeholder('Entrer le code à 9 chiffres')
                     ->validationMessages([
                         'unique' => 'Le numero de kit est deja enregistré',
@@ -48,7 +49,7 @@ class UnpayKitResource extends Resource
                     ->prefix('KIT')
                     ->unique(UnpayKit::class, 'kit_number'),
                 Forms\Components\Hidden::make('user_id')
-                        // ->default(null)
+                // ->default(null)
             ]);
     }
 
@@ -60,10 +61,10 @@ class UnpayKitResource extends Resource
                     ->prefix('KIT'),
                 Tables\columns\TextColumn::make('statut')
                     ->badge()
-                    ->color(fn($state): string => match($state){
-                        'En stock' => 'success',
-                        'Payé' => "danger",
-                        'Vendu' => 'warning'
+                    ->color(fn($state): string => match ($state) {
+                        'En stock' => 'danger',
+                        'Payé' => "success",
+                        'Vendu' => 'info'
                     })
             ])
             ->filters([
@@ -71,11 +72,24 @@ class UnpayKitResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->visible(fn($record): bool => $record->statut !== 'Payé'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                        ->visible(function ($records) {
+                            // Assurez-vous que $records n'est pas null et est une collection.
+                            if (!$records || $records->isEmpty()) {
+                                return false;
+                            }
+
+                            // Vérifiez si tous les enregistrements sélectionnés ne sont pas au statut 'Payé'.
+                            return $records->every(function ($record) {
+                                return $record->statut !== 'Payé';
+                            });
+                        }),
+
                     Tables\Actions\BulkAction::make('Acheter')
                         ->form([
                             Forms\Components\Select::make('user_id')
@@ -90,9 +104,9 @@ class UnpayKitResource extends Resource
                                 $record->user_id = $data['user_id'];
                                 $record->statut = 'Payé';
                                 $record->update();
-    
+
                             }
-    
+
                         }),
                 ]),
             ]);
