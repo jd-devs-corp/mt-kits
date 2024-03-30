@@ -5,7 +5,7 @@ Bienvenue sur le fichier README de MTKits, un projet privé développé avec Lar
 ## Technologies Utilisées
 
 - **Laravel 10** : La dernière version du framework PHP, offrant une architecture robuste pour le développement d'applications web.
-- **Tailwind CSS** : Un framework CSS utilitaire-first pour un design personnalisé rapide et réactif.
+- **Tailwind CSS** : Un framework CSS utilitaire first pour un design personnalisé rapide et réactif.
 - **FilamentPHP** : La dernière version de l'outil d'administration pour Laravel, permettant de créer des interfaces d'administration riches et intuitives.
 
 ## Prérequis
