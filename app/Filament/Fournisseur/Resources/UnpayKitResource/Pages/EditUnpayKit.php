@@ -13,8 +13,8 @@ class EditUnpayKit extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\ViewAction::make(),
-            Actions\DeleteAction::make(),
+            Actions\ViewAction::make()
+                ->icon('heroiocn-o-eye'),
         ];
     }
 }

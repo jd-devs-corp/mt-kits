@@ -15,7 +15,7 @@ class UnpayKit extends Model
         'user_id',
     ];
 
-    public function is_paid(){
+    public function kit(){
         return $this->hasOne(Kit::class);
     }
 }

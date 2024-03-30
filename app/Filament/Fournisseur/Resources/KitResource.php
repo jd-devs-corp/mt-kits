@@ -25,10 +25,12 @@ use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
 class KitResource extends Resource
 {
     protected static ?string $model = Kit::class;
+    protected static ?int $navigationSort = 2;
+    protected static ?string $navigationLabel = 'Kits vendus';
 
     protected static ?string $navigationGroup = 'Services';
 
-    protected static ?string $navigationIcon = 'heroicon-o-wifi';
+    protected static ?string $navigationIcon = 'heroicon-s-signal';
 
     // protected static ?string $cluster = Settings::class;
 
@@ -65,13 +67,11 @@ class KitResource extends Resource
                     ])
                     ->required(),
                 Forms\Components\Hidden::make('user_id')
-                    ->default($user->role=='fournisseur' ? $user->id : null),
-                Forms\Components\Select::make('kit_number')
+                    ->default($user->id),
+                Forms\Components\Select::make('unpay_kit_id')
                     ->required()
                     ->label('Numero de kit')
-                    ->options(UnpayKit::cursor()->filter(function(UnpayKit $kit){
-                        return $kit->user_id = Auth::user()->id;
-                    }))
+                    ->options(UnpayKit::where('user_id', Auth::user()->id)->pluck('kit_number', 'id'))
                     ->prefix('KIT')
                     ->validationMessages([
                         'required' => 'Ce champ est requis'
@@ -158,43 +158,25 @@ class KitResource extends Resource
                 Tables\Columns\TextColumn::make('client.name')
                     ->label('Proprietaire')
                     ->sortable()
+                    ->url(fn(Kit $record): string | null=>route('filament.fournisseur.resources.clients.view', $record->client_id))
                     ->searchable(),
-                Tables\Columns\TextColumn::make('kit_number')
-                    ->searchable(),
+                Tables\Columns\TextColumn::make('unpay_kit.kit_number')
+                    ->searchable()
+                    ->label('Numero de kit'),
                 Tables\Columns\TextColumn::make('localisation')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('status')
                     ->label('Statut')
                     ->getStateUsing(function ($record) {
-                        $kitNumber = $record->kit_number;
+                        $kitNumber = $record->unpay_kit_id;
 
-                        $kit = Kit::where('kit_number', $kitNumber)->with('reabonnements')->first();
+                        $kit = Kit::where('unpay_kit_id', $kitNumber)->with('reabonnements')->first();
 
 
                         $dateFinAbonnement = $kit->reabonnements->sortByDesc('date_fin_abonnement')->first()->date_fin_abonnement ?? null;
                         if ($dateFinAbonnement === null) {
                             return 'Inactif';
                         }
-                        // Convertir la date de fin d'abonnement en objet Carbon
-                        /*Conversion de la date de fin d'abonnement en objet Carbon
-Le code // Convertir la date de fin d'abonnement en objet Carbon vise à convertir une date de fin d'abonnement (sous forme de string) en un objet Carbon.
-
-Pourquoi utiliser Carbon ?
-
-Carbon est une bibliothèque PHP puissante pour la manipulation de dates et d'heures. Elle offre de nombreuses fonctionnalités absentes des fonctions natives de PHP, telles que :
-
-Différences entre dates
-Ajout et soustraction de périodes
-Formatage de dates
-Gestion des fuseaux horaires
-Conversion en objet Carbon:
-
-Pour convertir une date de fin d'abonnement en objet Carbon, on peut utiliser la méthode parse() de la classe Carbon :
-
-PHP
-$dateFinAbonnement = Carbon::parse($dateFinAbonnementString);
-Utilisez ce code avec précaution.
-*/
                         $dateFinAbonnementCarbon = Carbon::parse($dateFinAbonnement);
 
                         // Calculer la différence en jours entre la date de fin d'abonnement et la date actuelle

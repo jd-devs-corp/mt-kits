@@ -36,7 +36,7 @@ class ReabonnementsRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('description')
             ->columns([
-                Tables\Columns\TextColumn::make('kit.kit_number')
+                Tables\Columns\TextColumn::make('unpay_kit.kit_number')
                 ->label('Numero de kit')
                 ->prefix('KIT'),
                 Tables\Columns\TextColumn::make('date_abonnement')

@@ -10,6 +10,8 @@ class ProfilePage extends MyProfilePage
 {
     protected static ?string $navigationIcon = 'heroicon-o-user';
 
+    protected static ?int $navigationSort = 4;
+
 //    protected static string $view = 'filament.clusters.settings.pages.profile-page';
 //
 //    protected static ?string $cluster = Settings::class;

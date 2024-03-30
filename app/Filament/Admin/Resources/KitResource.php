@@ -180,7 +180,7 @@ class KitResource extends Resource
                     })
                     ->url(fn(Kit $record): string|null => $record->user_id ? route('filament.admin.resources.users.view', $record->user_id) : null)
                     ->searchable(),
-                Tables\Columns\TextColumn::make('kit_number')
+                Tables\Columns\TextColumn::make('unpay_kit.kit_number')
                     ->label('Numero de Kit')
                     ->prefix('KIT')
                     ->searchable(),
@@ -189,9 +189,9 @@ class KitResource extends Resource
                 Tables\Columns\TextColumn::make('status')
                     ->label('Statut')
                     ->getStateUsing(function ($record) {
-                        $kitNumber = $record->kit_number;
+                        $kitNumber = $record->unpay_kit_id;
 
-                        $kit = Kit::where('kit_number', $kitNumber)->with('reabonnements')->first();
+                        $kit = Kit::where('unpay_kit_id', $kitNumber)->with('reabonnements')->first();
 
 
                         $dateFinAbonnement = $kit->reabonnements->sortByDesc('date_fin_abonnement')->first()->date_fin_abonnement ?? null;

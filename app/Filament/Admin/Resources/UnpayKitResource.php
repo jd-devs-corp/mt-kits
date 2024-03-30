@@ -47,7 +47,7 @@ class UnpayKitResource extends Resource
                     ])
                     ->prefix('KIT')
                     ->unique(UnpayKit::class, 'kit_number'),
-                Forms\Components\Hidden::make('user_id')
+                // Forms\Components\Hidden::make('user_id')
                         // ->default(null)
             ]);
     }
@@ -70,12 +70,16 @@ class UnpayKitResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\ViewAction::make()
+                        ->icon('heroicon-o-eye'),
+                    Tables\Actions\EditAction::make()
+                    ->icon('heroicon-o-pencil'),
+                ])
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    // Tables\Actions\DeleteBulkAction::make(),
                     Tables\Actions\BulkAction::make('Acheter')
                         ->form([
                             Forms\Components\Select::make('user_id')
@@ -90,9 +94,9 @@ class UnpayKitResource extends Resource
                                 $record->user_id = $data['user_id'];
                                 $record->statut = 'Payé';
                                 $record->update();
-    
+
                             }
-    
+
                         }),
                 ]),
             ]);

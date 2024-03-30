@@ -12,16 +12,19 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 
 class UnpayKitResource extends Resource
 {
     protected static ?string $model = UnpayKit::class;
 
-    protected static ?string $navigationLabel='Kits non payés';
-    
-    protected static ?string $navigationGroup='Services';
+    protected static ?string $navigationIcon = 'heroicon-s-signal-slash';
+    protected static ?string $navigationLabel = 'Nos kits';
+    protected static ?string $modelLabel='Kit';
+    protected static ?string $pluralModelLabel='Kits en stock';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'Services';
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {
@@ -33,9 +36,13 @@ class UnpayKitResource extends Resource
 
     public static function table(Table $table): Table
     {
+        $query = UnpayKit::query()->whereDoesntHave('kit')->where('user_id', Auth::user()->id);
         return $table
+            ->query($query)
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('kit_number')
+                    ->prefix('KIT')
+                    ->numeric()
             ])
             ->filters([
                 //
@@ -45,9 +52,7 @@ class UnpayKitResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+
             ]);
     }
 

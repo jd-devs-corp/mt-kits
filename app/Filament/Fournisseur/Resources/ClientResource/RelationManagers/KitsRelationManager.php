@@ -22,23 +22,7 @@ class KitsRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->label('nom')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('email')
-                    ->email()
-                    ->label('Addresse E-mail')
-                    ->required()
-                    ->maxLength(255),
-                PhoneInput::make('phone_number')
-                    ->label('Numéro de téléphone')
-                    ->countryStatePath('phone_country')
-                    ->required()
-                    ->maxWidth('9')
-                    ->onlyCountries(['CM'])
-                    ->defaultCountry('CM'),
-            ]);
+                ]);
     }
 
     public function table(Table $table): Table
@@ -46,7 +30,7 @@ class KitsRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('Kits')
             ->columns([
-                Tables\Columns\TextColumn::make('kit_number')
+                Tables\Columns\TextColumn::make('unpay_kit.kit_number')
                     ->prefix('KIT')
                     ->searchable()
                     ->sortable()
@@ -54,9 +38,9 @@ class KitsRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('status')
                     ->label('Statut')
                     ->getStateUsing(function ($record) {
-                        $kitNumber = $record->kit_number;
+                        $kitNumber = $record->unpay_kit_id;
 
-                        $kit = Kit::where('kit_number', $kitNumber)->with('reabonnements')->first();
+                        $kit = Kit::where('unpay_kit_id', $kitNumber)->with('reabonnements')->first();
 
 
                         $dateFinAbonnement = $kit->reabonnements->sortByDesc('date_fin_abonnement')->first()->date_fin_abonnement ?? null;
@@ -92,8 +76,8 @@ class KitsRelationManager extends RelationManager
                 // Tables\Actions\CreateAction::make(),
             ])
             ->actions([
-                Tables\Actions\EditAction::make()
-                ->icon('heroicon-o-pencil'),
+                // Tables\Actions\EditAction::make()
+                // ->icon('heroicon-o-penci     l'),
                 // Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
