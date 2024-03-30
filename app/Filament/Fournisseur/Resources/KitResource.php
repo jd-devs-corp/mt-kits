@@ -27,8 +27,9 @@ class KitResource extends Resource
     protected static ?string $model = Kit::class;
 
     protected static ?string $navigationGroup = 'Services';
+    protected static ?string $slug='kits_vendus';
 
-    protected static ?string $navigationIcon = 'heroicon-o-wifi';
+    protected static ?string $navigationIcon = 'heroicon-s-signal';
 
     // protected static ?string $cluster = Settings::class;
 

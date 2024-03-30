@@ -17,11 +17,12 @@ class UnpayKitResource extends Resource
 {
     protected static ?string $model = UnpayKit::class;
 
-    protected static ?string $navigationLabel='Kits non payés';
-    
+    protected static ?string $navigationLabel='Kits en stock';
+    protected static ?string $slug='kits_en_stock';
+
     protected static ?string $navigationGroup='Services';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-s-signal-slash';
 
     public static function form(Form $form): Form
     {
