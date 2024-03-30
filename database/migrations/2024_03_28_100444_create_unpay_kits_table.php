@@ -27,4 +27,11 @@ return new class extends Migration
     {
         Schema::dropIfExists('unpay_kits');
     }
+    /*protected static function booted()
+    {
+        static::created(function ($kit) {
+            // Lorsqu'un nouveau kit est payé et créé, changez le statut du kit correspondant dans 'unpay_kits'.
+            UnpayKit::where('kit_number', $kit->kit_number)->update(['statut' => 'Payé']);
+        });
+    }*/
 };

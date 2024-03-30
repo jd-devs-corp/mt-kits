@@ -86,15 +86,34 @@ class User extends Authenticatable implements FilamentUser, HasName, HasAvatar, 
             return false;
         }
 
-        if ($panel->getId() === 'admin') {
-            return str_ends_with($this->email, '@gmail.com') && $this->role=="admin" && $this->is_active;
-        }
-        else if ($panel->getId() === 'fournisseur') {
-            return str_ends_with($this->email, '@gmail.com') && $this->role=="fournisseur" && $this->is_active;
+        // Obtenez l'ID du panel actuel
+        $currentPanelId = $panel->getId();
+
+        // Vérifiez si l'utilisateur est un admin
+        if ($this->role == "admin") {
+            if ($currentPanelId !== 'admin') {
+                // Redirigez vers le panel admin
+                redirect()->route('filament.admin.pages.tableau-de-bord')->send();
+                return false;
+            }
+            return true;
         }
 
-        return true;
+        // Vérifiez si l'utilisateur est un fournisseur
+        if ($this->role == "fournisseur") {
+            if ($currentPanelId !== 'fournisseur') {
+                // Redirigez vers le panel fournisseur
+                redirect()->route('filament.fournisseur.pages.dashboard')->send();
+                return false;
+            }
+            return true;
+        }
+
+        // Si l'utilisateur n'a aucun rôle spécifique, redirigez vers une page par défaut
+        redirect()->route('home')->send();
+        return false;
     }
+
     public function logout(): void
     {
         // Déconnexion de Sanctum

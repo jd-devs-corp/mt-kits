@@ -2,6 +2,7 @@
 export default {
     content: [
         "./resources/**/*.blade.php",
+        "./resources/**/**/*.blade.php",
         "./resources/**/*.js",
         "./resources/**/*.vue",
     ],
@@ -9,4 +10,5 @@ export default {
         extend: {},
     },
     plugins: [],
+    darkMode: 'selector',
 }

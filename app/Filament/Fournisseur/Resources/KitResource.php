@@ -29,6 +29,7 @@ class KitResource extends Resource
     protected static ?string $navigationLabel = 'Kits vendus';
 
     protected static ?string $navigationGroup = 'Services';
+    protected static ?string $slug='kits_vendus';
 
     protected static ?string $navigationIcon = 'heroicon-s-signal';
 

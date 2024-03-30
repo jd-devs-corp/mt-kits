@@ -30,6 +30,7 @@ class KitResource extends Resource
     protected static ?string $navigationLabel = 'Kits vendus';
 
     protected static ?string $navigationGroup = 'Services';
+    protected static ?string $slug='kits_vendus';
 
     protected static ?string $navigationIcon = 'heroicon-s-signal';
     protected static ?string $recordTitleAttribute = 'kit_number';
@@ -68,7 +69,7 @@ class KitResource extends Resource
                     ->required(),
                 Forms\Components\Hidden::make('user_id')
                     ->default($user->id),
-                Forms\Components\Select::make('kit_id')
+                /*Forms\Components\Select::make('kit_id')
                     ->required()
                     ->options(UnpayKit::cursor()->filter(function(UnpayKit $kit){
                         return $kit->user_id == null;
@@ -80,8 +81,15 @@ class KitResource extends Resource
                         'max_digits' => 'Trop long, doit avoir 9 chiffres.',
                         'min_digits' => 'Trop court, doit avoir 9 chiffres',
                         'required' => 'Ce champ est requis'
-                    ])
-                    ,
+                    ])*/
+                Forms\Components\Select::make('kit_number')
+                    ->options(UnpayKit::where('statut', 'En stock')->pluck('kit_number', 'kit_number'))
+                    ->reactive()
+                    ->afterStateUpdated(function ($state) {
+                        // Mettre à jour le statut du kit dans 'unpay_kits' à 'Payé'
+                        UnpayKit::where('kit_number', $state)->update(['statut' => 'Payé']);
+                    }),
+
 
                 Forms\Components\Select::make('localisation')
                     ->searchable()

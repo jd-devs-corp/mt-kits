@@ -22,8 +22,9 @@ class UnpayKitResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-s-signal-slash';
     protected static ?string $navigationLabel = 'Nos kits';
-    protected static ?string $modelLabel='Kit';
-    protected static ?string $pluralModelLabel='Nos kits en stock';
+    protected static ?string $slug = 'kits_en_stock';
+    protected static ?string $modelLabel = 'Kit';
+    protected static ?string $pluralModelLabel = 'Nos kits en stock';
 
     protected static ?string $navigationGroup = 'Services';
     protected static ?int $navigationSort = 1;
@@ -37,7 +38,7 @@ class UnpayKitResource extends Resource
                     ->required()
                     ->numeric()
                     ->maxLength(9)
-                    ->minLength(9 )
+                    ->minLength(9)
                     ->placeholder('Entrer le code à 9 chiffres')
                     ->validationMessages([
                         'unique' => 'Le numero de kit est deja enregistré',
@@ -60,10 +61,10 @@ class UnpayKitResource extends Resource
                     ->prefix('KIT'),
                 Tables\columns\TextColumn::make('statut')
                     ->badge()
-                    ->color(fn($state): string => match($state){
-                        'En stock' => 'success',
-                        'Payé' => "danger",
-                        'Vendu' => 'warning'
+                    ->color(fn($state): string => match ($state) {
+                        'En stock' => 'danger',
+                        'Payé' => "success",
+                        'Vendu' => 'info'
                     })
             ])
             ->filters([
