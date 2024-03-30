@@ -1,3 +1,5 @@
+<img src="public/images/logo.png" alt="logo">
+
 # [MTKits](https://mtkits.evenafro.ca) - Projet Laravel 10
 
 Bienvenue sur le fichier README de MTKits, un projet privé développé par
