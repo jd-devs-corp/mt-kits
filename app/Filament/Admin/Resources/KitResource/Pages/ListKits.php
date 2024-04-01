@@ -19,7 +19,7 @@ class ListKits extends ListRecords
             ->icon('heroicon-o-plus')
             ->label('Enregistrer un achat')
             ->modalHeading('Enregistrer un achat')
-            ->modalIcon('heroicon-o-plus'),
+            ->modalIcon('heroicon-o-shopping-bag'),
         ];
     }
 }

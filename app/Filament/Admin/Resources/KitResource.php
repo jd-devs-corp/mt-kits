@@ -88,6 +88,7 @@ class KitResource extends Resource
                     })->pluck('kit_number', 'id'))
                     ->searchable()
                     ->label('Numero de kit')
+                    ->required()
                     ->prefix('KIT')
                     ->validationMessages([
                         'unique' => 'Le kit est deja vendu',

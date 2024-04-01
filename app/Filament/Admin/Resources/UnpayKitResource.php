@@ -93,6 +93,7 @@ class UnpayKitResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     // Tables\Actions\DeleteBulkAction::make(),
                     Tables\Actions\BulkAction::make('Fournir')
+                        ->icon('heroicon-o-banknotes')
                         ->form([
                             Forms\Components\Select::make('user_id')
                                 ->label('Fournisseur')
