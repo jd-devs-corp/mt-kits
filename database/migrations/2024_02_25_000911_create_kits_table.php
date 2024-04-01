@@ -30,8 +30,5 @@ return new class extends Migration
         Schema::dropIfExists('kits');
     }
 
-    public function unpaykit()
-    {
-        return $this->hasOne(UnpayKit::class,'kit_number','kit_number');
-    }
+    
 };

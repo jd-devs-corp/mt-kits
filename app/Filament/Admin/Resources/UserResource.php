@@ -143,12 +143,10 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('status')
                     ->label('Nbre de kits vendu')
                     ->getStateUsing(function ($record) {
-                        if ($record->role == 'fournisseur') {
                             $id = $record->id;
                             $number_of_kits = Kit::where('user_id', $id)->count();
                             return $number_of_kits;
-                        }
-                        return null;
+
                     }),
                 Tables\Columns\TextColumn::make('pourcentage')
                     ->label('Commission')
@@ -164,6 +162,16 @@ class UserResource extends Resource
                     ->queries(
                         true: fn(Builder $query) => $query->where('is_active', true),
                         false: fn(Builder $query) => $query->where('is_active', false),
+                        blank: fn(Builder $query) => $query // In this example, we do not want to filter the query when it is blank.
+                    ),
+                    TernaryFilter::make('role')
+                    ->label('Role de l\'utilisateur')
+                    ->placeholder('Tous les utilisateurs')
+                    ->trueLabel('Administrateur | Employés')
+                    ->falseLabel('Fournisseurs')
+                    ->queries(
+                        true: fn(Builder $query) => $query->where('role', 'admin'),
+                        false: fn(Builder $query) => $query->where('role', 'fournisseur'),
                         blank: fn(Builder $query) => $query // In this example, we do not want to filter the query when it is blank.
                     )
             ])

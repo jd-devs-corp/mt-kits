@@ -17,7 +17,10 @@ class ListKits extends ListRecords
     {
         return [
             Actions\CreateAction::make()
-            ->icon('heroicon-o-plus'),
+            ->icon('heroicon-o-plus')
+            ->label('Enregistrer une vente')
+            ->modalHeading('Enregistrer une vente')
+            ->modalIcon('heroicon-s-signal'),
         ];
     }
 }

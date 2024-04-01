@@ -82,13 +82,18 @@ class KitResource extends Resource
                         'min_digits' => 'Trop court, doit avoir 9 chiffres',
                         'required' => 'Ce champ est requis'
                     ])*/
-                Forms\Components\Select::make('kit_number')
-                    ->options(UnpayKit::where('statut', 'En stock')->pluck('kit_number', 'kit_number'))
-                    ->reactive()
-                    ->afterStateUpdated(function ($state) {
-                        // Mettre à jour le statut du kit dans 'unpay_kits' à 'Payé'
-                        UnpayKit::where('kit_number', $state)->update(['statut' => 'Payé']);
-                    }),
+                Forms\Components\Select::make('unpay_kit_id')
+                    ->options(UnpayKit::cursor()->filter(function(UnpayKit $kit){
+                        return $kit->statut = 'En stock';
+                    })->pluck('kit_number', 'id'))
+                    ->searchable()
+                    ->label('Numero de kit')
+                    ->prefix('KIT')
+                    ->validationMessages([
+                        'unique' => 'Le kit est deja vendu',
+                        'required' => 'Ce champ est requis'
+                    ])
+                    ->unique(Kit::class, 'unpay_kit_id'),
 
 
                 Forms\Components\Select::make('localisation')

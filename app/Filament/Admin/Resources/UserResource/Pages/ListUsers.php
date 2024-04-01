@@ -14,7 +14,10 @@ class ListUsers extends ListRecords
     {
         return [
             Actions\CreateAction::make()
-            ->icon('heroicon-o-plus'),
+            ->icon('heroicon-o-plus')
+            ->label('Ajouter un gerant')
+            ->modalHeading('Ajouter un admin/fournisseur')
+            ->modalIcon('heroicon-o-users'),
         ];
     }
     protected static ?string $title = 'Utilisateurs';

@@ -72,7 +72,9 @@ class KitResource extends Resource
                 Forms\Components\Select::make('unpay_kit_id')
                     ->required()
                     ->label('Numero de kit')
-                    ->options(UnpayKit::where('user_id', Auth::user()->id)->pluck('kit_number', 'id'))
+                    ->options(UnpayKit::cursor()->filter(function(UnpayKit $kit){
+                        return $kit->statut = 'En stock';
+                    })->pluck('kit_number', 'id'))
                     ->prefix('KIT')
                     ->validationMessages([
                         'required' => 'Ce champ est requis'
@@ -227,10 +229,12 @@ class KitResource extends Resource
                                 )
             ])
             ->actions([
-                Tables\Actions\ViewAction::make()
-                ->icon('heroicon-o-eye'),
-                Tables\Actions\EditAction::make()
-                ->icon('heroicon-o-pencil'),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\ViewAction::make()
+                    ->icon('heroicon-o-eye'),
+                    Tables\Actions\EditAction::make()
+                    ->icon('heroicon-o-pencil'),
+                ])
                 // Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([

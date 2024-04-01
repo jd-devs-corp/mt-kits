@@ -37,7 +37,8 @@ class AdminPanelProvider extends PanelProvider
 //            ->registration()
             ->passwordReset()
             ->emailVerification()
-            ->unsavedChangesAlerts()
+            ->unsavedChangesAlerts(false)
+            ->spa(false)
             ->colors([
                 'danger' => Color::Rose,
                 'gray' => Color::Gray,

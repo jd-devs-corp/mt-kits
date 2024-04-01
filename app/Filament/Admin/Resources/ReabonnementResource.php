@@ -31,11 +31,10 @@ class ReabonnementResource extends Resource
             ->schema([
                 Forms\Components\Select::make('kit_id')
                     ->required()
-                    ->relationship('kit', 'kit_number')
+                    ->options(Kit::cursor()->pluck('unpay_kit.kit_number', 'id'))
                     ->prefix('KIT')
                     ->searchable()
                     ->validationMessages([
-                        'unique' => 'Le numero :attribute est deja enregistré',
                         'required' => 'Ce champ est requis'
                     ])
                     ->label('Numero de kit')
@@ -68,7 +67,7 @@ class ReabonnementResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('kit.kit_number')
+                Tables\Columns\TextColumn::make('kit.unpay_kit.kit_number')
                     ->label('Numero de kit')
                     ->url(fn(Reabonnement $record): string => route('filament.admin.resources.kits.view', $record->kit_id))
                     ->prefix('KIT')

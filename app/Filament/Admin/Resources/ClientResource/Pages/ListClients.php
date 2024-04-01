@@ -14,7 +14,10 @@ class ListClients extends ListRecords
     {
         return [
             Actions\CreateAction::make()
-            ->icon('heroicon-o-plus'),
+            ->icon('heroicon-o-user')
+            ->label('Enregistrer un client')
+            ->modalHeading('Enregistrer le client')
+            ->modalIcon('heroicon-o-plus'),
         ];
     }
 }

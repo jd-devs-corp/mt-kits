@@ -11,9 +11,11 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class UnpayKitResource extends Resource
@@ -62,13 +64,22 @@ class UnpayKitResource extends Resource
                 Tables\columns\TextColumn::make('statut')
                     ->badge()
                     ->color(fn($state): string => match ($state) {
-                        'En stock' => 'danger',
-                        'Payé' => "success",
-                        'Vendu' => 'info'
+                        'En stock' => 'success',
+                        'Payé' => "info",
+                        'Vendu' => 'warning'
                     })
             ])
             ->filters([
-                //
+                TernaryFilter::make('Statut')
+                    ->label('Statut du kit')
+                    ->placeholder('Kits en stock')
+                    ->trueLabel('Tous les kits')
+                    ->falseLabel('Kits deja achete')
+                    ->queries(
+                        false: fn(Builder $query) => $query->where('statut', 'Vendu'),
+                        true: fn(Builder $query) => $query,
+                        blank: fn(Builder $query) => $query->where('statut', 'En stock') // In this example, we do not want to filter the query when it is blank.
+                    )
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
@@ -81,7 +92,7 @@ class UnpayKitResource extends Resource
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     // Tables\Actions\DeleteBulkAction::make(),
-                    Tables\Actions\BulkAction::make('Acheter')
+                    Tables\Actions\BulkAction::make('Fournir')
                         ->form([
                             Forms\Components\Select::make('user_id')
                                 ->label('Fournisseur')
@@ -100,7 +111,13 @@ class UnpayKitResource extends Resource
 
                         }),
                 ]),
-            ]);
+            ])->checkIfRecordIsSelectableUsing(
+                function (Model $record): bool{
+                    if($record->statut == "En stock")
+                        return true;
+                    return false;
+                },
+            );
     }
 
     public static function getRelations(): array

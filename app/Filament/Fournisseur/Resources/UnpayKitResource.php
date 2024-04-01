@@ -9,6 +9,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -18,11 +19,17 @@ class UnpayKitResource extends Resource
 {
     protected static ?string $model = UnpayKit::class;
 
-    protected static ?string $navigationLabel='Kits non payés';
+    protected static ?string $navigationLabel='Mes kits';
 
     protected static ?string $navigationGroup='Services';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $modelLabel= 'Kit';
+
+    protected static ?string $pluralModelLabel= 'Kits';
+
+    protected static ?string $slug = 'mes-kits';
+
+    protected static ?string $navigationIcon = 'heroicon-s-signal-slash';
 
     public static function form(Form $form): Form
     {
@@ -34,7 +41,7 @@ class UnpayKitResource extends Resource
 
     public static function table(Table $table): Table
     {
-        $query = UnpayKit::query()->whereDoesntHave('kit')->where('user_id', Auth::user()->id);
+        $query = UnpayKit::query()->where('user_id', Auth::user()->id);
         return $table
             ->query($query)
             ->columns([
@@ -43,11 +50,20 @@ class UnpayKitResource extends Resource
                     ->numeric()
             ])
             ->filters([
-                //
+                TernaryFilter::make('statut')
+                    ->label('Statut du kit')
+                    ->placeholder('Mes kits en stock.')
+                    ->trueLabel('Tous mes kits')
+                    ->falseLabel('Kits Vendu')
+                    ->queries(
+                        true: fn(Builder $query) => $query,
+                        false: fn(Builder $query) => $query->where('statut', 'Vendu'),
+                        blank: fn(Builder $query) => $query->where('statut', 'Payé') // In this example, we do not want to filter the query when it is blank.
+                    )
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                // Tables\Actions\ViewAction::make(),
+                // Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
 

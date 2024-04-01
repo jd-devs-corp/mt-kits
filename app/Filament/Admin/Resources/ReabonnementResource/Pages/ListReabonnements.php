@@ -18,7 +18,10 @@ class ListReabonnements extends ListRecords
                 ->color("primary")
                 ->use(Reabonnement::class),*/
             Actions\CreateAction::make()
-            ->icon('heroicon-o-plus'),
+            ->icon('heroicon-o-plus')
+            ->modalIcon('heroicon-o-document')
+            ->modalHeading('Enregistrer un (re-)abonnement')
+            ->label('(Re-)Abonner un kit'),
         ];
     }
 }
