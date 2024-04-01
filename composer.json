@@ -13,6 +13,7 @@
         "awcodes/overlook": "^2.2",
         "eightynine/filament-excel-import": "^3.0",
         "filament/filament": "^3.2",
+        "flowframe/laravel-trend": "^0.2.0",
         "guzzlehttp/guzzle": "^7.2",
         "jeffgreco13/filament-breezy": "^2.3",
         "joshembling/image-optimizer": "v1.2",

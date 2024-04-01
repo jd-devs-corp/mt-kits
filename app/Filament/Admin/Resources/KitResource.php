@@ -83,8 +83,8 @@ class KitResource extends Resource
                         'required' => 'Ce champ est requis'
                     ])*/
                 Forms\Components\Select::make('unpay_kit_id')
-                    ->options(UnpayKit::cursor()->filter(function(UnpayKit $kit){
-                        return $kit->statut = 'En stock';
+                    ->options(UnpayKit::cursor()->where("user_id", null)->filter(function(UnpayKit $kit){
+                        return $kit->statut == 'En stock'; 
                     })->pluck('kit_number', 'id'))
                     ->searchable()
                     ->label('Numero de kit')

@@ -47,7 +47,9 @@ class UnpayKitResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('kit_number')
                     ->prefix('KIT')
-                    ->numeric()
+                    ->numeric(),
+                Tables\Columns\TextColumn::make('statut')
+                    ->badge()
             ])
             ->filters([
                 TernaryFilter::make('statut')
@@ -56,9 +58,9 @@ class UnpayKitResource extends Resource
                     ->trueLabel('Tous mes kits')
                     ->falseLabel('Kits Vendu')
                     ->queries(
+                        blank: fn(Builder $query) => $query->where('statut', 'Payé'), // In this example, we do not want to filter the query when it is blank.
                         true: fn(Builder $query) => $query,
-                        false: fn(Builder $query) => $query->where('statut', 'Vendu'),
-                        blank: fn(Builder $query) => $query->where('statut', 'Payé') // In this example, we do not want to filter the query when it is blank.
+                        false: fn(Builder $query) => $query->where('statut', 'Vendu')->where('user_id', Auth::user()->id),
                     )
             ])
             ->actions([
