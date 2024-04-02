@@ -11,6 +11,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use libphonenumber\PhoneNumberType;
 use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
 use Ysfkaya\FilamentPhoneInput\PhoneInputNumberType;
 use Ysfkaya\FilamentPhoneInput\Tables\PhoneColumn;
@@ -46,15 +47,17 @@ class ClientResource extends Resource
                         'required' => 'Ce champ est requis'
                     ])
                     ->maxLength(255),
-                PhoneInput::make('phone_number')
+                    PhoneInput::make('phone_number')
                     ->label('Numéro de téléphone')
                     ->countryStatePath('phone_country')
                     ->required()
+                    ->validateFor('CM', PhoneNumberType::MOBILE, true)
                     ->validationMessages([
-                        'max_digits' => 'Trop long, doit avoir 9 chiffres.',
+                        'phone' => 'Le numero doit avoir 9 chiffres.',
                         'required' => 'Ce champ est requis'
                     ])
                     ->maxWidth(9)
+                    ->onlyCountries(['CM'])
                     ->initialCountry('CM'),
 
             ]);

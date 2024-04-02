@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use libphonenumber\PhoneNumberType;
 use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
 
 
@@ -56,12 +57,18 @@ class KitResource extends Resource
                             ->label('Addresse E-mail')
                             ->required()
                             ->maxLength(255),
-                        PhoneInput::make('phone_number')
-                            ->label('Numero de telephone')
+                            PhoneInput::make('phone_number')
+                            ->label('Numéro de téléphone')
                             ->countryStatePath('phone_country')
-                            ->maxWidth('9')
+                            ->required()
+                            ->validateFor('CM', PhoneNumberType::MOBILE, true)
+                            ->validationMessages([
+                                'phone' => 'Le numero doit avoir 9 chiffres.',
+                                'required' => 'Ce champ est requis'
+                            ])
+                            ->maxWidth(9)
                             ->onlyCountries(['CM'])
-                            ->defaultCountry('CM'),
+                            ->initialCountry('CM'),
                     ])
                     ->validationMessages([
                         'required' => 'Ce champ est requis'
@@ -84,7 +91,7 @@ class KitResource extends Resource
                     ])*/
                 Forms\Components\Select::make('unpay_kit_id')
                     ->options(UnpayKit::cursor()->where("user_id", null)->filter(function(UnpayKit $kit){
-                        return $kit->statut == 'En stock'; 
+                        return $kit->statut == 'En stock';
                     })->pluck('kit_number', 'id'))
                     ->searchable()
                     ->label('Numero de kit')
