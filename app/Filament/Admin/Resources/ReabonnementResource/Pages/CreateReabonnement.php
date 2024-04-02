@@ -20,8 +20,6 @@ class CreateReabonnement extends CreateRecord
         dump($data);
         $user = User::find($kit->user_id);
         if ($user && $user->role == "fournisseur") {
-            if($user->somme_a_percevoir == null)
-                $user->somme_a_percevoir = 0;
             $user->somme_a_percevoir += ($data['plan_tarifaire'] * ($user->pourcentage * 0.01));
             $user->update(); // Utilisez la méthode save() pour sauvegarder les modifications
         }
@@ -37,8 +35,6 @@ class CreateReabonnement extends CreateRecord
         $user = User::find($kit->user_id);
 
         if ($user && $user->role === 'fournisseur') {
-            if($user->somme_a_percevoir == null)
-                $user->somme_a_percevoir = 0;
             $user->somme_a_percevoir += $data['plan_tarifaire'] * $user->pourcentage;
             $user->update(); // Utilisez la méthode save() pour sauvegarder les modifications
         }

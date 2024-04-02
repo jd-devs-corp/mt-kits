@@ -23,7 +23,7 @@ class KitsRelationManager extends RelationManager
             ->schema([
                 Forms\Components\Hidden::make('user_id')
                     ->visibleOn('view')
-                    ->default($user->role == 'fournisseur' ? $user->id : null),
+                    ->default($user->id),
                 Forms\Components\TextInput::make('kit_number')
                     ->required()
                     ->label('Numero de kit')

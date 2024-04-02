@@ -17,7 +17,18 @@ class ListUsers extends ListRecords
             ->icon('heroicon-o-plus')
             ->label('Ajouter un gerant')
             ->modalHeading('Ajouter un admin/fournisseur')
-            ->modalIcon('heroicon-o-users'),
+            ->modalIcon('heroicon-o-users')
+            ->action(function(array $data){
+                if ($data['role'] == 'admin') {
+                    $data['pourcentage'] = null;
+                    $data['somme_a_percevoir'] = null;
+
+                }
+                if($data['role'] == 'fournisseur'){
+                    $data['somme_a_percevoir'] = 0;
+                }
+                return static::getModel()::create($data);
+            }),
         ];
     }
     protected static ?string $title = 'Utilisateurs';
