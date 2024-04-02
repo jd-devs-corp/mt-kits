@@ -1,13 +1,13 @@
 <img src="public/images/logo.png" alt="logo">
 
-# **[MTKITS - VERSION 2](https://mtkits.evenafro.ca)**
+# [MTKits](https://mtkits.evenafro.ca) - Projet Laravel 10
 
 Bienvenue sur le fichier README de MTKits, un projet privé développé par
 [`Brain4Code`](public/images/b4c.png)
 avec Laravel 10 pour le client [`MtKits`](public/images/logo.png). Ce projet intègre des technologies
 modernes pour fournir une expérience utilisateur optimale et une gestion administrative efficace.
 
-## **TECHNOLOGIES UTILISÉES**
+## Technologies Utilisées
 
 - **Laravel 10** : La dernière version du framework PHP, offrant une architecture robuste pour le développement
   d'applications web.
@@ -15,14 +15,14 @@ modernes pour fournir une expérience utilisateur optimale et une gestion admini
 - **FilamentPHP** : La dernière version de l'outil d'administration pour Laravel, permettant de créer des interfaces
   d'administration riches et intuitives.
 
-## **PRÉREQUIS**
+## Prérequis
 
 - PHP ^8.2
 - [Laravel 10.x](https://laravel.com/10.x)
 - [Composer](https://getcomposer.org)
 - [Node.js et npm (pour Tailwind CSS)](https://tailwindcss.com)
 
-## **INSTALLATION**
+## Installation
 
 1. Clonez le dépôt Git : <a href="https://gitlab.com/brain4code/mtkits.git">Cliquez ici</a>
 2. Installez les dépendances PHP avec Composer :
@@ -49,7 +49,7 @@ cp .env.example .env
 php artisan key:generate
 ```
 
-## **UTILISATION**
+## Utilisation
 
 Pour démarrer le serveur de développement sur le port 80, exécutez :
 
@@ -57,11 +57,16 @@ Pour démarrer le serveur de développement sur le port 80, exécutez :
 php artisan serve --port=80
 ```
 
-## **Licence**
+## Contribuer
+
+Les contributions sont ce qui rend la communauté open source un endroit incroyable pour apprendre, inspirer et créer.
+Toutes les contributions que vous faites sont **grandement appréciées**.
+
+## Licence
 
 Distribué sous la licence `EULA`. Voir `LICENSE` pour plus d'informations.
 
-## **CONTRIBUTEURS**
+## Contact
 
 **[JIORDI KENGNE](https://wa.me/237682786315)** - **DARWIN FOTSO** - **AARON MANDJECK**
 

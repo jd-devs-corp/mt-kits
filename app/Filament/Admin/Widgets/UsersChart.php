@@ -21,7 +21,7 @@ class UsersChart extends BaseWidget
         return [
             Stat::make(
                 label: 'Meilleur fournisseur du mois passé:',
-                value: User::query()
+                value:( User::query()
                     ->select('users.name', 'users.id')
                     ->with('kits')
                     ->leftJoin('kits', 'kits.user_id', 'users.id')
@@ -31,20 +31,20 @@ class UsersChart extends BaseWidget
                     // ->orderBy('kits_count', 'desc')
                     ->where('role', 'fournisseur')
                     ->where('is_active', true)
-                    ->first()->name,
+                    ->first()->name ?? ''),
             ),
             Stat::make(
                 label: 'Meilleur client du mois passé:',
-                value: Client::query()
+                value: (Client::query()
                     ->select('clients.name', 'clients.id')
                     ->withCount('kits')
                     ->leftJoin('kits', 'kits.client_id', 'clients.id')
                     ->orderBy('kits_count', 'desc')
                     ->whereDate('kits.created_at', '>=', now()->subMonth()->startOfMonth())
                     ->whereDate('kits.created_at', '<=', now()->subMonth()->endOfMonth())
-                    ->first()->name,
+                    ->first()->name??'Nobody'),
             )
-            
+
         ];
     }
 
