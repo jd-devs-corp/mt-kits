@@ -6,6 +6,7 @@ use App\Filament\Admin\Resources\ReabonnementResource;
 use App\Models\Kit;
 use App\Models\User;
 use Filament\Resources\Pages\CreateRecord;
+use Illuminate\Database\Eloquent\Model;
 
 class CreateReabonnement extends CreateRecord
 {
@@ -16,30 +17,33 @@ class CreateReabonnement extends CreateRecord
         // $data['user_id'] = auth()->id();
 
         $kit = Kit::find($data['kit_id']);
-        // dump($data);
+        dump($data);
         $user = User::find($kit->user_id);
-
         if ($user && $user->role == "fournisseur") {
+            if($user->somme_a_percevoir == null)
+                $user->somme_a_percevoir = 0;
             $user->somme_a_percevoir += ($data['plan_tarifaire'] * ($user->pourcentage * 0.01));
-            $user->save(); // Utilisez la méthode save() pour sauvegarder les modifications
+            $user->update(); // Utilisez la méthode save() pour sauvegarder les modifications
         }
 
         return $data;
     }
 
 
-//     protected function handleRecordCreation(array $data): Model
-//     {
-//         $kit = Kit::find($data['kit_id']);
-//         dump($data);
-//         $user = User::find($kit->user_id);
+    protected function handleRecordCreation(array $data): Model
+    {
+        $kit = Kit::find($data['kit_id']);
+        dump($data);
+        $user = User::find($kit->user_id);
 
-//         if ($user && $user->role === 'fournisseur') {
-//             $user->somme_a_percevoir += $data['plan_tarifaire'] * $user->pourcentage;
-//             $user->save(); // Utilisez la méthode save() pour sauvegarder les modifications
-//         }
+        if ($user && $user->role === 'fournisseur') {
+            if($user->somme_a_percevoir == null)
+                $user->somme_a_percevoir = 0;
+            $user->somme_a_percevoir += $data['plan_tarifaire'] * $user->pourcentage;
+            $user->update(); // Utilisez la méthode save() pour sauvegarder les modifications
+        }
 
-//         // Créez le réabonnement après avoir effectué la rémunération de l'utilisateur
-//         return static::getModel()::create($data);
-// }
+        // Créez le réabonnement après avoir effectué la rémunération de l'utilisateur
+        return static::getModel()::create($data);
+}
 }

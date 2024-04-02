@@ -14,6 +14,7 @@ use Filament\Tables;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use libphonenumber\PhoneNumberType;
 use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
 
 class UserResource extends Resource
@@ -56,14 +57,14 @@ class UserResource extends Resource
                     ->label('Numéro de téléphone')
                     ->countryStatePath('phone_country')
                     ->required()
+                    ->validateFor("CM", PhoneNumberType::MOBILE, true)
                     ->validationMessages([
                         'max_digits' => 'Trop long, doit avoir 9 chiffres.',
-                        'min_digits' => 'Trop court, doit avoir 9 chiffres',
+                        'phone' => 'Le numero doit avoir 9 chiffres',
                         'required' => 'Ce champ est requis'
                     ])
-                    ->maxWidth(9)
                     ->onlyCountries(['CM'])
-                    ->defaultCountry('CM'),
+                    ->initialCountry('CM'),
                 Forms\Components\Select::make('role')
                     ->label('Rôle')
                     ->required()
@@ -108,14 +109,20 @@ class UserResource extends Resource
                 Forms\Components\TextInput::make('somme_a_percevoir')
                     ->visibleOn('view')
                     ->suffix(' FCFA')
+                    ->numeric()
                     ->label('Montant a percevoir'),
                 Forms\Components\TextInput::make('password')
                     ->default('new123')
                     ->password()
+                    ->required()
                     ->minLength(8)
                     ->validationMessages([
-                        'max.string' => 'Trop long, doit avoir 8 caracteres.',
-                        'min.string' => 'Trop court, doit avoir 8 caracteres'
+                        'max'=>[
+                            'string' => 'Trop long, doit avoir 8 caracteres.',
+                        ],
+                        'min'=>[
+                            'string' => 'Trop court, doit avoir 8 caracteres',
+                        ]
                     ])
                     ->revealable()
                     ->visibleOn('create'),

@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Auth;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use libphonenumber\PhoneNumberType;
 use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
 
 class KitResource extends Resource
@@ -56,12 +57,17 @@ class KitResource extends Resource
                             ->required()
                             ->maxLength(255),
                         PhoneInput::make('phone_number')
-                            ->label('Numéro de téléphone')
-                            ->countryStatePath('phone_country')
-                            ->required()
-                            ->maxWidth('9')
-                            ->onlyCountries(['CM'])
-                            ->defaultCountry('CM'),
+                        ->label('Numéro de téléphone')
+                        ->countryStatePath('phone_country')
+                        ->required()
+                        ->validateFor("CM", PhoneNumberType::MOBILE, true)
+                        ->validationMessages([
+                            'max_digits' => 'Trop long, doit avoir 9 chiffres.',
+                            'phone' => 'Le numero doit avoir 9 chiffres',
+                            'required' => 'Ce champ est requis'
+                        ])
+                        ->onlyCountries(['CM'])
+                        ->initialCountry('CM'),
                     ])
                     ->validationMessages([
                         'required' => 'Ce champ est requis'
@@ -72,9 +78,7 @@ class KitResource extends Resource
                 Forms\Components\Select::make('unpay_kit_id')
                     ->required()
                     ->label('Numero de kit')
-                    ->options(UnpayKit::cursor()->where('user_id', Auth::user()->id)->filter(function(UnpayKit $kit){
-                        return $kit->statut == 'Payé';
-                    })->pluck('kit_number', 'id'))
+                    ->options(UnpayKit::cursor()->where('user_id', Auth::user()->id)->where("statut", 'Payé')->pluck('kit_number', 'id'))
                     ->prefix('KIT')
                     ->validationMessages([
                         'required' => 'Ce champ est requis'
