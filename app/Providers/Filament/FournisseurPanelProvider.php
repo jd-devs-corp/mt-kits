@@ -33,6 +33,7 @@ class FournisseurPanelProvider extends PanelProvider
             ->id('fournisseur')
             ->path('supplier')
             ->login()
+            ->font('Poppins')
 //            ->profile(Pages\Auth\EditProfile::class)
 //            ->registration()
             ->passwordReset()
