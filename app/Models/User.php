@@ -144,4 +144,10 @@ class User extends Authenticatable implements FilamentUser, HasName, HasAvatar, 
     public function isAdmin(): bool{
         return $this->role == 'admin';
     }*/
+    public function histories()
+    {
+        return $this->hasMany(History::class, 'user_id');
+    }
+
+
 }

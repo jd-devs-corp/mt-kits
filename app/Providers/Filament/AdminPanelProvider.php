@@ -82,6 +82,7 @@ class AdminPanelProvider extends PanelProvider
                     )
                     ->avatarUploadComponent(fn() => FileUpload::make('avatar_url')
                         ->disk('public')
+                        ->optimize('webp')
                         ->label('Photo de profil'))
                     ->myProfile(
                         shouldRegisterUserMenu: true,

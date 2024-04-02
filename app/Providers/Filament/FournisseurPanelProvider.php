@@ -33,6 +33,7 @@ class FournisseurPanelProvider extends PanelProvider
             ->id('fournisseur')
             ->path('supplier')
             ->login()
+            ->font('Poppins')
 //            ->profile(Pages\Auth\EditProfile::class)
 //            ->registration()
             ->passwordReset()
@@ -94,6 +95,7 @@ class FournisseurPanelProvider extends PanelProvider
                         fn() => FileUpload::make('avatar_url')
                         ->disk('public')
                         ->optimize('webp')
+                        ->label('Photo de profil')
                     )
                     ->myProfile(
                         shouldRegisterUserMenu: true,

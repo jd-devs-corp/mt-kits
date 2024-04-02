@@ -2,7 +2,7 @@
     img.logo {
         height: 5.5rem;
         color: #DC2626;
-        filter: saturate(200%) drop-shadow(0 0 10px);
+        /*filter: saturate(200%) drop-shadow(0 0 10px);*/
 
     }
 

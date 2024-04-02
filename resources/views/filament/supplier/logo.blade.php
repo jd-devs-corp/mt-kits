@@ -1,8 +1,6 @@
 <style>
     img.logo {
         height: 5.5rem;
-        color: #3b82f6;
-        filter: saturate(200%) drop-shadow(0 0 10px);
 
     }
 

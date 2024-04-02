@@ -39,7 +39,7 @@ class CheckSubscriptions extends Command
                 $dateFinAbonnementCarbon = Carbon::parse($dateFinAbonnement);
                 $diffEnJours = $dateFinAbonnementCarbon->diffInDays(now());
 
-                if ($diffEnJours <= 15) {
+                if ($diffEnJours <= 15 && $diffEnJours > 0) {
                     $email = $kit->client->email;
                     // Assurez-vous que la relation client est définie dans le modèle Kit
                     $kitId = $kit->id;
