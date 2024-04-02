@@ -14,6 +14,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use libphonenumber\PhoneNumberType;
 use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
 use Ysfkaya\FilamentPhoneInput\PhoneInputNumberType;
 use Ysfkaya\FilamentPhoneInput\Tables\PhoneColumn;
@@ -49,17 +50,18 @@ class ClientResource extends Resource
                         'required' => 'Ce champ est requis'
                     ])
                     ->maxLength(255),
-                PhoneInput::make('phone_number')
-                    ->label('Numéro de téléphone')
-                    ->countryStatePath('phone_country')
-                    ->required()
-                    ->validationMessages([
-                        'max_digits' => 'Trop long, doit avoir 9 chiffres.',
-                        'required' => 'Ce champ est requis'
-                    ])
-                    ->maxWidth(9)
-                    ->onlyCountries(['CM'])
-                    ->defaultCountry('CM'),
+                    PhoneInput::make('phone_number')
+                        ->label('Numéro de téléphone')
+                        ->countryStatePath('phone_country')
+                        ->required()
+                        ->validateFor('CM', PhoneNumberType::MOBILE, true)
+                        ->validationMessages([
+                            'phone' => 'Le numero doit avoir 9 chiffres.',
+                            'required' => 'Ce champ est requis'
+                        ])
+                        ->maxWidth(9)
+                        ->onlyCountries(['CM'])
+                        ->initialCountry('CM'),
             ]);
     }
 
