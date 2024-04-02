@@ -44,7 +44,7 @@ class ReabonnementsRelationManager extends RelationManager
                 ->date( ),
                 Tables\Columns\TextColumn::make('plan_tarifaire')
                 ->money('XAF'),
-                Tables\Columns\TextColumn::make('kit.kit_number')
+                Tables\Columns\TextColumn::make('kit.unpay_kit.kit_number')
                 ->label('Numero de kit')
                 ->prefix('KIT'),
                 Tables\Columns\TextColumn::make('statut')

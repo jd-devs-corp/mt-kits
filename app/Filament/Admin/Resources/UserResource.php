@@ -3,6 +3,7 @@
 namespace App\Filament\Admin\Resources;
 
 use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
+use App\Filament\Admin\Resources\UserResource\RelationManagers\HistoriesRelationManager;
 use App\Filament\Admin\Resources\UserResource\RelationManagers\KitRelationManager;
 use App\Filament\Admin\Resources\UserResource\Pages;
 use App\Models\Kit;
@@ -14,7 +15,6 @@ use Filament\Tables;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use libphonenumber\PhoneNumberType;
 use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
 
 class UserResource extends Resource
@@ -57,14 +57,14 @@ class UserResource extends Resource
                     ->label('Numéro de téléphone')
                     ->countryStatePath('phone_country')
                     ->required()
-                    ->validateFor("CM", PhoneNumberType::MOBILE, true)
                     ->validationMessages([
                         'max_digits' => 'Trop long, doit avoir 9 chiffres.',
-                        'phone' => 'Le numero doit avoir 9 chiffres',
+                        'min_digits' => 'Trop court, doit avoir 9 chiffres',
                         'required' => 'Ce champ est requis'
                     ])
+                    ->maxWidth(9)
                     ->onlyCountries(['CM'])
-                    ->initialCountry('CM'),
+                    ->defaultCountry('CM'),
                 Forms\Components\Select::make('role')
                     ->label('Rôle')
                     ->required()
@@ -105,24 +105,18 @@ class UserResource extends Resource
                         'min_digits' => 'Trop court, doit avoir 2 chiffres'
                     ])
                     ->minValue(1)
-                    ,
+                ,
                 Forms\Components\TextInput::make('somme_a_percevoir')
                     ->visibleOn('view')
                     ->suffix(' FCFA')
-                    ->numeric()
                     ->label('Montant a percevoir'),
                 Forms\Components\TextInput::make('password')
                     ->default('new123')
                     ->password()
-                    ->required()
                     ->minLength(8)
                     ->validationMessages([
-                        'max'=>[
-                            'string' => 'Trop long, doit avoir 8 caracteres.',
-                        ],
-                        'min'=>[
-                            'string' => 'Trop court, doit avoir 8 caracteres',
-                        ]
+                        'max.string' => 'Trop long, doit avoir 8 caracteres.',
+                        'min.string' => 'Trop court, doit avoir 8 caracteres'
                     ])
                     ->revealable()
                     ->visibleOn('create'),
@@ -154,9 +148,9 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('status')
                     ->label('Nbre de kits vendu')
                     ->getStateUsing(function ($record) {
-                            $id = $record->id;
-                            $number_of_kits = Kit::where('user_id', $id)->count();
-                            return $number_of_kits;
+                        $id = $record->id;
+                        $number_of_kits = Kit::where('user_id', $id)->count();
+                        return $number_of_kits;
 
                     }),
                 Tables\Columns\TextColumn::make('pourcentage')
@@ -175,7 +169,7 @@ class UserResource extends Resource
                         false: fn(Builder $query) => $query->where('is_active', false),
                         blank: fn(Builder $query) => $query // In this example, we do not want to filter the query when it is blank.
                     ),
-                    TernaryFilter::make('role')
+                TernaryFilter::make('role')
                     ->label('Role de l\'utilisateur')
                     ->placeholder('Tous les utilisateurs')
                     ->trueLabel('Administrateur | Employés')
@@ -206,7 +200,8 @@ class UserResource extends Resource
     public static function getRelations(): array
     {
         return [
-            KitRelationManager::class,
+//            KitRelationManager::class,
+            HistoriesRelationManager::class
         ];
     }
 
@@ -215,7 +210,7 @@ class UserResource extends Resource
         return [
             'index' => Pages\ListUsers::route('/'),
             // 'create' => Pages\CreateUser::route('/create'),
-            'view' => Pages\ViewUser::route('/{record}      '),
+            'view' => Pages\ViewUser::route('/{record}'),
             'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
     }
