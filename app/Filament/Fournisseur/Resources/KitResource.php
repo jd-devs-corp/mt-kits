@@ -157,10 +157,20 @@ class KitResource extends Resource
 
     public static function table(Table $table): Table
     {
-        $filteredQuery = Kit::where('user_id', auth()->id());
+        $latestReabonnements = Reabonnement::select('kit_id')
+            ->selectRaw('MAX(date_fin_abonnement) as latest_date_fin_abonnement')
+            ->groupBy('kit_id');
 
-      return $table
-        ->query($filteredQuery)
+        $query = Kit::query()
+            ->leftJoin('unpay_kits', 'kits.unpay_kit_id', '=', 'unpay_kits.id')
+            ->select('kits.*')
+            ->joinSub($latestReabonnements, 'latest_reabonnements', function ($join) {
+                $join->on('kits.id', '=', 'latest_reabonnements.kit_id');
+            })
+            ->orderBy('latest_reabonnements.latest_date_fin_abonnement', 'ASC');
+
+        return $table
+        ->query($query)
         ->columns([
                 Tables\Columns\TextColumn::make('client.name')
                     ->label('Proprietaire')

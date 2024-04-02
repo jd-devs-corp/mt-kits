@@ -34,10 +34,7 @@ class FournisseurPanelProvider extends PanelProvider
             ->path('supplier')
             ->login()
             ->font('Poppins')
-//            ->profile(Pages\Auth\EditProfile::class)
-//            ->registration()
             ->passwordReset()
-            // ->emailVerification()
             ->colors([
                 'danger' => Color::Rose,
                 'gray' => Color::Gray,
