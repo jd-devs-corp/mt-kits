@@ -72,8 +72,8 @@ class KitResource extends Resource
                 Forms\Components\Select::make('unpay_kit_id')
                     ->required()
                     ->label('Numero de kit')
-                    ->options(UnpayKit::cursor()->filter(function(UnpayKit $kit){
-                        return $kit->statut = 'En stock';
+                    ->options(UnpayKit::cursor()->where('user_id', Auth::user()->id)->filter(function(UnpayKit $kit){
+                        return $kit->statut == 'Payé';
                     })->pluck('kit_number', 'id'))
                     ->prefix('KIT')
                     ->validationMessages([

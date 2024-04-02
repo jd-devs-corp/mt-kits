@@ -34,9 +34,9 @@ class KitRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('status')
                     ->label('Statut')
                     ->getStateUsing(function ($record) {
-                        $kitNumber = $record->kit_number;
+                        $kitNumber = $record->unpay_kit_id;
 
-                        $kit = Kit::where('kit_number', $kitNumber)->with('reabonnements')->first();
+                        $kit = Kit::where('unpay_kit_id', $kitNumber)->with('reabonnements')->first();
 
 
                         $dateFinAbonnement = $kit->reabonnements->sortByDesc('date_fin_abonnement')->first()->date_fin_abonnement ?? null;

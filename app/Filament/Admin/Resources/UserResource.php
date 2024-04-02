@@ -43,10 +43,10 @@ class UserResource extends Resource
                 Forms\Components\TextInput::make('email')
                     ->label('Adresse E-mail')
                     ->email()
-                    ->unique()
+                    // ->unique(User::class, 'email')
                     ->required()
                     ->validationMessages([
-                        'unique' => 'Le numero :attribute est deja enregistré',
+                        'unique' => 'cet adresse mail est deja enregistré',
                         'max_digits' => 'Trop long.',
                         'min_digits' => 'Trop court',
                         'required' => 'Ce champ est requis'
@@ -61,7 +61,7 @@ class UserResource extends Resource
                         'min_digits' => 'Trop court, doit avoir 9 chiffres',
                         'required' => 'Ce champ est requis'
                     ])
-                    ->maxWidth('9')
+                    ->maxWidth(9)
                     ->onlyCountries(['CM'])
                     ->defaultCountry('CM'),
                 Forms\Components\Select::make('role')
@@ -99,6 +99,10 @@ class UserResource extends Resource
                     ->suffix('%')
                     ->numeric()
                     ->maxLength(2)
+                    ->validationMessages([
+                        'max_digits' => 'Trop long, doit avoir 2 chiffres.',
+                        'min_digits' => 'Trop court, doit avoir 2 chiffres'
+                    ])
                     ->minValue(1)
                     ,
                 Forms\Components\TextInput::make('somme_a_percevoir')
@@ -110,8 +114,8 @@ class UserResource extends Resource
                     ->password()
                     ->minLength(8)
                     ->validationMessages([
-                        'max_digits' => 'Trop long, doit avoir 9 chiffres.',
-                        'min_digits' => 'Trop court, doit avoir 8 chiffres'
+                        'max.string' => 'Trop long, doit avoir 8 caracteres.',
+                        'min.string' => 'Trop court, doit avoir 8 caracteres'
                     ])
                     ->revealable()
                     ->visibleOn('create'),
@@ -204,7 +208,7 @@ class UserResource extends Resource
         return [
             'index' => Pages\ListUsers::route('/'),
             // 'create' => Pages\CreateUser::route('/create'),
-            'view' => Pages\ViewUser::route('/{record}      '),
+            'view' => Pages\ViewUser::route('/{record}'),
             'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
     }

@@ -36,7 +36,7 @@ class FournisseurPanelProvider extends PanelProvider
 //            ->profile(Pages\Auth\EditProfile::class)
 //            ->registration()
             ->passwordReset()
-            ->emailVerification()
+            // ->emailVerification()
             ->colors([
                 'danger' => Color::Rose,
                 'gray' => Color::Gray,

@@ -4,6 +4,7 @@ namespace App\Filament\Admin\Pages;
 
 use App\Filament\Admin\Widgets\KitsOverview;
 use App\Filament\Admin\Widgets\Overview;
+use App\Filament\Admin\Widgets\UsersChart;
 use Filament\Pages\Dashboard;
 
 class TableauDeBord extends Dashboard
@@ -22,6 +23,7 @@ class TableauDeBord extends Dashboard
         return [
             KitsOverview::class,
             Overview::class,
+            UsersChart::class
         ];
     }
 
