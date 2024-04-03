@@ -27,7 +27,7 @@ class ListKits extends ListRecords
                 $unpay_kit = UnpayKit::find($data['unpay_kit_id']);
                 $unpay_kit->statut = 'Vendu';
                 $unpay_kit->update();
-                return $data;
+                return static::getModel()::create($data);
             }),
         ];
     }
