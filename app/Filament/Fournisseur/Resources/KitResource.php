@@ -7,6 +7,7 @@ use App\Filament\Fournisseur;
 use App\Filament\Fournisseur\Resources\KitResource\Pages;
 use App\Filament\Fournisseur\Resources\KitResource\RelationManagers;
 use App\Models\Kit;
+use App\Models\Reabonnement;
 use App\Models\UnpayKit;
 use App\Models\User;
 use Carbon\Carbon;
