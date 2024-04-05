@@ -23,14 +23,9 @@ MTKITS s'adapte aux besoins des particuliers, des entreprises et des professionn
     <link rel="apple-touch-icon" sizes="180x180" href="{{asset('images/apple-touch-icon.png')}}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{asset('images/favicon-32x32.png')}}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{asset('images/favicon-16x16.png')}}">
+    <link rel="shortcut icon" href="{{asset('favicon.ico')}}" type="image/x-icon">
     <link rel="manifest" href="{{asset('images/site.webmanifest')}}">
     <title>MtKits | Accueil</title>
-
-    <link
-        rel="shortcut icon"
-        {{--        href="{{asset('images/logo.png')}}"--}}
-        type="image/x-icon"
-    />
     {{--    @vite('resources/css/app.css')--}}
     <link rel="stylesheet" href="{{asset('css/animate.css')}}"/>
     <link rel="stylesheet" href="{{asset('css/tailwind.css')}}"/>
@@ -55,7 +50,7 @@ MTKITS s'adapte aux besoins des particuliers, des entreprises et des professionn
                     <div class="w-60 max-w-full px-4">
                         <a href="{{url('/')}}" class="navbar-logo block w-full py-5">
                             <img
-                                src="{{asset('images/logo.png')}}"
+                                src="{{asset('images/logo_admin.png')}}"
                                 alt="logo"
                                 class="header-logo w-full"
                             />
@@ -479,8 +474,9 @@ MTKITS s'adapte aux besoins des particuliers, des entreprises et des professionn
             <div class="w-full px-4 lg:w-5/12 xl:w-4/12">
 
                 <iframe class="w-full lg:h-[400px]"
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d994.9118061534036!2d9.743522888242978!3d4.0920152648863555!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x10610d0018a14141%3A0x6bd4b06afb045373!2sMentalist!5e0!3m2!1sen!2see!4v1711646103573!5m2!1sen!2see"  style="border:0;" allowfullscreen="" loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d994.9118061534036!2d9.743522888242978!3d4.0920152648863555!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x10610d0018a14141%3A0x6bd4b06afb045373!2sMentalist!5e0!3m2!1sen!2see!4v1711646103573!5m2!1sen!2see"
+                        style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
 
             </div>
         </div>
