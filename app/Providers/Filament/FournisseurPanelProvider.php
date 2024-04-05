@@ -67,7 +67,7 @@ class FournisseurPanelProvider extends PanelProvider
             ->brandLogo(fn() => view('filament.supplier.logo'))
 //            ->brandLogoHeight('5rem')
             ->brandName('Mentalists kits')
-            ->favicon(asset('images/logo_supplier.png'))
+            ->favicon(asset('favicon_supplier.ico'))
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,

@@ -102,7 +102,7 @@ class AdminPanelProvider extends PanelProvider
             ->brandLogo(fn() => view('filament.admin.logo'))
 //            ->brandLogoHeight('5rem')
             ->brandName('Mentalists kits')
-            ->favicon(asset('images/logo_admin.png'));
+            ->favicon(asset('favicon.ico'));
 
     }
 }
