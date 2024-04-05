@@ -1,3 +1,9 @@
+<script>
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.setAttribute('data-mode', 'dark');
+    }
+</script>
+
 <style>
     img.logo {
         height: 5.5rem;
@@ -5,7 +11,7 @@
     }
 
     .alink {
-        color: #3b82f6;
+        color: #081c3a;
         font-weight: bold;
         font-family: 'Sora', sans-serif;
         display: inline-flex;
@@ -68,9 +74,10 @@
 
 </style>
 @if (request()->is('supplier/login')||request()->is('supplier/register') || request()->isMethod('post')||request()->is('supplier/two-factor-authentication') )
-    <a href="{{url('/')}}" class="alink">
+    <a href="{{url('/')}}" class="alink dark:text-white">
         <svg style="--c-400:var(--primary-400);--c-600:var(--primary-600);"
-             class="fi-link-icon h-5 w-5 text-custom-600 dark:text-custom-400" xmlns="http://www.w3.org/2000/svg"
+             class="fi-link-icon h-5 w-5 dark:text-white text-custom-600 dark:text-custom-400"
+             xmlns="http://www.w3.org/2000/svg"
              viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
             <path fill-rule="evenodd"
                   d="M17 10a.75.75 0 0 1-.75.75H5.612l4.158 3.96a.75.75 0 1 1-1.04 1.08l-5.5-5.25a.75.75 0 0 1 0-1.08l5.5-5.25a.75.75 0 1 1 1.04 1.08L5.612 9.25H16.25A.75.75 0 0 1 17 10Z"
@@ -81,8 +88,11 @@
 @elseif(request()->is('supplier/email-verification/prompt')||request()->is('supplier/password-reset/request'))
 
 @else
-    <!-- Code pour afficher le logo de la marque -->
-    <img src="{{asset('images/logo_supplier.png')}}" title="Mentalists kits" class="logo"
-         alt="Logo supplieristrateur">
+    <img loading="lazy" class="logo inline-flex dark:hidden" src="{{ asset('images/logo_supplier.png') }}" alt="Logo light">
+    <img loading="lazy" class="logo hidden dark:inline-flex" src="{{ asset('images/logo_supplier_dark.png') }}"
+         alt="Logo dark">
+
+
+
 @endif
 

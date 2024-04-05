@@ -9,6 +9,12 @@ export default {
     theme: {
         extend: {},
     },
+    variants: {
+        extend: {
+            display: ['dark'],
+            textColor: ['dark'],
+        },
+    },
     plugins: [],
     darkMode: ['selector', '[data-mode="dark"]'],
 }

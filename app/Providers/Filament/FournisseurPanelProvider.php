@@ -39,7 +39,7 @@ class FournisseurPanelProvider extends PanelProvider
                 'danger' => Color::Rose,
                 'gray' => Color::Gray,
                 'info' => Color::Blue,
-                'primary' => Color::hex('#3b82f6'),
+                'primary' => Color::hex('#081c3a'),
                 'success' => Color::Stone,
                 'warning' => Color::Orange,
             ])
@@ -65,7 +65,6 @@ class FournisseurPanelProvider extends PanelProvider
 
             ])
             ->brandLogo(fn() => view('filament.supplier.logo'))
-//            ->brandLogoHeight('5rem')
             ->brandName('Mentalists kits')
             ->favicon(asset('favicon_supplier.ico'))
             ->middleware([
