@@ -20,26 +20,25 @@ class ReceiptController extends Controller
         $user->update(['somme_a_percevoir' => 0]);
         return response()->streamDownload(function () use ($dompdf) {
             echo $dompdf->output();
-        }, "reçu-".now()->format('d/m/y H:i').".pdf");
+        }, "reçu-" . now()->format('d/m/y H:i') . ".pdf");
     }
     public function generateReceipt($id)
     {
 
         $abonnement = Reabonnement::findOrFail($id);
-        $dateFin=Carbon::parse($abonnement->date_fin_abonnement);
+        $dateFin = Carbon::parse($abonnement->date_fin_abonnement);
         $dureeMois = $dateFin->diffInMonths($abonnement->date_abonnement);
-        $dateDebut=Carbon::parse($abonnement->date_abonnement)->format('d/m/y');
+        $dateDebut = Carbon::parse($abonnement->date_abonnement)->format('d/m/y');
         // Génération du contenu du reçu PDF
         $pdf = \App::make('dompdf.wrapper')->setPaper('A4', 'landscape');
         $pdf->loadView('receipts.show', [
+            'imagePath' => public_path('images/logo.jpg'),
             'abonnement' => $abonnement,
             'dureeMois' => $dureeMois,
             'dateDebut' => $dateDebut
-        ])->setOptions(['defaultFont' => 'sans-serif']);;
+        ]);
 
         // Envoi du PDF à l'utilisateur
-        return $pdf->download('reçu-' . now()->format('d/m/y H:i') . '.pdf');
-
-
+        return $pdf->stream('Réçu-' . now()->format('d/m/y H:i') . '.pdf');
     }
 }

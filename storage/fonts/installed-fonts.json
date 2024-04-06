@@ -1,0 +1,14 @@
+{
+    "sora": {
+        "normal": "sora_normal_7f84094c6eed404d725fbd3b01dfa1dc"
+    },
+    "montserrat": {
+        "normal": "montserrat_normal_895e2ccb87bf3412f3971109de3389a3"
+    },
+    "montserrat italic": {
+        "normal": "montserrat_italic_normal_dee91d64c104bf43167380e5c5f1dcc6"
+    },
+    "poppins": {
+        "normal": "poppins_normal_808f87e83160b717c99fd45913de108c"
+    }
+}

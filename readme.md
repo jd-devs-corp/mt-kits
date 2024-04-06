@@ -1,10 +1,10 @@
-<img src="public/images/logo.png" alt="logo">
+<img src="public/images/logo.jpg" alt="logo">
 
 # [MTKits](https://mtkits.evenafro.ca) - Projet Laravel 10
 
 Bienvenue sur le fichier README de MTKits, un projet privé développé par
 [`Brain4Code`](public/images/b4c.png)
-avec Laravel 10 pour le client [`MtKits`](public/images/logo.png). Ce projet intègre des technologies
+avec Laravel 10 pour le client [`MtKits`](public/images/logo.jpg). Ce projet intègre des technologies
 modernes pour fournir une expérience utilisateur optimale et une gestion administrative efficace.
 
 ## Technologies Utilisées

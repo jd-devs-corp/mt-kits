@@ -10,6 +10,8 @@ use Filament\Support\Assets\Js;
 use Filament\Support\Facades\FilamentAsset;
 use App\Http\Responses\CustomLogoutResponse;
 use Filament\Http\Responses\Auth\LogoutResponse;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Pluralizer;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,12 +28,9 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-    public function boot(){
-        view()->composer('filament.supplier.logo', function ($view) {
-            $theme = \Cookie::get();
-
-            $view->with('theme', $theme);
-        });
+    public function boot()
+    {
+        Pluralizer::useLanguage('french');
         // DB::connection()->getDoctrineSchemaManager()->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');
         Model::unguard();
 
