@@ -96,6 +96,7 @@ class ReabonnementResource extends Resource
                     Tables\Actions\Action::make('generate_receipt')
                         ->label('Telecharger le reçu')
                         ->icon('heroicon-o-receipt-refund')
+                        ->openUrlInNewTab()
                         // ->label('Waoh')
                         ->action(function (Reabonnement $record, array $data) {
                             return redirect(url('admin/receipt/generate', $record->id));
