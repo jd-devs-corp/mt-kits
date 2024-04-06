@@ -47,7 +47,7 @@ MTKITS s'adapte aux besoins des particuliers, des entreprises et des professionn
         >
             <div class="container">
                 <div class="relative -mx-4 flex items-center justify-between">
-                    <div class="w-60 max-w-full px-4">
+                    <div class="w-60 max-w-full px-4 wow fadeInLeft"  data-wow-delay=".2s">
                         <a href="{{url('/')}}" class="navbar-logo block w-full py-5">
                             <img
                                 src="{{asset('images/logo_admin.png')}}"
@@ -56,8 +56,8 @@ MTKITS s'adapte aux besoins des particuliers, des entreprises et des professionn
                             />
                         </a>
                     </div>
-                    <div class="flex w-full items-center justify-between px-4">
-                        <div>
+                    <div class="flex w-full items-center justify-end px-4 ">
+                        <div class="lg:hidden">
                             <button
                                 id="navbarToggler"
                                 class="absolute right-4 top-1/2 block -translate-y-1/2 rounded-lg px-3 py-[6px] ring-primary focus:ring-2 lg:hidden"
@@ -76,7 +76,7 @@ MTKITS s'adapte aux besoins des particuliers, des entreprises et des professionn
                                 id="navbarCollapse"
                                 class="absolute right-4 top-full hidden w-full max-w-[250px] rounded-lg bg-white py-5 shadow-lg dark:bg-dark-2 lg:static lg:block lg:w-full lg:max-w-full lg:bg-transparent lg:px-4 lg:py-0 lg:shadow-none dark:lg:bg-transparent xl:px-6"
                             >
-                                <ul class="blcok  2xl:ml-20 lg:hidden">
+                                <ul class="blcok  2xl:ml-20">
                                     @if ($userRole === 'admin')
                                         <li class="group relative">
                                             <a class="ud-menu-scroll mx-8 flex py-2 text-base font-medium text-dark group-hover:text-primary dark:text-white lg:mr-0 lg:inline-flex lg:px-0 lg:py-6 lg:text-white lg:group-hover:text-white lg:group-hover:opacity-70"
@@ -111,7 +111,7 @@ MTKITS s'adapte aux besoins des particuliers, des entreprises et des professionn
                                 </ul>
                             </nav>
                         </div>
-                        <div class="flex items-center justify-end pr-16 lg:pr-0">
+                        <div class="flex items-center justify-end pr-16 ">
                             <label
                                 for="themeSwitcher"
                                 class="inline-flex cursor-pointer items-center"
@@ -184,7 +184,7 @@ MTKITS s'adapte aux besoins des particuliers, des entreprises et des professionn
                   </svg>
                 </span>
                             </label>
-                            <div class="sm:hidden sd:hidden  lg:flex">
+                            <div class="lg:flex hidden">
                                 @if ($userRole === 'admin')
                                     <a
                                         href="/admin"
@@ -280,8 +280,10 @@ MTKITS s'adapte aux besoins des particuliers, des entreprises et des professionn
             </div>
         </div>
         <div class="-mx-4 flex flex-wrap">
-            <div class="text-center sm:flex justify-center w-full px-4 md:w-1/2 lg:w-1/4">
-                <div class="wow fadeInUp group mb-12" data-wow-delay=".1s">
+            <div class="sm:flex justify-center w-full px-4 md:w-1/2 lg:w-1/4">
+                <div class="wow fadeInUp group mb-12" data-wow-delay=".1s" style="    display: flex;
+            flex-direction: column;
+            align-items: center;">
                     <div
                         class="relative z-10 mb-10 flex h-[70px] w-[70px] items-center justify-center rounded-[14px] bg-primary"
                     >
@@ -307,7 +309,9 @@ MTKITS s'adapte aux besoins des particuliers, des entreprises et des professionn
                 </div>
             </div>
             <div class="sm:flex justify-center w-full px-4 md:w-1/2 lg:w-1/4">
-                <div class="wow fadeInUp group mb-12" data-wow-delay=".15s">
+                <div class="wow fadeInUp group mb-12" data-wow-delay=".15s" style="    display: flex;
+            flex-direction: column;
+            align-items: center;">
                     <div
                         class="relative z-10 mb-10 flex h-[70px] w-[70px] items-center justify-center rounded-[14px] bg-primary"
                     >
@@ -334,7 +338,9 @@ MTKITS s'adapte aux besoins des particuliers, des entreprises et des professionn
                 </div>
             </div>
             <div class="sm:flex justify-center w-full px-4 md:w-1/2 lg:w-1/4">
-                <div class="wow fadeInUp group mb-12" data-wow-delay=".2s">
+                <div class="wow fadeInUp group mb-12" data-wow-delay=".2s" style="    display: flex;
+            flex-direction: column;
+            align-items: center;">
                     <div
                         class="relative z-10 mb-10 flex h-[70px] w-[70px] items-center justify-center rounded-[14px] bg-primary"
                     >
@@ -359,7 +365,9 @@ MTKITS s'adapte aux besoins des particuliers, des entreprises et des professionn
                 </div>
             </div>
             <div class="sm:flex justify-center w-full px-4 md:w-1/2 lg:w-1/4">
-                <div class="wow fadeInUp group mb-12" data-wow-delay=".25s">
+                <div class="wow fadeInUp group mb-12" data-wow-delay=".25s" style="    display: flex;
+            flex-direction: column;
+            align-items: center;">
                     <div
                         class="relative z-10 mb-10 flex h-[70px] w-[70px] items-center justify-center rounded-[14px] bg-primary"
                     >
@@ -394,7 +402,7 @@ MTKITS s'adapte aux besoins des particuliers, des entreprises et des professionn
         class="absolute left-0 top-0 -z-[1] h-full w-full dark:bg-dark"
     ></div>
     <div
-        class="absolute left-0 top-0 -z-[1] h-1/2 w-full  dark:bg-dark-700 lg:h-[45%] xl:h-1/2"
+        class="absolute left-0 top-0 -z-[1] h-1/2 w-full  dark:bg-dark-700 lg:h-[45%] "
         style="background-color: #57667e"
     ></div>
     <div class="container px-4">
@@ -497,13 +505,13 @@ MTKITS s'adapte aux besoins des particuliers, des entreprises et des professionn
                     <p class="font-medium text-center">
                            <span class="" id="copyright"><script>
                                 document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
-                               </script></span> &copy; MtKits developpé par :
+                               </script></span> &copy; MtKits tout droit reservé ,
                         <a
-                            href="mailto:brainforcode@gmail.com"
+                            href="https://mentalists.ca"
                             target="_blank"
                             class="hover:text-primary"
                         >
-                            Brain4Code
+                            Mentalists
                         </a>
                     </p>
                 </div>

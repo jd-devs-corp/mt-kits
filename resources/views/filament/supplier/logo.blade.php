@@ -89,10 +89,9 @@
 
 @else
     <img loading="lazy" class="logo inline-flex dark:hidden" src="{{ asset('images/logo_supplier.png') }}" alt="Logo light">
+
     <img loading="lazy" class="logo hidden dark:inline-flex" src="{{ asset('images/logo_supplier_dark.png') }}"
          alt="Logo dark">
-
-
 
 @endif
 
