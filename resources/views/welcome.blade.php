@@ -20,11 +20,7 @@ Vendre: Devenez revendeur agréé Starlink et proposez des kits à vos clients.
 MTKITS s'adapte aux besoins des particuliers, des entreprises et des professionnels. Outil puissant et convivial, MTKITS vous permet de profiter pleinement de votre connexion Starlink.
 ">
 
-    <link rel="apple-touch-icon" sizes="180x180" href="{{asset('images/apple-touch-icon.png')}}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{asset('images/favicon-32x32.png')}}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{asset('images/favicon-16x16.png')}}">
     <link rel="shortcut icon" href="{{asset('favicon.ico')}}" type="image/x-icon">
-    <link rel="manifest" href="{{asset('images/site.webmanifest')}}">
     <title>MtKits | Accueil</title>
     {{--    @vite('resources/css/app.css')--}}
     <link rel="stylesheet" href="{{asset('css/animate.css')}}"/>
