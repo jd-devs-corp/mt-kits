@@ -3,10 +3,12 @@
 namespace App\Filament\Admin\Resources\ReabonnementResource\Pages;
 
 use App\Filament\Admin\Resources\ReabonnementResource;
-use App\Models\Kit;
-use App\Models\User;
+use App\Models;
+use Carbon\Carbon;
+use DateTime;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use Illuminate\Support\Facades\Mail;
 
 class ListReabonnements extends ListRecords
 {
@@ -25,17 +27,30 @@ class ListReabonnements extends ListRecords
             ->modalHeading('Enregistrer un (re-)abonnement')
             ->label('(Re-)Abonner un kit')
             ->action(function (array $data) {
-                $kit = Kit::find($data['kit_id']);
+                $kit = Models\Kit::find($data['kit_id']);
 //         dump($kit);
-                $user = User::find($kit->user_id);
-
+                $user = Models\User::find($kit->user_id);
+                $client = Models\Client::find($kit->client_id);
                 if ($user && $user->role == "fournisseur") {
                     $user->somme_a_percevoir += ($data['plan_tarifaire'] * ($user->pourcentage * 0.01));
                     $user->update(); // Utilisez la méthode save() pour sauvegarder les modifications
+                }
+                if($client){
+                    $dateTime = DateTime::createFromFormat('Y-m-d H:i:s', now());
+                    $date = $dateTime->format('Y-m-d');
+                    $heureMinute = $dateTime->format('H:i');
                 }
 
                 return static::getModel()::create($data);
             }),
         ];
+    }
+
+    public function sendEmail($email, $date, $heureMinute)
+    {
+        Mail::send('emails.reabonnement', ['dateSeule' => $date,'heureMinute'=>$heureMinute], function ($message) use ($email, $date, $heureMinute) {
+            $message->to($email)
+                ->subject('Votre abonnement est sur le point d\'expirer');
+        });
     }
 }
