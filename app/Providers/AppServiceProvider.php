@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
@@ -9,6 +10,8 @@ use Filament\Support\Assets\Js;
 use Filament\Support\Facades\FilamentAsset;
 use App\Http\Responses\CustomLogoutResponse;
 use Filament\Http\Responses\Auth\LogoutResponse;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Pluralizer;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,7 +28,9 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-    public function boot(){
+    public function boot()
+    {
+        Pluralizer::useLanguage('french');
         // DB::connection()->getDoctrineSchemaManager()->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');
         Model::unguard();
 
