@@ -47,6 +47,7 @@ class KitResource extends Resource
                     ->relationship('client','name')
                     ->searchable()
                     // ->preload()
+                    ->createOptionModalHeading('Ajouter un client')
                     ->createOptionForm([
                         Forms\Components\TextInput::make('name')
                             ->label('Nom')
@@ -81,6 +82,7 @@ class KitResource extends Resource
                     ->label('Numero de kit')
                     ->options(UnpayKit::cursor()->where('user_id', Auth::user()->id)->where("statut", 'Payé')->pluck('kit_number', 'id'))
                     ->prefix('KIT')
+                    ->hiddenOn('edit')
                     ->validationMessages([
                         'required' => 'Ce champ est requis'
                     ]),
@@ -165,7 +167,7 @@ class KitResource extends Resource
         $query = Kit::query()
             ->leftJoin('unpay_kits', 'kits.unpay_kit_id', '=', 'unpay_kits.id')
             ->select('kits.*')
-            ->joinSub($latestReabonnements, 'latest_reabonnements', function ($join) {
+            ->leftjoinSub($latestReabonnements, 'latest_reabonnements', function ($join) {
                 $join->on('kits.id', '=', 'latest_reabonnements.kit_id');
             })
             ->orderBy('latest_reabonnements.latest_date_fin_abonnement', 'ASC');
@@ -272,8 +274,8 @@ class KitResource extends Resource
         return [
             'index' => Pages\ListKits::route('/'),
             // 'create' => Pages\CreateKit::route('/create'),
-            'view' => Pages\ViewKit::route('/{record}'),
-            'edit' => Pages\EditKit::route('/{record}/edit'),
+            // 'view' => Pages\ViewKit::route('/{record}'),
+            // 'edit' => Pages\EditKit::route('/{record}/edit'),
         ];
     }
 }
