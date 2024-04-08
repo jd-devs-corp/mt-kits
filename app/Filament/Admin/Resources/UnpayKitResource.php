@@ -67,7 +67,21 @@ class UnpayKitResource extends Resource
                         'En stock' => 'success',
                         'Payé' => "info",
                         'Vendu' => 'warning'
-                    })
+                    }),
+                Tables\Columns\TextColumn::make('user.name')
+                ->label('Fournisseur')
+                ->getStateUsing(function ($record) {
+                    $user = User::find($record->user_id);
+                    if ($user && $user->role == 'fournisseur') {
+                        return 'SUP. ' . $user->name;
+                    } elseif ($user && $user->role == 'admin') {
+                        return 'AD. ' . $user->name;
+                    }
+                    return null;
+                })
+                // ->visibleFrom('')
+                ->url(fn(UnpayKit $record): string|null => $record->user_id ? route('filament.admin.resources.users.view', $record->user_id) : null)
+
             ])
             ->filters([
                 TernaryFilter::make('Statut')
@@ -90,11 +104,12 @@ class UnpayKitResource extends Resource
                 ])
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
+                // Tables\Actions\BulkActionGroup::make([
                     // Tables\Actions\DeleteBulkAction::make(),
                     Tables\Actions\BulkAction::make('Fournir')
                         ->icon('heroicon-o-banknotes')
                         ->deselectRecordsAfterCompletion()
+                        ->requiresConfirmation()
                         ->form([
                             Forms\Components\Select::make('user_id')
                                 ->label('Fournisseur')
@@ -112,8 +127,9 @@ class UnpayKitResource extends Resource
                             }
 
                         }),
-                ]),
-            ])->checkIfRecordIsSelectableUsing(
+
+            ])
+            ->checkIfRecordIsSelectableUsing(
                 function (Model $record): bool{
                     if($record->statut == "En stock")
                         return true;
