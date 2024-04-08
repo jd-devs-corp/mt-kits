@@ -104,7 +104,9 @@ body{
 
 <div class="footer margin-top">
     <div>Thank you</div>
-    <div>&copy; <a href="https://www.mentalists.ca">Mentalits</a></div>
+    <div id="copyright"><script>
+            document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
+        </script> &copy; <a href="https://www.mentalists.ca">Mentalists</a></div>
 </div>
 </body>
 </html>

@@ -39,6 +39,6 @@ class ReceiptController extends Controller
         ]);
 
         // Envoi du PDF à l'utilisateur
-        return $pdf->stream('Réçu-' . now()->format('d/m/y H:i') . '.pdf', array('Attachment' => false));
+        return $pdf->download('Réçu-' . now()->format('d/m/y H:i') . '.pdf', array('Attachment' => false));
     }
 }
