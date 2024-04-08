@@ -36,7 +36,8 @@
             src: url({{ storage_path('fonts/Poppins-Regular.ttf') }}) format('truetype');
         }
 body{
-    font-family: "Sora",sans-serif;
+    font-family: "Poppins", sans-serif, "Segoe UI", Tahoma, Geneva, Verdana;
+    outline: none;
 }
     </style>
 <link rel="stylesheet" href="{{ public_path('pdf.css') }}" type="text/css">

@@ -15,14 +15,15 @@ class History extends Model
         'pay_amount',
         'pay_method',
     ];
+    protected $table = 'histories';
 
     public function user()
     {
-       return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function supplier()
     {
-       return $this->belongsTo(User::class, 'supplier_id');
+        return $this->belongsTo(User::class, 'supplier_id');
     }
 }
