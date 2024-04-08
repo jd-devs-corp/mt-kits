@@ -172,7 +172,7 @@ return [
         App\Providers\Filament\FournisseurPanelProvider::class,
         App\Providers\RouteServiceProvider::class,
         Livewire\LivewireServiceProvider::class,
-//        'Ritey\LibPhoneNumberLaravel\LibPhoneNumberLaravelServiceProvider',
+        //        'Ritey\LibPhoneNumberLaravel\LibPhoneNumberLaravelServiceProvider',
 
     ])->toArray(),
 
