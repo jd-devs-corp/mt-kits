@@ -47,6 +47,7 @@ class KitResource extends Resource
                     ->label('Proprietaire')
                     ->relationship('client', 'name')
                     ->searchable()
+                    ->unique()
                     // ->preload()
                     ->createOptionModalHeading('Ajouter un client')
                     ->createOptionForm([
@@ -99,7 +100,7 @@ class KitResource extends Resource
                 Forms\Components\Select::make('unpay_kit_id')
                     ->required()
                     ->label('Numero de kit')
-                    ->options(UnpayKit::cursor()->where('user_id', Auth::user()->id)->where("statut", 'Payé')->pluck('kit_number', 'id'))
+                    ->options(UnpayKit::where('user_id', Auth::user()->id)->where("statut", 'Payé')->pluck('kit_number', 'id'))
                     ->prefix('KIT')
 //                    ->hiddenOn('edit')
                     ->validationMessages([
@@ -248,23 +249,20 @@ class KitResource extends Resource
                             $query->whereDate('date_fin_abonnement', '>', now()->addDays(15));
                         })
 
-                    ),
-                Filter::make('A terme')
-                    ->query(
-                        fn(Builder $query): Builder => $query->whereHas('reabonnements', function (Builder $query) {
-                            $query->whereDate('date_fin_abonnement', '<=', now()->addDays(15));
-                        })
-                    ),
-                Filter::make('Expire')
-                    ->query(
-                        fn(Builder $query): Builder => $query->whereHas('reabonnements', function (Builder $query) {
-                            $query->whereDate('date_fin_abonnement', '<', now()->addDays(0));
-                        })
-                    ),
-                Filter::make('Inactif')
-                    ->query(
-                        fn(Builder $query): Builder => $query->whereDoesntHave('reabonnements')
-                    )
+                                ),
+                                Filter::make('Presque a terme')
+                                    ->query(fn(Builder $query): Builder => $query->whereHas('reabonnements', function (Builder $query) {
+                                                $query->whereDate('date_fin_abonnement', '<=', now()->addDays(15));
+                                            })
+                                        ),
+                                Filter::make('Expire')
+                                    ->query(fn(Builder $query): Builder => $query->whereHas('reabonnements', function (Builder $query) {
+                                        $query->whereDate('date_fin_abonnement', '<', now()->addDays(0));
+                                    })
+                                ),
+                                Filter::make('Inactif')
+                                    ->query(fn(Builder $query): Builder => $query->whereDoesntHave('reabonnements')
+                                )
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
