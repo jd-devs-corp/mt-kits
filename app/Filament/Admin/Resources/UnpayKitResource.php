@@ -96,12 +96,12 @@ class UnpayKitResource extends Resource
                     )
             ])
             ->actions([
-                Tables\Actions\ActionGroup::make([
-                    Tables\Actions\ViewAction::make()
-                        ->icon('heroicon-o-eye'),
-                    Tables\Actions\EditAction::make()
-                    ->icon('heroicon-o-pencil'),
-                ])
+                //Tables\Actions\ActionGroup::make([
+                  //  Tables\Actions\ViewAction::make()
+                    //    ->icon('heroicon-o-eye'),
+                    //Tables\Actions\EditAction::make()
+                  //  ->icon('heroicon-o-pencil'),
+                //])
             ])
             ->bulkActions([
                 // Tables\Actions\BulkActionGroup::make([
@@ -150,8 +150,8 @@ class UnpayKitResource extends Resource
         return [
             'index' => Pages\ListUnpayKits::route('/'),
             // 'create' => Pages\CreateUnpayKit::route('/create'),
-            'view' => Pages\ViewUnpayKit::route('/{record}'),
-            'edit' => Pages\EditUnpayKit::route('/{record}/edit'),
+            //'view' => Pages\ViewUnpayKit::route('/{record}'),
+            //'edit' => Pages\EditUnpayKit::route('/{record}/edit'),
         ];
     }
 }

@@ -97,6 +97,7 @@ class KitResource extends Resource
                         return $kit->statut == 'En stock';
                     })->pluck('kit_number', 'id'))
                     ->searchable()
+                    ->unique(ignoreRecord: true)
                     ->hiddenOn('edit')
                     // ->relationship('unpay_kit', 'kit_number' )
                     ->label('Numero de kit')
@@ -281,8 +282,8 @@ class KitResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
-                    Tables\Actions\ViewAction::make()
-                        ->icon('heroicon-o-eye'),
+                    // Tables\Actions\ViewAction::make()
+                    //     ->icon('heroicon-o-eye'),
                     Tables\Actions\EditAction::make()
                         ->icon('heroicon-o-pencil')
                     ,
