@@ -60,7 +60,7 @@ class KitResource extends Resource
                             ->email()
                             ->label('Adresse E-mail')
                             ->required()
-                            ->unique(table: Client::class)
+                            ->unique(ignoreRecord: true)
                             ->validationMessages([
                                 'required' => 'Ce champ est requis',
                                 'unique' => 'L\'email est unique '
@@ -101,9 +101,9 @@ class KitResource extends Resource
                         'required' => 'Ce champ est requis'
                     ])*/
                 Forms\Components\Select::make('unpay_kit_id')
-                    ->options(UnpayKit::cursor()->where("user_id", null)->filter(function (UnpayKit $kit) {
-                        return $kit->statut == 'En stock';
-                    })->pluck('kit_number', 'id'))
+//                    ->options(UnpayKit::cursor()->where("user_id", null)->filter(function (UnpayKit $kit) {
+//                        return $kit->statut == 'En stock';
+//                    })->pluck('kit_number', 'id'))
                     ->searchable()
                     ->hiddenOn('edit')
                     // ->relationship('unpay_kit', 'kit_number' )
