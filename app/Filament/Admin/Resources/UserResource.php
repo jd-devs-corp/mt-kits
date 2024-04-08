@@ -17,6 +17,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use libphonenumber\PhoneNumberType;
 use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
+use Filament\Tables\Columns\IconColumn;
 
 class UserResource extends Resource
 {
@@ -101,6 +102,7 @@ class UserResource extends Resource
                     ->suffix('%')
                     ->numeric()
                     ->maxLength(2)
+                    ->maxValue('50')
                     ->validationMessages([
                         'max_digits' => 'Trop long, doit avoir 2 chiffres.',
                         'min_digits' => 'Trop court, doit avoir 2 chiffres'
@@ -116,12 +118,12 @@ class UserResource extends Resource
                     ->password()
                     ->maxLength(8)
                     ->validationMessages([
-                        'max'=>[
+                        'max' => [
                             'string' => 'Trop long, doit avoir 8 caracteres.',
-                            ],
+                        ],
                         'min' => [
                             'string' => 'Trop court, doit avoir 8 caracteres'
-                            ]
+                        ]
                     ])
                     ->revealable()
                     ->visibleOn('create'),
@@ -146,12 +148,34 @@ class UserResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('role')
                     ->label('Rôle')
+                    ->alignCenter()
                     ->searchable(),
-                Tables\Columns\IconColumn::make('is_active')
+                Tables\Columns\TextColumn::make('is_active')
                     ->label('Statut de compte')
-                    ->boolean(),
+                    ->badge()
+                    ->getStateUsing(function ($record) {
+                        $id = $record->id;
+                        $is_active = User::where('id', $id)->first();
+                        if ($is_active->is_active == 1) {
+                            return 'Actif';
+                        }
+                        return 'Inactif';
+                    })
+                    ->color(fn(string $state): string => match ($state) {
+                        'Actif' => 'success',
+                        'Inactif' => 'danger',
+                    })
+                    ->icon(fn(string $state): string => match ($state) {
+                        'Actif' => 'heroicon-o-check-badge',
+                        'Inactif' => 'heroicon-o-x-circle',
+                    })
+                    ->alignCenter()
+                    ->searchable()
+                    ->sortable()
+                    ->disabled(),
                 Tables\Columns\TextColumn::make('status')
                     ->label('Nbre de kits vendu')
+                    ->alignCenter()
                     ->getStateUsing(function ($record) {
                         $id = $record->id;
                         $number_of_kits = Kit::where('user_id', $id)->count();

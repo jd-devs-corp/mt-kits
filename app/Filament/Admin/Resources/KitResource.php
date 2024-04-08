@@ -206,8 +206,10 @@ class KitResource extends Resource
             // ->defaultSort(Kit::query()->with('reabonnements', )->getModels()[0]->id)
             ->query($query)
             ->columns(components: [
+                Tables\Columns\TextColumn::make('id')
+                    ->hidden(),
                 Tables\Columns\TextColumn::make('client.name')
-                    ->searchable()
+                    // ->searchable()
                     ->sortable()
                     ->url(fn (Kit $record): string|null => route('filament.admin.resources.clients.view', $record->client_id))
                     ->searchable(),
@@ -223,14 +225,12 @@ class KitResource extends Resource
                         }
                         return null;
                     })
-                    ->url(fn (Kit $record): string|null => $record->user_id ? route('filament.admin.resources.users.view', $record->user_id) : null)
-                    ->searchable(),
+                    ->url(fn (Kit $record): string|null => $record->user_id ? route('filament.admin.resources.users.view', $record->user_id) : null),
                 Tables\Columns\TextColumn::make('unpay_kit.kit_number')
                     ->label('Numero de Kit')
-                    ->prefix('KIT')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('localisation')
-                    ->searchable(),
+                    ->searchable()
+                    ->prefix('KIT'),
+                Tables\Columns\TextColumn::make('localisation'),
                 Tables\Columns\TextColumn::make('status')
                     ->label('Statut')
                     ->getStateUsing(function ($record) {
