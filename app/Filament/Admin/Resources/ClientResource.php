@@ -75,12 +75,8 @@ class ClientResource extends Resource
                     ->searchable(),
                 PhoneColumn::make('phone_number')
                     ->label('Numéro de téléphone')
-                    ->displayFormat(PhoneInputNumberType::NATIONAL)
+                    ->displayFormat(PhoneInputNumberType::INTERNATIONAL)
                     ->countryColumn('phone_country'),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime('d-m-Y H:m:s')
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
 
             ])
             ->filters([

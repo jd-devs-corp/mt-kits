@@ -28,7 +28,7 @@ class KitRelationManager extends RelationManager
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('kit_number')
+                Tables\Columns\TextColumn::make('unpay_kit.kit_number')
                     ->label('Numéro de kit'),
                 Tables\Columns\TextColumn::make('localisation'),
                 Tables\Columns\TextColumn::make('status')
