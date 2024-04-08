@@ -71,8 +71,7 @@ class ReabonnementResource extends Resource
                     ->label('Numero de kit')
                     ->url(fn(Reabonnement $record) => 
                     KitResource::getUrl(parameters: [
-                            'tableAction' => 'view',
-                            'tableActionRecord' => $record,
+                            'tableSearch' => $record->kit->unpay_kit->kit_number
                         ])
                     )
                     ->prefix('KIT')
