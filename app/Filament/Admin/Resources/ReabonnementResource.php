@@ -69,12 +69,12 @@ class ReabonnementResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('kit.unpay_kit.kit_number')
                     ->label('Numero de kit')
-                    // ->url(fn(Reabonnement $record) => 
-                    // KitResource::getUrl(parameters: [
-                    //         'tableAction' => 'view',
-                    //         'tableActionRecord' => $record,
-                    //     ])
-                    // )
+                    ->url(fn(Reabonnement $record) => 
+                    KitResource::getUrl(parameters: [
+                            'tableAction' => 'view',
+                            'tableActionRecord' => $record,
+                        ])
+                    )
                     ->prefix('KIT')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('date_abonnement')
