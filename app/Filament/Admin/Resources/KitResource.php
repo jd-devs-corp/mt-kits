@@ -50,7 +50,6 @@ class KitResource extends Resource
                     ->searchable()
                     ->preload()
                     ->createOptionModalHeading('Ajouter un client')
-                    ->createOptionModalIcon()
                     ->createOptionForm([
                         Forms\Components\TextInput::make('name')
                             ->label('Nom')
@@ -98,6 +97,8 @@ class KitResource extends Resource
                         return $kit->statut == 'En stock';
                     })->pluck('kit_number', 'id'))
                     ->searchable()
+                    ->hiddenOn('edit')
+                    // ->relationship('unpay_kit', 'kit_number' )
                     ->label('Numero de kit')
                     ->required()
                     ->preload()
@@ -303,12 +304,14 @@ class KitResource extends Resource
 
     public static function getGlobalSearchResultTitle(Model $record): string|Htmlable
     {
-        return $record->kit_number;
+        return $record->unpay_kit->kit_number;
     }
+
+
 
     public static function getGloballySearchableAttributes(): array
     {
-        return ['unpay_kit.kit_number', 'client.name'];
+        return ['unpay_kit.kit_number'];
     }
 
     public static function getPages(): array
@@ -316,8 +319,8 @@ class KitResource extends Resource
         return [
             'index' => Pages\ListKits::route('/'),
             // 'create' => Pages\CreateKit::route('/create'),
-            'view' => Pages\ViewKit::route('/{record}'),
-            'edit' => Pages\EditKit::route('/{record}/edit'),
+            // 'view' => Pages\ViewKit::route('/{record}'),
+            // 'edit' => Pages\EditKit::route('/{record}/edit'),
         ];
     }
 }
