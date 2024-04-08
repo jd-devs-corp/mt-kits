@@ -48,6 +48,9 @@ class KitResource extends Resource
                     ->label('Proprietaire')
                     ->relationship('client', 'name')
                     ->searchable()
+                    ->preload()
+                    ->createOptionModalHeading('Ajouter un client')
+                    ->createOptionModalIcon()
                     ->createOptionForm([
                         Forms\Components\TextInput::make('name')
                             ->label('Nom')
@@ -97,6 +100,7 @@ class KitResource extends Resource
                     ->searchable()
                     ->label('Numero de kit')
                     ->required()
+                    ->preload()
                     ->prefix('KIT')
                     ->validationMessages([
                         'unique' => 'Le kit est deja vendu',
@@ -183,10 +187,11 @@ class KitResource extends Resource
         $query = Kit::query()
             ->leftJoin('unpay_kits', 'kits.unpay_kit_id', '=', 'unpay_kits.id')
             ->select('kits.*')
-            ->joinSub($latestReabonnements, 'latest_reabonnements', function ($join) {
+            ->leftjoinSub($latestReabonnements, 'latest_reabonnements', function ($join) {
                 $join->on('kits.id', '=', 'latest_reabonnements.kit_id');
             })
-            ->orderBy('latest_reabonnements.latest_date_fin_abonnement', 'ASC');
+            // ->sort("MAX")
+            ->orderByRaw('latest_reabonnements.latest_date_fin_abonnement = null, latest_reabonnements.latest_date_fin_abonnement ASC');
         return $table
             // ->defaultSort(Kit::query()->with('reabonnements', )->getModels()[0]->id)
             ->query($query)
@@ -303,7 +308,7 @@ class KitResource extends Resource
 
     public static function getGloballySearchableAttributes(): array
     {
-        return ['kit_number', 'client.name'];
+        return ['unpay_kit.kit_number', 'client.name'];
     }
 
     public static function getPages(): array
