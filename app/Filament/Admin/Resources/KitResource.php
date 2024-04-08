@@ -15,6 +15,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Filters\Filter;
+use App\Models\Client;
 use Filament\Tables\Table;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Builder;
@@ -32,7 +33,7 @@ class KitResource extends Resource
     protected static ?string $navigationLabel = 'Kits vendus';
 
     protected static ?string $navigationGroup = 'Services';
-    protected static ?string $slug='kits_vendus';
+    protected static ?string $slug = 'kits_vendus';
 
     protected static ?string $navigationIcon = 'heroicon-s-signal';
     protected static ?string $recordTitleAttribute = 'kit_number';
@@ -57,14 +58,21 @@ class KitResource extends Resource
                             ->maxLength(255),
                         Forms\Components\TextInput::make('email')
                             ->email()
-                            ->label('Addresse E-mail')
+                            ->label('Adresse E-mail')
                             ->required()
+                            ->unique(ignoreRecord: true)
+                            ->validationMessages([
+                                'required' => 'Ce champ est requis',
+                                'unique' => 'L\'email est unique '
+                            ])
                             ->maxLength(255),
-                            PhoneInput::make('phone_number')
+                        PhoneInput::make('phone_number')
                             ->label('Numéro de téléphone')
+                            ->unique(table: Client::class, column: 'email')
                             ->countryStatePath('phone_country')
                             ->required()
                             ->validateFor('CM', PhoneNumberType::MOBILE, true)
+
                             ->validationMessages([
                                 'phone' => 'Le numero doit avoir 9 chiffres.',
                                 'required' => 'Ce champ est requis'
@@ -93,9 +101,9 @@ class KitResource extends Resource
                         'required' => 'Ce champ est requis'
                     ])*/
                 Forms\Components\Select::make('unpay_kit_id')
-                    ->options(UnpayKit::cursor()->where("user_id", null)->filter(function(UnpayKit $kit){
-                        return $kit->statut == 'En stock';
-                    })->pluck('kit_number', 'id'))
+//                    ->options(UnpayKit::cursor()->where("user_id", null)->filter(function (UnpayKit $kit) {
+//                        return $kit->statut == 'En stock';
+//                    })->pluck('kit_number', 'id'))
                     ->searchable()
                     ->unique(ignoreRecord: true)
                     ->hiddenOn('edit')
@@ -201,7 +209,7 @@ class KitResource extends Resource
                 Tables\Columns\TextColumn::make('client.name')
                     ->searchable()
                     ->sortable()
-                    ->url(fn(Kit $record): string|null => route('filament.admin.resources.clients.view', $record->client_id))
+                    ->url(fn (Kit $record): string|null => route('filament.admin.resources.clients.view', $record->client_id))
                     ->searchable(),
 
                 Tables\Columns\TextColumn::make('user.name')
@@ -215,7 +223,7 @@ class KitResource extends Resource
                         }
                         return null;
                     })
-                    ->url(fn(Kit $record): string|null => $record->user_id ? route('filament.admin.resources.users.view', $record->user_id) : null)
+                    ->url(fn (Kit $record): string|null => $record->user_id ? route('filament.admin.resources.users.view', $record->user_id) : null)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('unpay_kit.kit_number')
                     ->label('Numero de Kit')
@@ -250,7 +258,7 @@ class KitResource extends Resource
                     })
                     ->default('Inactif')
                     ->badge()
-                    ->color(fn(string $state): string => match ($state) {
+                    ->color(fn (string $state): string => match ($state) {
                         'Valide' => 'success',
                         'A terme' => 'warning',
                         'Expiré' => 'danger',
@@ -260,23 +268,27 @@ class KitResource extends Resource
             ])
             ->filters([
                 Filter::make('Valide')
-                    ->query(fn(Builder $query): Builder => $query->whereHas('reabonnements', function (Builder $query) {
-                        $query->whereDate('date_fin_abonnement', '>', now()->addDays(15));
-                    })
+                    ->query(
+                        fn (Builder $query): Builder => $query->whereHas('reabonnements', function (Builder $query) {
+                            $query->whereDate('date_fin_abonnement', '>', now()->addDays(15));
+                        })
 
                     ),
                 Filter::make('A terme')
-                    ->query(fn(Builder $query): Builder => $query->whereHas('reabonnements', function (Builder $query) {
-                        $query->whereDate('date_fin_abonnement', '<=', now()->addDays(15));
-                    })
+                    ->query(
+                        fn (Builder $query): Builder => $query->whereHas('reabonnements', function (Builder $query) {
+                            $query->whereDate('date_fin_abonnement', '<=', now()->addDays(15));
+                        })
                     ),
                 Filter::make('Expire')
-                    ->query(fn(Builder $query): Builder => $query->whereHas('reabonnements', function (Builder $query) {
-                        $query->whereDate('date_fin_abonnement', '<', now());
-                    })
+                    ->query(
+                        fn (Builder $query): Builder => $query->whereHas('reabonnements', function (Builder $query) {
+                            $query->whereDate('date_fin_abonnement', '<', now());
+                        })
                     ),
                 Filter::make('Inactif')
-                    ->query(fn(Builder $query): Builder => $query->whereDoesntHave('reabonnements')
+                    ->query(
+                        fn (Builder $query): Builder => $query->whereDoesntHave('reabonnements')
                     ),
 
             ])
@@ -285,8 +297,7 @@ class KitResource extends Resource
                     // Tables\Actions\ViewAction::make()
                     //     ->icon('heroicon-o-eye'),
                     Tables\Actions\EditAction::make()
-                        ->icon('heroicon-o-pencil')
-                    ,
+                        ->icon('heroicon-o-pencil'),
                 ])
             ])
             ->bulkActions([

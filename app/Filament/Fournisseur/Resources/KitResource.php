@@ -6,6 +6,7 @@ use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
 use App\Filament\Fournisseur;
 use App\Filament\Fournisseur\Resources\KitResource\Pages;
 use App\Filament\Fournisseur\Resources\KitResource\RelationManagers;
+use App\Models\Client;
 use App\Models\Kit;
 use App\Models\Reabonnement;
 use App\Models\UnpayKit;
@@ -31,7 +32,7 @@ class KitResource extends Resource
     protected static ?string $navigationLabel = 'Kits vendus';
 
     protected static ?string $navigationGroup = 'Services';
-    protected static ?string $slug='kits_vendus';
+    protected static ?string $slug = 'kits_vendus';
 
     protected static ?string $navigationIcon = 'heroicon-s-signal';
 
@@ -44,7 +45,7 @@ class KitResource extends Resource
             ->schema([
                 Forms\Components\Select::make('client_id')
                     ->label('Proprietaire')
-                    ->relationship('client','name')
+                    ->relationship('client', 'name')
                     ->searchable()
                     ->unique()
                     // ->preload()
@@ -58,19 +59,37 @@ class KitResource extends Resource
                             ->email()
                             ->label('Addresse E-mail')
                             ->required()
+                            ->unique(ignoreRecord: true)
+                            ->validationMessages([
+                                'required' => 'Ce champ est requis',
+                                'unique' => 'L\'email est unique '
+                            ])
                             ->maxLength(255),
                         PhoneInput::make('phone_number')
-                        ->label('Numéro de téléphone')
-                        ->countryStatePath('phone_country')
-                        ->required()
-                        ->validateFor("CM", PhoneNumberType::MOBILE, true)
-                        ->validationMessages([
-                            'max_digits' => 'Trop long, doit avoir 9 chiffres.',
-                            'phone' => 'Le numero doit avoir 9 chiffres',
-                            'required' => 'Ce champ est requis'
-                        ])
-                        ->onlyCountries(['CM'])
-                        ->initialCountry('CM'),
+                            ->label('Numéro de téléphone')
+                            ->countryStatePath('phone_country')
+                            ->required()
+                            ->startsWith([
+                                    '+23762',
+                                    '+23765',
+                                    '+23766',
+                                    '+23767',
+                                    '+23768',
+                                    '+23769'
+                                ]
+                            )
+                            ->rules([
+
+                            ])
+                            ->unique(table: Client::class, column: 'phone_number')
+                            ->validateFor("CM", PhoneNumberType::MOBILE, true)
+                            ->validationMessages([
+                                'phone' => 'Le numero doit avoir 9 chiffres.',
+                                'starts_with' => 'Le numero est invalide',
+                                'required' => 'Ce champ est requis'
+                            ])
+                            ->onlyCountries(['CM'])
+                            ->initialCountry('CM'),
                     ])
                     ->validationMessages([
                         'required' => 'Ce champ est requis'
@@ -83,11 +102,11 @@ class KitResource extends Resource
                     ->label('Numero de kit')
                     ->options(UnpayKit::where('user_id', Auth::user()->id)->where("statut", 'Payé')->pluck('kit_number', 'id'))
                     ->prefix('KIT')
-                    ->hiddenOn('edit')
+//                    ->hiddenOn('edit')
                     ->validationMessages([
                         'required' => 'Ce champ est requis'
                     ]),
-                    Forms\Components\Select::make('localisation')
+                Forms\Components\Select::make('localisation')
                     ->searchable()
                     ->validationMessages([
                         'required' => 'Ce champ est requis'
@@ -158,7 +177,6 @@ class KitResource extends Resource
     }
 
 
-
     public static function table(Table $table): Table
     {
         $latestReabonnements = Reabonnement::select('kit_id')
@@ -174,12 +192,12 @@ class KitResource extends Resource
             ->orderBy('latest_reabonnements.latest_date_fin_abonnement', 'ASC');
 
         return $table
-        ->query($query)
-        ->columns([
+            ->query($query)
+            ->columns([
                 Tables\Columns\TextColumn::make('client.name')
                     ->label('Proprietaire')
                     ->sortable()
-                    ->url(fn(Kit $record): string | null=>route('filament.fournisseur.resources.clients.view', $record->client_id))
+                    ->url(fn(Kit $record): string|null => route('filament.fournisseur.resources.clients.view', $record->client_id))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('unpay_kit.kit_number')
                     ->searchable()
@@ -210,8 +228,7 @@ class KitResource extends Resource
                             return 'A terme';
                         } elseif ($diffEnJours < 1) {
                             return 'Expiré';
-                        }
-                        else{
+                        } else {
                             return 'Inactif';
                         }
                     })
@@ -227,9 +244,10 @@ class KitResource extends Resource
             ])
             ->filters([
                 Filter::make('Valide')
-                                    ->query(fn(Builder $query): Builder => $query->whereHas('reabonnements', function (Builder $query) {
-                                        $query->whereDate('date_fin_abonnement', '>', now()->addDays(15));
-                                    })
+                    ->query(
+                        fn(Builder $query): Builder => $query->whereHas('reabonnements', function (Builder $query) {
+                            $query->whereDate('date_fin_abonnement', '>', now()->addDays(15));
+                        })
 
                                 ),
                                 Filter::make('Presque a terme')
@@ -249,18 +267,16 @@ class KitResource extends Resource
             ->actions([
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\ViewAction::make()
-                    ->icon('heroicon-o-eye'),
+                        ->icon('heroicon-o-eye'),
                     Tables\Actions\EditAction::make()
-                    ->icon('heroicon-o-pencil'),
+                        ->icon('heroicon-o-pencil'),
                 ])
                 // Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 FilamentExportBulkAction::make('export'),
             ]);
-
-
-        }
+    }
 
     public static function getRelations(): array
     {

@@ -39,7 +39,7 @@ class FournisseurPanelProvider extends PanelProvider
                 'danger' => Color::Rose,
                 'gray' => Color::Gray,
                 'info' => Color::Blue,
-                'primary' => Color::hex('#081c3a'),
+                'primary' => Color::hex('#0000ff'),
                 'success' => Color::Stone,
                 'warning' => Color::Orange,
             ])
