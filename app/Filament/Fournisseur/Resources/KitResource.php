@@ -47,7 +47,6 @@ class KitResource extends Resource
                     ->label('Proprietaire')
                     ->relationship('client', 'name')
                     ->searchable()
-                    ->unique()
                     // ->preload()
                     ->createOptionModalHeading('Ajouter un client')
                     ->createOptionForm([
@@ -65,7 +64,7 @@ class KitResource extends Resource
                                 'unique' => 'L\'email est unique '
                             ])
                             ->maxLength(255),
-                        PhoneInput::make('phone_number')
+                            PhoneInput::make('phone_number')
                             ->label('Numéro de téléphone')
                             ->countryStatePath('phone_country')
                             ->required()
@@ -78,10 +77,7 @@ class KitResource extends Resource
                                     '+23769'
                                 ]
                             )
-                            ->rules([
-
-                            ])
-                            ->unique(table: Client::class, column: 'phone_number')
+                            ->unique(ignoreRecord: true)
                             ->validateFor("CM", PhoneNumberType::MOBILE, true)
                             ->validationMessages([
                                 'phone' => 'Le numero doit avoir 9 chiffres.',
@@ -99,10 +95,11 @@ class KitResource extends Resource
                     ->default($user->id),
                 Forms\Components\Select::make('unpay_kit_id')
                     ->required()
+                    ->unique(ignoreRecord: true)
                     ->label('Numero de kit')
-                    ->options(UnpayKit::where('user_id', Auth::user()->id)->where("statut", 'Payé')->pluck('kit_number', 'id'))
+                    ->getSearchResultsUsing(fn (string $search): array => Unpaykit::where('user_id', Auth::user()->id)->where('statut', 'Payé')->pluck('kit_number', 'id')->toArray())
+                    ->getOptionLabelUsing(fn ($value): ?string => Unpaykit::find($value)?->kit_number)
                     ->prefix('KIT')
-//                    ->hiddenOn('edit')
                     ->validationMessages([
                         'required' => 'Ce champ est requis'
                     ]),
@@ -186,6 +183,7 @@ class KitResource extends Resource
         $query = Kit::query()
             ->leftJoin('unpay_kits', 'kits.unpay_kit_id', '=', 'unpay_kits.id')
             ->select('kits.*')
+            ->where('kits.user_id', Auth::user()->id)
             ->leftjoinSub($latestReabonnements, 'latest_reabonnements', function ($join) {
                 $join->on('kits.id', '=', 'latest_reabonnements.kit_id');
             })

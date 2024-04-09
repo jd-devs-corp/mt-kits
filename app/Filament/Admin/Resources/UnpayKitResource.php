@@ -77,7 +77,7 @@ class UnpayKitResource extends Resource
                     } elseif ($user && $user->role == 'admin') {
                         return 'AD. ' . $user->name;
                     }
-                    return null;
+                    return 'Mentalists';
                 })
                 // ->visibleFrom('')
                 ->url(fn(UnpayKit $record): string|null => $record->user_id ? route('filament.admin.resources.users.view', $record->user_id) : null)

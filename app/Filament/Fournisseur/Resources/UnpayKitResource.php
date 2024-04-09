@@ -48,8 +48,8 @@ class UnpayKitResource extends Resource
                 Tables\Columns\TextColumn::make('kit_number')
                     ->prefix('KIT')
                     ->numeric(),
-                Tables\Columns\TextColumn::make('statut')
-                    ->badge()
+                // Tables\Columns\TextColumn::make('statut')
+                //     ->badge()
             ])
             ->filters([
                 TernaryFilter::make('statut')
