@@ -69,13 +69,13 @@ class UnpayKitResource extends Resource
                         'Vendu' => 'warning'
                     }),
                 Tables\Columns\TextColumn::make('user.name')
-                ->label('Fournisseur')
+                ->label('Proprietaire/Vendeur')
                 ->getStateUsing(function ($record) {
                     $user = User::find($record->user_id);
                     if ($user && $user->role == 'fournisseur') {
                         return 'SUP. ' . $user->name;
                     } elseif ($user && $user->role == 'admin') {
-                        return 'AD. ' . $user->name;
+                        return 'Mentalists AD. ' . $user->name;
                     }
                     return 'Mentalists';
                 })
