@@ -47,7 +47,7 @@ class KitResource extends Resource
                     ->label('Proprietaire')
                     ->relationship('client', 'name')
                     ->searchable()
-                    ->unique()
+                    // ->unique()
                     // ->preload()
                     ->createOptionModalHeading('Ajouter un client')
                     ->createOptionForm([
@@ -186,6 +186,7 @@ class KitResource extends Resource
         $query = Kit::query()
             ->leftJoin('unpay_kits', 'kits.unpay_kit_id', '=', 'unpay_kits.id')
             ->select('kits.*')
+            ->where('kits.user_id', Auth::user()->id)
             ->leftjoinSub($latestReabonnements, 'latest_reabonnements', function ($join) {
                 $join->on('kits.id', '=', 'latest_reabonnements.kit_id');
             })
