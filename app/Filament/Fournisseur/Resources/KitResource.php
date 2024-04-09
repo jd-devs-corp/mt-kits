@@ -95,10 +95,12 @@ class KitResource extends Resource
                     ->default($user->id),
                 Forms\Components\Select::make('unpay_kit_id')
                     ->required()
+                    ->searchable()
+                    ->preload()
                     ->unique(ignoreRecord: true)
                     ->label('Numero de kit')
                     ->getSearchResultsUsing(fn (string $search): array => Unpaykit::where('user_id', Auth::user()->id)->where('statut', 'Payé')->pluck('kit_number', 'id')->toArray())
-                    ->getOptionLabelUsing(fn ($value): ?string => Unpaykit::find($value)?->kit_number)
+                    // ->getOptionLabelUsing(fn ($value): ?string => Unpaykit::find($value)?->kit_number)
                     ->prefix('KIT')
                     ->validationMessages([
                         'required' => 'Ce champ est requis'

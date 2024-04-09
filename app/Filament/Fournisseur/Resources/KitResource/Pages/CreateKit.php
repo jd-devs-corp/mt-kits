@@ -13,13 +13,7 @@ class CreateKit extends CreateRecord
 {
     protected static string $resource = KitResource::class;
 
-    protected function mutateFormDataBeforeCreate(array $data): array
-    {
-        $unpay_kit = UnpayKit::find($data['unpay_kit_id']);
-        $unpay_kit->statut = 'Vendu';
-        $unpay_kit->update();
-        return $data;
-    }
+    
 
     // protected static ?string $cluster = Settings::class;
 }

@@ -215,8 +215,8 @@ class UserResource extends Resource
     public static function getRelations(): array
     {
         return [
-//            KitRelationManager::class,
-            HistoriesRelationManager::class
+            HistoriesRelationManager::class,
+            KitRelationManager::class,
         ];
     }
 

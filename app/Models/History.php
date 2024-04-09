@@ -11,7 +11,7 @@ class History extends Model
 
     protected $filable = [
         'user_id',
-        'supplier_id',
+        'admin_id',
         'pay_amount',
         'pay_method',
     ];

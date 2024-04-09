@@ -51,8 +51,8 @@ class ViewUser extends ViewRecord
 
                     // Enregistrer l'historique du paiement
                     History::create([
-                        'supplier_id' => $record->id,
-                        'user_id' => Auth::user()->id,
+                        'user_id' => $record->id,
+                        'admin_id' => Auth::user()->id,
                         'pay_amount' => $data['pay_amount'],
                         'pay_method' => $data['pay_method'],
                     ]);

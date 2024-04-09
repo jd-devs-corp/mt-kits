@@ -3,8 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\Client;
-use App\Models\User;
+use App\Models;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -41,11 +40,14 @@ class DatabaseSeeder extends Seeder
             'pourcentage' => 10,
             'password' => Hash::make('fournisseur'),
         ]);
-        User::factory()
+        Models\User::factory()
             ->count(50)
             ->create();
-        Client::factory()
+        Models\Client::factory()
             ->count(50)
+            ->create();
+        Models\UnpayKit::factory()
+            ->count(150)
             ->create();
     }
 }

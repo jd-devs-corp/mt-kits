@@ -105,6 +105,7 @@ class ClientResource extends Resource
         ])
         ->bulkActions([
             FilamentExportBulkAction::make('Exporter')
+                ->icon('heroicon-o-download')
         ]);
     }
 

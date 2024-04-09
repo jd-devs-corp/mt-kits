@@ -89,12 +89,12 @@ class KitResource extends Resource
                     ->default($user->id),
                 Forms\Components\Select::make('unpay_kit_id')
                     ->searchable()
+                    ->preload()
                     ->getSearchResultsUsing(fn (string $search): array => Unpaykit::where('user_id', null)->where('statut', 'En stock')->pluck('kit_number', 'id')->toArray())
                     ->getOptionLabelUsing(fn ($value): ?string => Unpaykit::find($value)?->kit_number)
                     ->unique(ignoreRecord: true)
                     ->label('Numero de kit')
                     ->required()
-                    ->preload()
                     ->prefix('KIT')
                     ->validationMessages([
                         'unique' => 'Le kit est deja vendu',

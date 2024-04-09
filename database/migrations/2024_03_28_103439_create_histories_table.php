@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('histories', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
-            $table->foreignId('supplier_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('admin_id')->constrained('users')->cascadeOnDelete();
             $table->string('pay_amount');
             $table->enum('pay_method',['cash','card','cheque','transfer']);
             $table->timestamps();
