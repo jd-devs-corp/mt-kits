@@ -69,6 +69,7 @@ class ReabonnementResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('kit.unpay_kit.kit_number')
                     ->label('Numero de kit')
+                    ->url(fn(Reabonnement $record): string => route('filament.admin.resources.kits_vendus.view', $record->kit_id))
                     ->prefix('KIT')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('date_abonnement')
