@@ -1,11 +1,17 @@
 <!doctype html>
-<html lang="fr">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
     <title>MtKits | @yield('title')</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{'css/minimal.css'}}">
+    <link rel="stylesheet" href="{{asset('css/minimal.css')}}">
+    <link rel="stylesheet" href="{{asset('css/animate.css')}}"/>
+    <link rel="shortcut icon" href="{{asset('favicon.ico')}}" type="image/x-icon">
+    <script src="{{asset('js/wow.min.js')}}"></script>
+    <script>
+        new WOW().init();
+    </script>
 </head>
 <body class="h-screen overflow-hidden flex items-center justify-center font-black" style="background: #edf2f7;">
 <div
@@ -25,7 +31,7 @@
             <span>Retourner à l'accueil</span>
         </a>
     </div>
-    <div class="w-1/2 lg:h-full flex lg:items-end justify-center p-4">
+    <div class="w-1/2 lg:h-full flex lg:items-end justify-center p-4 wow fadeInUp" data-wow-delay="15s">
         <svg class="w-full text-blue-600" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1"
              viewBox="0 0 1120.59226 777.91584" xmlns:xlink="http://www.w3.org/1999/xlink"><title>not found</title>
             <circle cx="212.59226" cy="103" r="64" fill="#ff6584"></circle>
@@ -98,5 +104,6 @@
         </svg>
     </div>
 </div>
+
 </body>
 </html>
