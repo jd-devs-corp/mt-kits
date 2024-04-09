@@ -68,7 +68,7 @@ class KitResource extends Resource
                             ->maxLength(255),
                         PhoneInput::make('phone_number')
                             ->label('Numéro de téléphone')
-                            ->unique(table: Client::class, column: 'email')
+                            ->unique(ignoreRecord: true)
                             ->countryStatePath('phone_country')
                             ->required()
                             ->validateFor('CM', PhoneNumberType::MOBILE, true)
@@ -87,27 +87,11 @@ class KitResource extends Resource
                     ->required(),
                 Forms\Components\Hidden::make('user_id')
                     ->default($user->id),
-                /*Forms\Components\Select::make('kit_id')
-                    ->required()
-                    ->options(UnpayKit::cursor()->filter(function(UnpayKit $kit){
-                        return $kit->user_id == null;
-                    }))
-                    ->label('Numero de kit')
-                    ->prefix('KIT')
-                    ->validationMessages([
-                        'unique' => 'Le numero :attribute est deja enregistré',
-                        'max_digits' => 'Trop long, doit avoir 9 chiffres.',
-                        'min_digits' => 'Trop court, doit avoir 9 chiffres',
-                        'required' => 'Ce champ est requis'
-                    ])*/
                 Forms\Components\Select::make('unpay_kit_id')
-//                    ->options(UnpayKit::cursor()->where("user_id", null)->filter(function (UnpayKit $kit) {
-//                        return $kit->statut == 'En stock';
-//                    })->pluck('kit_number', 'id'))
                     ->searchable()
+                    ->getSearchResultsUsing(fn (string $search): array => Unpaykit::where('user_id', null)->where('statut', 'En stock')->pluck('kit_number', 'id')->toArray())
+                    ->getOptionLabelUsing(fn ($value): ?string => Unpaykit::find($value)?->kit_number)
                     ->unique(ignoreRecord: true)
-                    ->hiddenOn('edit')
-                    // ->relationship('unpay_kit', 'kit_number' )
                     ->label('Numero de kit')
                     ->required()
                     ->preload()
@@ -116,9 +100,7 @@ class KitResource extends Resource
                         'unique' => 'Le kit est deja vendu',
                         'required' => 'Ce champ est requis'
                     ])
-                    ->unique(Kit::class, 'unpay_kit_id'),
-
-
+                    ->unique(ignoreRecord: true),
                 Forms\Components\Select::make('localisation')
                     ->searchable()
                     ->validationMessages([

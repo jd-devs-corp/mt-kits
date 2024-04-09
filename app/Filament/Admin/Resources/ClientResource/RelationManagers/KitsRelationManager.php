@@ -4,6 +4,7 @@ namespace App\Filament\Admin\Resources\ClientResource\RelationManagers;
 
 use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
 use App\Models\Kit;
+use App\Models\UnpayKit;
 use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -24,13 +25,13 @@ class KitsRelationManager extends RelationManager
                 Forms\Components\Hidden::make('user_id')
                     ->visibleOn('view')
                     ->default($user->id),
-                Forms\Components\TextInput::make('kit_number')
+                Forms\Components\TextInput::make('unpay_kit_id')
                     ->required()
                     ->label('Numero de kit')
-                    ->unique(Kit::class, 'kit_number')
+                    ->unique(ignoreRecord:true)
                     ->prefix('KIT')
-                    ->numeric()
-                    ->length(9)
+                    ->getSearchResultsUsing(fn (string $search): array => UnpayKit::where('user_id', null)->where('statut', 'Enstock')->pluck('kit_number', 'id')->toArray())
+                    ->getOptionLabelUsing(fn ($value): ?string => Unpaykit::find($value)?->kit_number)
                     ->placeholder('Veuillez entrer 9 chiffres'),
                 Forms\Components\Select::make('localisation')
                     ->searchable()

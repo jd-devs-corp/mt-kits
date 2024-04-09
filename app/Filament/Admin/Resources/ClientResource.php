@@ -47,19 +47,28 @@ class ClientResource extends Resource
                         'required' => 'Ce champ est requis'
                     ])
                     ->maxLength(255),
-                    PhoneInput::make('phone_number')
+                PhoneInput::make('phone_number')
                     ->label('Numéro de téléphone')
                     ->countryStatePath('phone_country')
                     ->required()
-                    ->validateFor('CM', PhoneNumberType::MOBILE, true)
+                    ->startsWith([
+                            '+23762',
+                            '+23765',
+                            '+23766',
+                            '+23767',
+                            '+23768',
+                            '+23769'
+                        ]
+                    )
+                    ->unique(ignoreRecord: true)
+                    ->validateFor("CM", PhoneNumberType::MOBILE, true)
                     ->validationMessages([
                         'phone' => 'Le numero doit avoir 9 chiffres.',
+                        'starts_with' => 'Le numero est invalide',
                         'required' => 'Ce champ est requis'
                     ])
-                    ->maxWidth(9)
                     ->onlyCountries(['CM'])
                     ->initialCountry('CM'),
-
             ]);
     }
 

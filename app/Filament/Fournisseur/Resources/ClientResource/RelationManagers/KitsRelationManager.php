@@ -11,6 +11,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
 use Ysfkaya\FilamentPhoneInput\PhoneInputNumberType;
 
@@ -27,8 +28,10 @@ class KitsRelationManager extends RelationManager
 
     public function table(Table $table): Table
     {
+        $query = Kit::where('user_id', Auth::user()->id);
         return $table
-            ->recordTitleAttribute('Kits')
+            ->query($query)
+            ->recordTitleAttribute('Vos kits vendus')
             ->columns([
                 Tables\Columns\TextColumn::make('unpay_kit.kit_number')
                     ->prefix('KIT')
