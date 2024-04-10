@@ -3,9 +3,7 @@
 namespace App\Filament\Admin\Widgets;
 
 use App\Filament\Admin\Resources\ClientResource;
-use App\Models\Client;
-use App\Models\Reabonnement;
-use App\Models\User;
+use App\Models;
 use Filament\Tables;
 use Filament\Widgets\Concerns\InteractsWithPageFilters;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
@@ -21,7 +19,7 @@ class UsersChart extends BaseWidget
         return [
             Stat::make(
                 label: 'Meilleur fournisseur du mois passé:',
-                value:( User::query()
+                value:( Models\User::query()
                     ->select('users.name', 'users.id')
                     ->with('kits')
                     ->leftJoin('kits', 'kits.user_id', 'users.id')
@@ -35,7 +33,7 @@ class UsersChart extends BaseWidget
             ),
             Stat::make(
                 label: 'Meilleur client du mois passé:',
-                value: (Client::query()
+                value: (Models\Client::query()
                     ->select('clients.name', 'clients.id')
                     ->withCount('kits')
                     ->leftJoin('kits', 'kits.client_id', 'clients.id')
@@ -43,6 +41,11 @@ class UsersChart extends BaseWidget
                     ->whereDate('kits.created_at', '>=', now()->subMonth()->startOfMonth())
                     ->whereDate('kits.created_at', '<=', now()->subMonth()->endOfMonth())
                     ->first()->name??'Nobody'),
+            ),
+            Stat::make(
+                label: 'Nombre de kits en stock',
+                value: Models\UnpayKit::where('statut', 'En stock')
+                    ->count()
             )
 
         ];
