@@ -16,14 +16,6 @@ class KitRelationManager extends RelationManager
 {
     protected static string $relationship = 'kits';
 
-    public function form(Form $form): Form
-    {
-        return $form
-            ->schema([
-                // Define form fields if needed
-            ]);
-    }
-
     public function table(Table $table): Table
     {
         return $table

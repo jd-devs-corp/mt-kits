@@ -284,8 +284,8 @@ class KitResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
-                    // Tables\Actions\ViewAction::make()
-                    //     ->icon('heroicon-o-eye'),
+                    Tables\Actions\ViewAction::make()
+                        ->icon('heroicon-o-eye'),
                     Tables\Actions\EditAction::make()
                         ->icon('heroicon-o-pencil'),
                 ])
@@ -300,7 +300,7 @@ class KitResource extends Resource
     {
         return [
             //
-            \App\Filament\Admin\Resources\KitResource\RelationManagers\ReabonnementsRelationManager::class,
+            RelationManagers\ReabonnementsRelationManager::class,
         ];
     }
 

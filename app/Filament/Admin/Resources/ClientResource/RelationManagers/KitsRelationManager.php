@@ -25,14 +25,21 @@ class KitsRelationManager extends RelationManager
                 Forms\Components\Hidden::make('user_id')
                     ->visibleOn('view')
                     ->default($user->id),
-                Forms\Components\TextInput::make('unpay_kit_id')
-                    ->required()
-                    ->label('Numero de kit')
-                    ->unique(ignoreRecord:true)
-                    ->prefix('KIT')
-                    ->getSearchResultsUsing(fn (string $search): array => UnpayKit::where('user_id', null)->where('statut', 'Enstock')->pluck('kit_number', 'id')->toArray())
+                    Forms\Components\Select::make('unpay_kit_id')
+                    ->searchable()
+                    ->preload()
+                    ->getSearchResultsUsing(fn (string $search): array => Unpaykit::where('user_id', null)->where('statut', 'En stock')->pluck('kit_number', 'id')->toArray())
                     ->getOptionLabelUsing(fn ($value): ?string => Unpaykit::find($value)?->kit_number)
-                    ->placeholder('Veuillez entrer 9 chiffres'),
+                    ->unique(ignoreRecord: true)
+                    ->label('Numero de kit')
+                    ->required()
+                    ->prefix('KIT')
+                    ->validationMessages([
+                        'unique' => 'Le kit est deja vendu',
+                        'required' => 'Ce champ est requis'
+                    ])
+                    ->unique(ignoreRecord: true)
+                    ,
                 Forms\Components\Select::make('localisation')
                     ->searchable()
                     ->required()
@@ -101,7 +108,7 @@ class KitsRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
-            ->recordTitleAttribute('KiS')
+            ->recordTitleAttribute('Kits')
             ->columns([
                 Tables\Columns\TextColumn::make('unpay_kit.kit_number')
                 ->label('Numero de kit')
@@ -169,6 +176,7 @@ Utilisez ce code avec précaution.
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make()
+                    ->label('Enregistrer un kit à ce client')
                     ->icon('heroicon-o-plus'),
             ])
             ->actions([

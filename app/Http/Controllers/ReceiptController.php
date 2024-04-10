@@ -30,7 +30,7 @@ class ReceiptController extends Controller
         $dureeMois = $dateFin->diffInMonths($abonnement->date_abonnement);
         $dateDebut = Carbon::parse($abonnement->date_abonnement)->format('d/m/y');
         // Génération du contenu du reçu PDF
-        $pdf = \App::make('dompdf.wrapper')->setPaper('A4', 'landscape');
+        $pdf = \App::make('dompdf.wrapper')->setPaper('A4', 'portrait');
         $pdf->loadView('receipts.show', [
             'imagePath' => public_path('images/logo.jpg'),
             'abonnement' => $abonnement,

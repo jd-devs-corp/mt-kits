@@ -38,6 +38,10 @@ table tr.items td {
     padding: 0.5rem;
     text-align: center;
 }
+table tr td {
+    padding: 0.5rem;
+    text-align: center;
+}
 .total {
     text-align: right;
     margin-top: 1rem;

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Admin\Resources;
 
+use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
 use App\Filament\Admin\Resources\UnpayKitResource\Pages;
 use App\Filament\Admin\Resources\UnpayKitResource\RelationManagers;
 use App\Models\Kit;
@@ -104,9 +105,10 @@ class UnpayKitResource extends Resource
                 //])
             ])
             ->bulkActions([
-                // Tables\Actions\BulkActionGroup::make([
-                    // Tables\Actions\DeleteBulkAction::make(),
-                    Tables\Actions\BulkAction::make('Fournir')
+                FilamentExportBulkAction::make('Exporter')
+                    ->deselectRecordsAfterCompletion()
+                    ->icon('heroicon-o-arrow-up-on-square'),
+                Tables\Actions\BulkAction::make('Fournir')
                         ->icon('heroicon-o-banknotes')
                         ->deselectRecordsAfterCompletion()
                         ->requiresConfirmation()
