@@ -19,10 +19,11 @@ class TableauDeBord extends Dashboard
     protected function getHeaderWidgets(): array
     {
         return [
+            Widgets\BestCustomerChart::class,
+            Widgets\BestSupplierChart::class,
             Widgets\KitsOverview::class,
             Widgets\Overview::class,
             Widgets\UsersChart::class,
-            Widgets\BestCustomerChart::class,
 
         ];
     }
