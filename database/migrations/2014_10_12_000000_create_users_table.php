@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -22,7 +23,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->float('pourcentage')->nullable();
             $table->float('somme_a_percevoir')->nullable();
-            $table->string('password');
+            $table->string('password')->default(Hash::make('password'));
             $table->string('avatar_url')->nullable();
             $table->rememberToken();
             $table->timestamps();

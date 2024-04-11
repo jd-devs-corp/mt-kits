@@ -10,6 +10,10 @@ class BestSupplierChart extends ChartWidget
 {
     protected static ?string $heading = 'Stats de vente des kits des fournisseurs';
 
+    protected static string $color = 'success';
+
+    protected static ?string $pollingInterval = '1s';
+
     protected function getData(): array
     {
         $orders = Models\Kit::select('kits.user_id', DB::raw('count(*) as total'))
@@ -18,7 +22,6 @@ class BestSupplierChart extends ChartWidget
             ->where("users.role", 'fournisseur')
             ->groupBy('kits.user_id')
             ->get();
-
             // dd($orders);
         // Préparer les données pour le graphique
         $labels = [];
@@ -34,7 +37,7 @@ class BestSupplierChart extends ChartWidget
         return [
             'datasets' =>[
                 [
-                'label' => 'Nombre de kits',
+
                 "data" => $data ,
                 ],
             ],
