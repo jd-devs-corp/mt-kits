@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
 /*
 ! tailwindcss v3.3.5 | MIT License | https://tailwindcss.com
 */
@@ -45,7 +47,7 @@ html {
     -o-tab-size: 4;
     tab-size: 4;
     /* 3 */
-    font-family:  sans-serif;
+    font-family: sans-serif;
     /* 4 */
     font-feature-settings: normal;
     /* 5 */
@@ -62,7 +64,7 @@ body {
     margin: 0;
     /* 1 */
     line-height: inherit;
-    font-family:  sans-serif;
+    font-family: 'Inter', sans-serif;
     /* 2 */
     height: 100vh;
     width: 100vw;
@@ -605,7 +607,8 @@ video {
 .absolute {
     position: absolute;
 }
-svg{
+
+svg {
     color: white;
 }
 
@@ -909,8 +912,24 @@ svg{
     margin-top: 4rem;
 }
 
+.mt-24 {
+    margin-top: 6rem
+}
+
 .mt-8 {
     margin-top: 2rem;
+}
+
+.mt-28 {
+    margin-top: 7rem
+}
+
+.mt-32 {
+    margin-top: 8rem
+}
+
+.mt-44 {
+    margin-top: 11rem
 }
 
 .mt-\[60px\] {
@@ -1438,6 +1457,8 @@ svg{
     background-size: cover;
     height: 100vh;
 }
+.text-nowrap{text-wrap:nowrap}
+
 .footer {
 
     position: relative; /* ou absolute */
@@ -1445,7 +1466,7 @@ svg{
     width: 100%;
     padding-top: 1em;
     background: #273042;
-    font-family: 'Poppins',sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 
@@ -2463,6 +2484,9 @@ svg{
 
     .sm\:p-5 {
         padding: 1.25rem;
+    }
+    .sm\:mt-48 {
+        margin-top: 12rem
     }
 
     .sm\:px-10 {
