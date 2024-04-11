@@ -37,8 +37,8 @@ class BestSupplierChart extends ChartWidget
         return [
             'datasets' =>[
                 [
-
-                "data" => $data ,
+                    'label'=> 'Nombre de kits',
+                    "data" => $data ,
                 ],
             ],
             'labels' => $labels,

@@ -13,7 +13,6 @@ class TableauDeBord extends Dashboard
 
     protected static ?string $title = 'Tableau de Bord';
 
-    protected ?string $subheading = 'Bienvenue a vous';
 
 
     protected function getHeaderWidgets(): array
