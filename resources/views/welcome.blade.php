@@ -22,7 +22,7 @@ MTKITS s'adapte aux besoins des particuliers, des entreprises et des professionn
 
     <link rel="shortcut icon" href="{{asset('favicon.ico')}}" type="image/x-icon">
     <title>MtKits | Accueil</title>
-    {{--    @vite('resources/css/app.css')--}}
+    @vite('resources/css/app.css')
     <link rel="stylesheet" href="{{asset('css/animate.css')}}"/>
     <link rel="stylesheet" href="{{asset('css/tailwind.css')}}"/>
 
@@ -33,7 +33,7 @@ MTKITS s'adapte aux besoins des particuliers, des entreprises et des professionn
     </script>
 
 </head>
-<body>
+<body class="overflow-x-hidden">
 
 <div class="bg-img">
     <!-- ====== Navbar Section Start -->
@@ -43,7 +43,7 @@ MTKITS s'adapte aux besoins des particuliers, des entreprises et des professionn
         >
             <div class="container">
                 <div class="relative -mx-4 flex items-center justify-between">
-                    <div class="w-60 max-w-full px-4 wow fadeInLeft"  data-wow-delay=".2s">
+                    <div class="w-60 max-w-full px-4 wow fadeInLeft" data-wow-delay=".2s">
                         <a href="{{url('/')}}" class="navbar-logo block w-full py-5">
                             <img
                                 src="{{asset('images/logo_admin.png')}}"
@@ -405,7 +405,7 @@ MTKITS s'adapte aux besoins des particuliers, des entreprises et des professionn
         <div class="-mx-4 flex flex-wrap items-center">
             <div class="w-full px-4 lg:w-7/12 xl:w-8/12">
                 <div class="ud-contact-content-wrapper">
-                    <div class="ud-contact-title mb-12 lg:mb-[150px]">
+                    <div class="ud-contact-title lg:mb-[150px]">
                 <span
                     class="mb-6 block text-base font-medium text-dark dark:text-white"
                 >
@@ -417,7 +417,7 @@ MTKITS s'adapte aux besoins des particuliers, des entreprises et des professionn
                             Parlons de votre problème.
                         </h2>
                     </div>
-                    <div class="mb-12 flex flex-wrap justify-between lg:mb-0">
+                    <div class="mt-48 sm:mt-48 flex flex-wrap justify-between lg:mb-0">
                         <div class="mb-8 flex w-[330px] max-w-full">
                             <div class="mr-6 text-[32px] text-primary">
                                 <svg
@@ -440,8 +440,8 @@ MTKITS s'adapte aux besoins des particuliers, des entreprises et des professionn
                                 >
                                     Notre localisation
                                 </h5>
-                                <p class="text-base text-body-color dark:text-dark-6">
-                                    Mentalists agence créative, Bonamoussadi, Douala, Cameroun
+                                <p class="text-base dark:text-dark-6">
+                                    Mentalists AC,<br> Bonamoussadi, Douala, Cameroun
                                 </p>
                             </div>
                         </div>
@@ -462,14 +462,14 @@ MTKITS s'adapte aux besoins des particuliers, des entreprises et des professionn
                                 <h5
                                     class="mb-[18px] text-lg font-semibold text-dark dark:text-white"
                                 >
-                                    Comment pouvons-nous vous aider ?
+                                    Comment nous joindre?
                                 </h5>
-                                <p class="text-base text-body-color dark:text-dark-6">
+                                <a class="text-base text-black dark:text-dark-6">
                                     info@mtkits.evenafro.ca
-                                </p>
-                                <p class="mt-1 text-base text-body-color dark:text-dark-6">
+                                </a>
+                                <a class="mt-1 text-base text-black dark:text-dark-6">
                                     contact@mtkits.evenafro.ca
-                                </p>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -477,10 +477,10 @@ MTKITS s'adapte aux besoins des particuliers, des entreprises et des professionn
             </div>
             <div class="w-full px-4 lg:w-5/12 xl:w-4/12">
 
-                <iframe class="w-full lg:h-[400px]"
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d994.9118061534036!2d9.743522888242978!3d4.0920152648863555!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x10610d0018a14141%3A0x6bd4b06afb045373!2sMentalist!5e0!3m2!1sen!2see!4v1711646103573!5m2!1sen!2see"
-                        style="border:0;" allowfullscreen="" loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3979.6488361126244!2d9.741499874530152!3d4.0916909466369535!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x10610d0018a14141%3A0x6bd4b06afb045373!2sMentalists%20agence%20cr%C3%A9ative!5e0!3m2!1sen!2sde!4v1712822340753!5m2!1sen!2sde"
+                    width="380" class="lg:w-full lg:h-[500px] h-[600px]" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
 
             </div>
         </div>
@@ -489,7 +489,7 @@ MTKITS s'adapte aux besoins des particuliers, des entreprises et des professionn
 <!-- ====== Contact End ====== -->
 
 <!-- ====== Footer Section Start -->
-<footer class="footer">
+<footer class="footer text-sm dark:bg-black">
 
 
     <div class="relative border-[#8890A4] border-opacity-40">
@@ -498,14 +498,14 @@ MTKITS s'adapte aux besoins des particuliers, des entreprises et des professionn
 
             <div class="w-full px-4 md:w-1/3 lg:w-1/2 text-white ">
                 <div class="my-1 flex justify-center md:justify-center">
-                    <p class="font-medium text-center">
+                    <p class="font-medium text-center text-nowrap">
                            <span class="" id="copyright"><script>
                                 document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
                                </script></span> &copy; MtKits tout droit reservé ,
                         <a
                             href="https://mentalists.ca"
                             target="_blank"
-                            class="hover:text-primary"
+                            class="hover:text-primary text-blue-700"
                         >
                             Mentalists
                         </a>
@@ -526,11 +526,12 @@ MTKITS s'adapte aux besoins des particuliers, des entreprises et des professionn
       ></span>
 </a>
 <!-- ====== Back To Top End -->
+{{--
 <!-- ====== Made With Button Start -->
 <a
     target="_blank"
     rel="nofollow noopener"
-    class="fixed bottom-8 left-4 z-[999] inline-flex items-center gap-[10px] rounded-lg bg-white px-[14px] py-2 shadow-2 dark:bg-dark-2 sm:left-9"
+    class="fixed md:hidden bottom-8 left-4 z-[999] inline-flex items-center gap-[10px] rounded-lg bg-white px-[14px] py-2 shadow-2 dark:bg-dark-2 sm:left-9"
     href="mailto:brainforcode@gmail.com"
 >
       <span class="text-base font-medium text-dark-3 dark:text-dark-6">
@@ -551,6 +552,7 @@ MTKITS s'adapte aux besoins des particuliers, des entreprises et des professionn
       </span>
 </a>
 <!-- ====== Made With Button End -->
+--}}
 
 <!-- Load library from the CDN -->
 <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
