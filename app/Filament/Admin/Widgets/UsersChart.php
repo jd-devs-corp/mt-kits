@@ -18,29 +18,29 @@ class UsersChart extends BaseWidget
     {
         return [
             Stat::make(
-                label: 'Meilleur fournisseur du mois passé:',
+                label: 'Meilleur fournisseur du mois:',
                 value:( Models\User::query()
                     ->select('users.name', 'users.id')
                     ->with('kits')
                     ->leftJoin('kits', 'kits.user_id', 'users.id')
                     // ->rightJoin("reabonnements", 'reabonnements.kit_id', 'kits.id')
-                    ->whereDate('kits.created_at', '>=', now()->subMonth()->startOfMonth())
-                    ->whereDate('kits.created_at', '<=', now()->subMonth()->endOfMonth())
+                    ->whereDate('kits.created_at', '>=', now()->startOfMonth())
+                    ->whereDate('kits.created_at', '<=', now()->endOfMonth())
                     // ->orderBy('kits_count', 'desc')
                     ->where('role', 'fournisseur')
                     ->where('is_active', true)
                     ->first()->name ?? ''),
             ),
             Stat::make(
-                label: 'Meilleur client du mois passé:',
+                label: 'Meilleur client du mois:',
                 value: (Models\Client::query()
                     ->select('clients.name', 'clients.id')
                     ->withCount('kits')
                     ->leftJoin('kits', 'kits.client_id', 'clients.id')
                     ->orderBy('kits_count', 'desc')
-                    ->whereDate('kits.created_at', '>=', now()->subMonth()->startOfMonth())
-                    ->whereDate('kits.created_at', '<=', now()->subMonth()->endOfMonth())
-                    ->first()->name??'Nobody'),
+                    ->whereDate('kits.created_at', '>=', now()->startOfMonth())
+                    ->whereDate('kits.created_at', '<=', now()->endOfMonth())
+                    ->first()->name??''),
             ),
             Stat::make(
                 label: 'Nombre de kits en stock',

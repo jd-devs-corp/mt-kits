@@ -2,9 +2,7 @@
 
 namespace App\Filament\Admin\Pages;
 
-use App\Filament\Admin\Widgets\KitsOverview;
-use App\Filament\Admin\Widgets\Overview;
-use App\Filament\Admin\Widgets\UsersChart;
+use App\Filament\Admin\Widgets;
 use Filament\Pages\Dashboard;
 
 class TableauDeBord extends Dashboard
@@ -21,9 +19,11 @@ class TableauDeBord extends Dashboard
     protected function getHeaderWidgets(): array
     {
         return [
-            KitsOverview::class,
-            Overview::class,
-            UsersChart::class
+            Widgets\KitsOverview::class,
+            Widgets\Overview::class,
+            Widgets\UsersChart::class,
+            Widgets\BestCustomerChart::class,
+
         ];
     }
 
