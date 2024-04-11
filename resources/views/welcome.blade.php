@@ -464,11 +464,8 @@ MTKITS s'adapte aux besoins des particuliers, des entreprises et des professionn
                                 >
                                     Comment nous joindre?
                                 </h5>
-                                <a class="text-base text-black dark:text-dark-6">
+                                <a href="mailto:info@mtkits.evenafro.ca" class="text-base text-black dark:text-dark-6">
                                     info@mtkits.evenafro.ca
-                                </a>
-                                <a class="mt-1 text-base text-black dark:text-dark-6">
-                                    contact@mtkits.evenafro.ca
                                 </a>
                             </div>
                         </div>
