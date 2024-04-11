@@ -12,6 +12,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
 
 class ReabonnementResource extends Resource
@@ -62,6 +63,8 @@ class ReabonnementResource extends Resource
                     ]),
             ]);
     }
+
+
 
     public static function table(Table $table): Table
     {
