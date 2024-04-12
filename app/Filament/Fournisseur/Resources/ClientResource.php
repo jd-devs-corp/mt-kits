@@ -125,8 +125,8 @@ class ClientResource extends Resource
     {
         return [
             'index' => Pages\ListClients::route('/'),
-            'view' => Pages\ViewClient::route('/{record}'),
-            'edit' => Pages\EditClient::route('/{record}/edit'),
+            //'view' => Pages\ViewClient::route('/{record}'),
+            //'edit' => Pages\EditClient::route('/{record}/edit'),
         ];
     }
 }
