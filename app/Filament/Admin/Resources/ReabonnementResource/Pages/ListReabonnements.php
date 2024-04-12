@@ -43,7 +43,7 @@ class ListReabonnements extends ListRecords
                         $date = $dateTime->format('Y-m-d');
                         $heureMinute = $dateTime->format('H:i');
                     }
-                    Mail::send('emails.reabonnement', ['reabonnement' => $reabonnement, 'heureMinute' => $heureMinute], function ($message) use ($email, $date, $heureMinute) {
+                    Mail::send('emails.reabonnement', ['reabonnement' => $data, 'kit'=> $kit, 'heureMinute' => $heureMinute], function ($message) use ($email, $date, $heureMinute) {
                         $message->to($email)
                             ->subject('Votre abonnement a bien été activé.');
                     });

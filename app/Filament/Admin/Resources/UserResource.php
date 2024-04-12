@@ -130,10 +130,10 @@ class UserResource extends Resource
                     ->maxLength(255)
                     ->validationMessages([
                         'max' => [
-                            'string' => 'Trop long, doit avoir 8 caracteres.',
+                            'string' => 'Trop long, doit avoir 255 caracteres.',
                         ],
                         'min' => [
-                            'string' => 'Trop court, doit avoir 8 caracteres'
+                            'string' => 'Trop court, doit avoir 8 caracteres au moins.'
                         ]
                     ])
                     ->revealable()
