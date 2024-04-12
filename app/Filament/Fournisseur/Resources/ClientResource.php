@@ -78,39 +78,37 @@ class ClientResource extends Resource
     public static function table(Table $table): Table
     {
         $filteredQuery = Client::whereHas('kits', function ($query) {
-        $query->where('user_id', auth()->id());
-    });
-    return $table
-        ->query($filteredQuery)
-        ->columns([
+            $query->where('user_id', auth()->id());
+        });
+        return $table
+            ->query($filteredQuery)
+            ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->searchable()
                     ->label('Nom'),
                 Tables\Columns\TextColumn::make('email')
                     ->searchable()
                     ->label('Adresse E-mail'),
-            PhoneColumn::make('phone_number')
-                ->label('Numéro de téléphone')
-                ->displayFormat(PhoneInputNumberType::NATIONAL)
-                ->countryColumn('phone_country'),
+                PhoneColumn::make('phone_number')
+                    ->label('Numéro de téléphone')
+                    ->displayFormat(PhoneInputNumberType::NATIONAL)
+                    ->countryColumn('phone_country'),
 
-        ])
-        ->filters([
-            //
-        ])
-        ->actions([
-            Tables\Actions\ActionGroup::make([
-                Tables\Actions\ViewAction::make()
-                    ->icon('heroicon-o-eye')
-                    ->color('primary'),
-                Tables\Actions\EditAction::make()
-                    ->icon('heroicon-o-pencil')
-                    ->color('info'),
-        ])])
-        ->bulkActions([
-            FilamentExportBulkAction::make('Exporter')
-                ->icon('heroicon-o-arrow-down-on-square')
-        ]);
+            ])
+            ->filters([
+                //
+            ])
+            ->actions([
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\ViewAction::make()
+                        ->icon('heroicon-o-eye')
+                        ->color('primary'),
+                ])
+            ])
+            ->bulkActions([
+                FilamentExportBulkAction::make('Exporter')
+                    ->icon('heroicon-o-arrow-down-on-square')
+            ]);
     }
 
     public static function getRelations(): array
