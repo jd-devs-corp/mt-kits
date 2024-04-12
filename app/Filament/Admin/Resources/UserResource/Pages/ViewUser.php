@@ -46,8 +46,7 @@ class ViewUser extends ViewRecord
                                             $fail('Le montant entre est trop grand.');
                                         }
                                     }
-                            ])
-                            ->maxValue(fn($record)=> $record->somme_a_percevoir),
+                            ]),
                         Select::make('pay_method')
                             ->label('Méthode de paiement')
                             ->options([
