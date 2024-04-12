@@ -126,13 +126,14 @@ class UserResource extends Resource
                 Forms\Components\TextInput::make('password')
                     ->default('newmtkits')
                     ->password()
-                    ->maxLength(8)
+                    ->minLength(8)
+                    ->maxLength(255)
                     ->validationMessages([
                         'max' => [
-                            'string' => 'Trop long, doit avoir 8 caracteres.',
+                            'string' => 'Trop long, doit avoir 255 caracteres.',
                         ],
                         'min' => [
-                            'string' => 'Trop court, doit avoir 8 caracteres'
+                            'string' => 'Trop court, doit avoir 8 caracteres au moins.'
                         ]
                     ])
                     ->revealable()
