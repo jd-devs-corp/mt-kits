@@ -99,10 +99,14 @@ class ClientResource extends Resource
             //
         ])
         ->actions([
-            Tables\Actions\ViewAction::make()
-            ->icon('heroicon-o-eye'),
-             Tables\Actions\EditAction::make(),
-        ])
+            Tables\Actions\ActionGroup::make([
+                Tables\Actions\ViewAction::make()
+                    ->icon('heroicon-o-eye')
+                    ->color('primary'),
+                Tables\Actions\EditAction::make()
+                    ->icon('heroicon-o-pencil')
+                    ->color('info'),
+        ])])
         ->bulkActions([
             FilamentExportBulkAction::make('Exporter')
                 ->icon('heroicon-o-arrow-down-tray')
@@ -117,16 +121,10 @@ class ClientResource extends Resource
         ];
     }
 
-//     public static function getNavigationBadge(): ?string
-// {
-//     return static::getModel()::count();
-// }
-
     public static function getPages(): array
     {
         return [
             'index' => Pages\ListClients::route('/'),
-            // 'create' => Pages\CreateClient::route('/create'),
             'view' => Pages\ViewClient::route('/{record}'),
             'edit' => Pages\EditClient::route('/{record}/edit'),
         ];
