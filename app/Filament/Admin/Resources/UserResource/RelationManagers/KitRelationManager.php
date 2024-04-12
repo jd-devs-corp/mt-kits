@@ -2,6 +2,7 @@
 
 namespace App\Filament\Admin\Resources\UserResource\RelationManagers;
 
+use App\Filament\Admin\Resources\KitResource;
 use App\Models\Kit;
 use App\Models\User;
 use Carbon\Carbon;
@@ -21,7 +22,14 @@ class KitRelationManager extends RelationManager
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('unpay_kit.kit_number')
-                    ->label('Numéro de kit'),
+                    ->label('Numéro de kit')
+                    ->prefix('KIT')
+                    ->url(fn(Kit $record) =>
+                        KitResource::getUrl(parameters:[
+                            'tableSearch' => $record->unpay_kit->kit_number
+                        ])
+                    )
+                    ,
                 Tables\Columns\TextColumn::make('localisation'),
                 Tables\Columns\TextColumn::make('status')
                     ->label('Statut')

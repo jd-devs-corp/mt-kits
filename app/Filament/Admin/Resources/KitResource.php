@@ -55,7 +55,11 @@ class KitResource extends Resource
                         Forms\Components\TextInput::make('name')
                             ->label('Nom')
                             ->required()
-                            ->maxLength(255),
+                            ->maxLength(255)
+                            ->validationMessages([
+                                'required' => 'Ce champ est requis.',
+                                'max_digits' => 'Le nom entre est trop long'
+                            ]),
                         Forms\Components\TextInput::make('email')
                             ->email()
                             ->label('Adresse E-mail')
