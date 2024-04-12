@@ -53,7 +53,11 @@ class KitResource extends Resource
                         Forms\Components\TextInput::make('name')
                             ->label('Nom')
                             ->required()
-                            ->maxLength(255),
+                            ->maxLength(255)
+                            ->validationMessages([
+                                'required' => 'Ce champ est requis.',
+                                'max_digits' => 'Trop long, ne dois avoir que 255 caracteres.'
+                            ]),
                         Forms\Components\TextInput::make('email')
                             ->email()
                             ->label('Addresse E-mail')
@@ -61,7 +65,7 @@ class KitResource extends Resource
                             ->unique(ignoreRecord: true)
                             ->validationMessages([
                                 'required' => 'Ce champ est requis',
-                                'unique' => 'L\'email est unique '
+                                'unique' => 'Cet email est deja utilise; faites une recherche du nom.'
                             ])
                             ->maxLength(255),
                             PhoneInput::make('phone_number')
