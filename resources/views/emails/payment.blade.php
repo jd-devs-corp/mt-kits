@@ -11,9 +11,9 @@
                              style="margin: auto auto 1rem;max-width: 100%; height: auto;">
                         <h1 style="font-size: 5rem;font-family: 'Sora', sans-serif; font-weight: bold; margin-bottom: 0.5rem;">
                             Confirmation de paiement</h1>
-                        <p style="color: #4B5563;font-size: 2rem;font-family: 'Arial Black', sans-serif">Ce message sert de confiramton au payement qui a été éffectué le
+                        <p style="color: #4B5563;font-size: 2rem;font-family: 'Arial Black', sans-serif">Ce message sert de confirmation au paiement qui a été éffectué le
                             <b>{{ $dateSeule }}</b>.</p>
-                            Le montant du paiement est de <b>{{$montant}}</b> et la methode utilise est : <b>{{$methode}}</b>
+                            Le montant du paiement est de <b>{{$montant}}</b> et la méthode utilisé est : <b>{{$methode}}</b>
                     </td>
                 </tr>
                 </tbody>
