@@ -109,7 +109,7 @@ class ClientResource extends Resource
         ])])
         ->bulkActions([
             FilamentExportBulkAction::make('Exporter')
-                ->icon('heroicon-o-arrow-down-square')
+                ->icon('heroicon-o-arrow-down-on-square')
         ]);
     }
 
