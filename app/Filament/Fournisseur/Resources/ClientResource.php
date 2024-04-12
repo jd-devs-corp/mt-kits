@@ -101,12 +101,12 @@ class ClientResource extends Resource
         ->actions([
             Tables\Actions\ActionGroup::make([
                 Tables\Actions\ViewAction::make()
-                ->icon('heroicon-o-eye'),
-                 Tables\Actions\EditAction::make()
-                 ->icon('heroicon-o-pencil'),
-            ])
-            ->label('Actions')
-        ])
+                    ->icon('heroicon-o-eye')
+                    ->color('primary'),
+                Tables\Actions\EditAction::make()
+                    ->icon('heroicon-o-pencil')
+                    ->color('info'),
+        ])])
         ->bulkActions([
             FilamentExportBulkAction::make('Exporter')
                 ->icon('heroicon-o-arrow-down-on-square')

@@ -91,8 +91,8 @@ class UnpayKitResource extends Resource
                     ->trueLabel('Tous les kits')
                     ->falseLabel('Kits deja achete')
                     ->queries(
-                        false: fn(Builder $query) => $query->where('statut', 'Vendu'),
                         true: fn(Builder $query) => $query,
+                        false: fn(Builder $query) => $query->where('statut', 'Vendu'),
                         blank: fn(Builder $query) => $query->where('statut', 'En stock') // In this example, we do not want to filter the query when it is blank.
                     )
             ])
