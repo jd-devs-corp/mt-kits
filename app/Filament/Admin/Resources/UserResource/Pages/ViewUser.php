@@ -43,7 +43,7 @@ class ViewUser extends ViewRecord
                                fn(Get $get) : Closure => function(string $attribute, $value, Closure $fail) use ($get){
                                     $record = User::find($get('user_id')) ;
                                     if($value > $record->somme_a_percevoir){
-                                            $fail(':attribute entre est trop grand.');
+                                            $fail('Le montant entre est trop grand.');
                                         }
                                     }
                             ])
