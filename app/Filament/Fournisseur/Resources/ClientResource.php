@@ -21,7 +21,7 @@ use Ysfkaya\FilamentPhoneInput\Tables\PhoneColumn;
 
 class ClientResource extends Resource
 {
-    // protected static ?string $model = Client::class;
+    protected static ?string $model = Client::class;
 
     protected static ?int $navigationSort = 3;
 
