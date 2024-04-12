@@ -22,6 +22,19 @@ class ClientPolicy
      */
     public function view(User $user, Client $client): bool
     {
+        if ($user->role === 'admin') {
+            return true;
+        }
+
+        // Si l'utilisateur est un fournisseur, vérifier s'il peut accéder au client
+        // if ($user->role === 'fournisseur') {
+        //     // Parcourir les kits du client et vérifier s'il y a correspondance avec l'utilisateur
+        //     foreach ($client->kits as $kit) {
+        //         if ($kit->user_id === $user->id) {
+        //             return true;
+        //         }
+        //     }
+        // }
 
         // Par défaut, refuser l'accès
         return true;
@@ -48,14 +61,14 @@ class ClientPolicy
         }
 
         // Si l'utilisateur est un fournisseur, vérifier s'il peut accéder au client
-        if ($user->role === 'fournisseur') {
-            // Parcourir les kits du client et vérifier s'il y a correspondance avec l'utilisateur
-            foreach ($client->kits as $kit) {
-                if ($kit->user_id === $user->id) {
-                    return true;
-                }
-            }
-        }
+        // if ($user->role === 'fournisseur') {
+        //     // Parcourir les kits du client et vérifier s'il y a correspondance avec l'utilisateur
+        //     foreach ($client->kits as $kit) {
+        //         if ($kit->user_id === $user->id) {
+        //             return true;
+        //         }
+        //     }
+        // }
 
         // Par défaut, refuser l'accès
         return true;
