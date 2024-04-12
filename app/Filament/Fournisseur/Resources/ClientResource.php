@@ -108,7 +108,7 @@ class ClientResource extends Resource
         ])
         ->bulkActions([
             FilamentExportBulkAction::make('Exporter')
-                ->icon('heroicon-o-arrow-down-square')
+                ->icon('heroicon-o-arrow-down-on-square')
         ]);
     }
 
@@ -120,16 +120,10 @@ class ClientResource extends Resource
         ];
     }
 
-//     public static function getNavigationBadge(): ?string
-// {
-//     return static::getModel()::count();
-// }
-
     public static function getPages(): array
     {
         return [
             'index' => Pages\ListClients::route('/'),
-            // 'create' => Pages\CreateClient::route('/create'),
             'view' => Pages\ViewClient::route('/{record}'),
             'edit' => Pages\EditClient::route('/{record}/edit'),
         ];
