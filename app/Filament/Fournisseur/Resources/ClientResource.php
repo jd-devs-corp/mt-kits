@@ -21,7 +21,7 @@ use Ysfkaya\FilamentPhoneInput\Tables\PhoneColumn;
 
 class ClientResource extends Resource
 {
-    protected static ?string $model = Client::class;
+    // protected static ?string $model = Client::class;
 
     protected static ?int $navigationSort = 3;
 
@@ -35,11 +35,11 @@ class ClientResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')
                     ->required()
+                    ->maxLength(255)
                     ->validationMessages([
                         'max_digits' => 'Trop long, doit avoir 9 chiffres.',
                         'required' => 'Ce champ est requis'
-                    ])
-                    ->maxLength(255),
+                    ]),
                 Forms\Components\TextInput::make('email')
                     ->email()
                     ->unique(Client::class, 'email')
@@ -125,8 +125,8 @@ class ClientResource extends Resource
     {
         return [
             'index' => Pages\ListClients::route('/'),
-            //'view' => Pages\ViewClient::route('/{record}'),
-            //'edit' => Pages\EditClient::route('/{record}/edit'),
+            'view' => Pages\ViewClient::route('/{record}'),
+            'edit' => Pages\EditClient::route('/{record}/edit'),
         ];
     }
 }
