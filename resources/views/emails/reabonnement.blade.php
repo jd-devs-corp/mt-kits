@@ -12,8 +12,8 @@
                          <h1 style="font-size: 5rem;font-family: 'Sora', sans-serif; font-weight: bold; margin-bottom: 0.5rem;">
                              Votre abonnement a bien été activé.</h1>
                          <p style="color: #4B5563;font-size: 2rem;font-family: 'Arial Black', sans-serif">Votre kit KIT({{ $kit->unpay_kit->kit_number }}) a été réabonné avec succès.<br>
-                             <b>Date de début: </b>{{ $reabonnement->date_abonnement }}<br>
-                             <b>Date de fin: </b>{{ $reabonnement->date_fin_abonnement }}.</p>
+                             <b>Date de début: </b>{{ $reabonnement['date_abonnement'] }}<br>
+                             <b>Date de fin: </b>{{ $reabonnement['date_fin_abonnement'] }}.</p>
                          <p style="font-family: sans-serif; font-weight: bold;">Merci,
                              L'équipe Mentalists</p>
                      </td>
