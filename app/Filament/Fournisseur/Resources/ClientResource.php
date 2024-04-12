@@ -105,6 +105,7 @@ class ClientResource extends Resource
                  Tables\Actions\EditAction::make()
                  ->icon('heroicon-o-pencil'),
             ])
+            ->label('Actions')
         ])
         ->bulkActions([
             FilamentExportBulkAction::make('Exporter')
