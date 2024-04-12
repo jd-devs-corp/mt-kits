@@ -2,7 +2,7 @@
      <tbody>
      <tr>
          <td style="max-width: 30rem; margin: auto; background-color: #ffffff; padding: 2rem; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); border-radius: 0.5rem;">
-             <table style="width: 100%;" cellspacing="0" cellpadding="0">
+             <table style="width: 100%;">
                  <tbody>
                  <tr>
                      <td style="text-align: center;">
