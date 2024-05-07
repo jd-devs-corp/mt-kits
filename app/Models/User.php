@@ -93,7 +93,7 @@ class User extends Authenticatable implements FilamentUser, HasName, HasAvatar, 
         if ($this->role == "admin") {
             if ($currentPanelId !== 'admin') {
                 // Redirigez vers le panel admin
-                redirect()->route('filament.admin.pages.tableau-de-bord')->send();
+                redirect()->route('filament.admin.pages.tableau-de-bord');
                 return false;
             }
             return true;
@@ -103,7 +103,7 @@ class User extends Authenticatable implements FilamentUser, HasName, HasAvatar, 
         if ($this->role == "fournisseur") {
             if ($currentPanelId !== 'fournisseur') {
                 // Redirigez vers le panel fournisseur
-                redirect()->route('filament.fournisseur.pages.dashboard')->send();
+                redirect()->route('filament.fournisseur.pages.dashboard');
                 return false;
             }
             return true;
