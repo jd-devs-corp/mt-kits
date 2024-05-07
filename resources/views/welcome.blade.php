@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="title" content="MtKits | Mentalits Kits">
+    <meta name="title" content="MT-KITS | Mentalists Kits">
     <meta name="theme-color" content="#e23725">
     <meta name="description" content="MTKITS: Une solution complète pour la gestion de Starlink
 
@@ -19,7 +19,25 @@ Vendre: Devenez revendeur agréé Starlink et proposez des kits à vos clients.
 
 MTKITS s'adapte aux besoins des particuliers, des entreprises et des professionnels. Outil puissant et convivial, MTKITS vous permet de profiter pleinement de votre connexion Starlink.
 ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mtkits.evenafro.ca">
+    <meta property="og:image" content="{{asset('images/logo.png')}}">
+    <meta property="og:description" content="MTKITS: Une solution complète pour la gestion de Starlink
 
+MTKITS est une interface intuitive qui centralise la gestion de vos kits de connexion Starlink.
+
+Avec MTKITS, vous pouvez:
+
+Acheter: Passez commande et recevez vos kits Starlink directement.
+Gérer: Suivez l'état de vos kits, activez/désactivez des services et rechargez vos crédits.
+Reabonner: Renouvelez vos abonnements en toute simplicité et profitez de forfaits adaptés à vos besoins.
+Vendre: Devenez revendeur agréé Starlink et proposez des kits à vos clients.
+
+MTKITS s'adapte aux besoins des particuliers, des entreprises et des professionnels. Outil puissant et convivial, MTKITS vous permet de profiter pleinement de votre connexion Starlink.
+">
+<meta property="twitter:title" content="MT-KITS | Mentalists Kits">
+    <meta property="twitter:image" content="{{asset('images/logo.png')}}">
+    <meta property="twitter:card" content="{{asset('images/logo.png')}}">
     <link rel="shortcut icon" href="{{asset('favicon.ico')}}" type="image/x-icon">
     <title>MtKits | Accueil</title>
     @vite('resources/css/app.css')
@@ -266,7 +284,7 @@ MTKITS s'adapte aux besoins des particuliers, des entreprises et des professionn
                     <h2
                         class="mb-3 text-3xl font-bold text-dark dark:text-white sm:text-4xl md:text-[40px] md:leading-[1.2]"
                     >
-                        Avec la technologie starlink, vous pouvez :
+                        Avec la technologie starlink
                     </h2>
                     <p class="text-base text-body-color dark:text-dark-6">
                         Starlink est une technologie révolutionnaire qui a le potentiel de changer la façon dont nous

@@ -80,5 +80,9 @@
         }
     },
     "minimum-stability": "stable",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "style": "default",
+    "tailwind": {},
+    "rsc": false,
+    "aliases": {}
 }
