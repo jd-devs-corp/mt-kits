@@ -8,7 +8,7 @@ use App\Models\UnpayKit;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -45,11 +45,11 @@ class UnpayKitResource extends Resource
         return $table
             ->query($query)
             ->columns([
-                Tables\Columns\TextColumn::make('kit_number')
+                TextColumn::make('kit_number')
                     ->label('N° de kit')
                     ->prefix('KIT')
                     ->numeric(),
-                Tables\columns\TextColumn::make('statut')
+                TextColumn::make('statut')
                     ->badge()
                     ->color(fn($state): string => match ($state) {
                         'Payé' => "success",

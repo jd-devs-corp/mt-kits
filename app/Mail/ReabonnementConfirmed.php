@@ -13,10 +13,11 @@ class ReabonnementConfirmed extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $kit;
-    public function __construct()
+    public $reabonnement;
+
+    public function __construct($reabonnement)
     {
-        $this->kit = $kit;
+        $this->reabonnement = $reabonnement;
     }
 
     /**
@@ -47,9 +48,9 @@ class ReabonnementConfirmed extends Mailable
     public function attachments(): array
     {
         return [
-            'kitNumber'=>$this->reabonnement->kit->unpay_kit->kit_number,
-            'startDate'=>$this->reabonnement->date_abonnement,
-            'endDate'=>$this->reabonnement->date_fin_abonnement
+            'kitNumber' => $this->reabonnement->kit->unpay_kit->kit_number,
+            'startDate' => $this->reabonnement->date_abonnement,
+            'endDate' => $this->reabonnement->date_fin_abonnement
         ];
     }
 }

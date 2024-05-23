@@ -87,7 +87,7 @@ class ViewUser extends ViewRecord
     //Methode d'envoi de mail
     public function sendEmail($email, $dateSeule, $montant, $methode)
     {
-        Facades\Mail::send('emails.payment', ['dateSeule' => $dateSeule, 'montant' => $montant, 'methode' => $methode,], function ($message) use ($email, $dateSeule) {
+        Facades\Mail::send('emails.payment', ['dateSeule' => $dateSeule, 'montant' => $montant, 'methode' => $methode,], function ($message) use ($email) {
             $message->to($email)
                 ->subject('Paiement effectue');
         });

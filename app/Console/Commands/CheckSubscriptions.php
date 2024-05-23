@@ -58,7 +58,7 @@ class CheckSubscriptions extends Command
 //        $image = "/images/logo_admin.png";
 
 
-        Mail::send('emails.fin_abonnement', ['dateSeule' => $dateSeule,'heureMinute'=>$heureMinute], function ($message) use ($email, $dateSeule, $heureMinute) {
+        Mail::send('emails.fin_abonnement', ['dateSeule' => $dateSeule,'heureMinute'=>$heureMinute], function ($message) use ($email) {
             $message->to($email)
                 ->subject('Votre abonnement est sur le point d\'expirer');
         });
