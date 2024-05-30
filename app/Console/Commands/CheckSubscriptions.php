@@ -41,7 +41,7 @@ class CheckSubscriptions extends Command
                 if ($diffEnJours <= 15 && $diffEnJours > 0) {
                     $email = $kit->client->email;
                     // Assurez-vous que la relation client est définie dans le modèle Kit
-                    $this->info($kit->unpay_kit->kit_number);
+                    // $this->info($kit->unpay_kit->kit_number);
                     // $this->info($kit->client->pnone);
                     $kitId = $kit->id;
                     $dateTime = DateTime::createFromFormat('Y-m-d H:i:s', $dateFinAbonnement);
