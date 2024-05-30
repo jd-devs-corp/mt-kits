@@ -29,11 +29,11 @@ class ListReabonnements extends ListRecords
                 ->label('(Re-)Abonner un kit')
                 ->action(function (array $data) {
                     $kit = Models\Kit::find($data['kit_id']);
-//         dump($kit);
                     $user = Models\User::find($kit->user_id);
                     $client = Models\Client::find($kit->client_id);
                     $reabonnement=Models\Reabonnement::where('kit_id',$data['kit_id'])->first();
                     $email = $client->email;
+                    $heureMinute=null;
                     if ($user && $user->role == "fournisseur") {
                         $user->somme_a_percevoir += ($data['plan_tarifaire'] * ($user->pourcentage * 0.01));
                         $user->update(); // Utilisez la méthode save() pour sauvegarder les modifications
@@ -43,7 +43,7 @@ class ListReabonnements extends ListRecords
                         $date = $dateTime->format('Y-m-d');
                         $heureMinute = $dateTime->format('H:i');
                     }
-                    Mail::send('emails.reabonnement', ['reabonnement' => $data, 'kit'=> $kit, 'heureMinute' => $heureMinute], function ($message) use ($email, $date, $heureMinute) {
+                    Mail::send('emails.reabonnement', ['reabonnement' => $data, 'kit'=> $kit, 'heureMinute' => $heureMinute], function ($message) use ($email) {
                         $message->to($email)
                             ->subject('Votre abonnement a bien été activé.');
                     });

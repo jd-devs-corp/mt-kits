@@ -10,8 +10,10 @@ use App\Models\UnpayKit;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
-use Filament\Resources\Resource;
-use Filament\Tables;
+use Filament\Resources\Resource;;
+
+use Filament\Tables\Actions\BulkAction;
+use Filament\Tables\Columns\TextColumn; // C majuscule à Columns
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -60,16 +62,16 @@ class UnpayKitResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('kit_number')
+                TextColumn::make('kit_number')
                     ->prefix('KIT'),
-                Tables\columns\TextColumn::make('statut')
+                TextColumn::make('statut')
                     ->badge()
                     ->color(fn($state): string => match ($state) {
                         'En stock' => 'success',
                         'Payé' => "info",
                         'Vendu' => 'warning'
                     }),
-                Tables\Columns\TextColumn::make('user.name')
+                TextColumn::make('user.name')
                 ->label('Proprietaire/Vendeur')
                 ->getStateUsing(function ($record) {
                     $user = User::find($record->user_id);
@@ -108,7 +110,7 @@ class UnpayKitResource extends Resource
                 FilamentExportBulkAction::make('Exporter')
                     ->deselectRecordsAfterCompletion()
                     ->icon('heroicon-o-arrow-up-on-square'),
-                Tables\Actions\BulkAction::make('Fournir')
+                BulkAction::make('Fournir')
                         ->icon('heroicon-o-banknotes')
                         ->deselectRecordsAfterCompletion()
                         ->requiresConfirmation()
