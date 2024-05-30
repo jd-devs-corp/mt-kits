@@ -2,19 +2,20 @@
 
 namespace App\Filament\Admin\Resources;
 
-use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
-use App\Filament\Admin\Resources\ClientResource\Pages;
-use App\Filament\Admin\Resources\ClientResource\RelationManagers;
-use App\Models\Client;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use App\Models\Client;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
 use libphonenumber\PhoneNumberType;
+use Illuminate\Support\Facades\Http;
 use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
-use Ysfkaya\FilamentPhoneInput\PhoneInputNumberType;
 use Ysfkaya\FilamentPhoneInput\Tables\PhoneColumn;
+use Ysfkaya\FilamentPhoneInput\PhoneInputNumberType;
+use App\Filament\Admin\Resources\ClientResource\Pages;
+use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
+use App\Filament\Admin\Resources\ClientResource\RelationManagers;
 
 class ClientResource extends Resource
 {
@@ -99,6 +100,24 @@ class ClientResource extends Resource
                     Tables\Actions\EditAction::make()
                         ->icon('heroicon-o-pencil')
                     ->color('info'),
+                    /* Tables\Actions\Action::make('contacter')
+                        ->action(function($record){
+                            $contact = $record->phone_number;
+                            $contact = str_replace(' ', '', $contact);
+                            $contact = "+237$contact";
+                            $contact = mb_convert_encoding($contact, 'UTF-8', 'UTF-8');
+                            $response = Http::withHeaders([
+                                'Content-Type' => 'application/json',
+                                'x-api-key' => 'tb-c4f39110-f1fb-495f-8ef6-867829645239'
+                            ])->post('https://toolbox-jxa3.onrender.com/api/sms/send', [
+                                'recipient' => $contact,
+                                'message' => "Votre abonnement est sur le point d'expirer.\n N'oubliez pas de renouveler votre abonnement avant le $contact, pour eviter toute interruption"
+                            ]);
+
+                            // Pour obtenir le corps de la réponse sous forme de chaîne
+                            $body = $response->body();
+                            dump(  $body, $contact, $response);
+                        }) */
                 ])
             ])
             ->bulkActions([

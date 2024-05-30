@@ -1,14 +1,14 @@
 {
     "sora": {
-        "normal": "sora_normal_7f84094c6eed404d725fbd3b01dfa1dc"
+        "normal": "sora_normal_c6b51b412400ecee36fb549413d895e5"
     },
     "montserrat": {
-        "normal": "montserrat_normal_895e2ccb87bf3412f3971109de3389a3"
+        "normal": "montserrat_normal_58f2e9a676f36bcefe332f37285ed699"
     },
     "montserrat italic": {
-        "normal": "montserrat_italic_normal_dee91d64c104bf43167380e5c5f1dcc6"
+        "normal": "montserrat_italic_normal_5b5b041f46569b5b0685c516499abda4"
     },
     "poppins": {
-        "normal": "poppins_normal_808f87e83160b717c99fd45913de108c"
+        "normal": "poppins_normal_423cec128f5dc6b5b27910e91d5c6519"
     }
 }
