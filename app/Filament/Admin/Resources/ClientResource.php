@@ -100,7 +100,7 @@ class ClientResource extends Resource
                     Tables\Actions\EditAction::make()
                         ->icon('heroicon-o-pencil')
                     ->color('info'),
-                    /* Tables\Actions\Action::make('contacter')
+                    Tables\Actions\Action::make('contacter')
                         ->action(function($record){
                             $contact = $record->phone_number;
                             $contact = str_replace(' ', '', $contact);
@@ -111,13 +111,13 @@ class ClientResource extends Resource
                                 'x-api-key' => 'tb-c4f39110-f1fb-495f-8ef6-867829645239'
                             ])->post('https://toolbox-jxa3.onrender.com/api/sms/send', [
                                 'recipient' => $contact,
-                                'message' => "Votre abonnement est sur le point d'expirer.\n N'oubliez pas de renouveler votre abonnement avant le $contact, pour eviter toute interruption"
+                                'message' => "Votre abonnement est sur le point d'expirer.\n N'oubliez pas de renouveler votre abonnement avant le $---, pour eviter toute interruption"
                             ]);
 
                             // Pour obtenir le corps de la réponse sous forme de chaîne
                             $body = $response->body();
                             dump(  $body, $contact, $response);
-                        }) */
+                        })
                 ])
             ])
             ->bulkActions([
