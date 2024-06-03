@@ -38,7 +38,7 @@ class CheckSubscriptions extends Command
             if ($dateFinAbonnement !== null) {
                 $dateFinAbonnementCarbon = Carbon::parse($dateFinAbonnement);
                 $diffEnJours = $dateFinAbonnementCarbon->diffInDays(now());
-                if ($diffEnJours <= 15 && $diffEnJours > 0) {
+                if ($diffEnJours <= 15 && $diffEnJours >= 0) {
                     $email = $kit->client->email;
                     // Assurez-vous que la relation client est définie dans le modèle Kit
                     // $this->info($kit->unpay_kit->kit_number);
@@ -69,7 +69,7 @@ class CheckSubscriptions extends Command
         $contact = mb_convert_encoding($contact, 'UTF-8', 'UTF-8');
         Http::withHeaders([
             'Content-Type' => 'application/json',
-            'x-api-key' => 'tb-c4f39110-f1fb-495f-8ef6-867829645239'
+            'x-api-key' => env('SMS_API_KEY')
         ])->post('https://toolbox-jxa3.onrender.com/api/sms/send', [
             'recipient' => $contact,
             'message' => "Votre abonnement est sur le point d'expirer.\n N'oubliez pas de renouveler votre abonnement avant le $dateSeule, pour eviter toute interruption"
